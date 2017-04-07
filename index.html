@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-treeview@1.2.0/dist/bootstrap-treeview.min.css">  
-    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="css/style.css"> 
   </head>
 
   <body style="height:100%;">
@@ -44,8 +44,8 @@
                                 <span class='fa fa-ellipsis-h'></span>
                             </a>                
                             <div class='dropdown-menu' aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#" onclick='editCollection(this)'>Edit</a>
-                                <a class='dropdown-item text-danger' href="#" onclick='deleteBookmark(this)'>Delete</a>                  
+                                <a class="dropdown-item" href="#" onclick='editCollection()'>Edit</a>
+                                <a class='dropdown-item text-danger' href="#" onclick='deleteCollection()'>Delete</a>                  
                             </div>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
 
                 <div class="input-group" style="padding-top:5px;">
                     <span class="input-group-addon fa fa-search" id="basic-addon1"></span>
-                    <input type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1">
+                    <input id="search" type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1">
                 </div>
 
                 <ul id="bookmarks" class="list-group" style="margin-top: 5px; display:block;">
@@ -95,7 +95,7 @@
                 <div class="tab-pane active" id="bookmark" role="tabpanel">
                     <br/>
 
-                    <label for="addBookmarkName">Enter your url:</label>
+                    <label for="addBookmarkUrl">Enter your url:</label>
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Url" id="addBookmarkUrl" onfocusout="getTitle()">
                     </div>
@@ -161,7 +161,7 @@
         </div>
 
         <div class="modal-footer">
-            <button id="editButton" type="button" onclick="save()" data-dismiss="modal" class="btn btn-primary">Save</button>  
+            <button id="editButton" type="button" onclick="saveBookmark()" data-dismiss="modal" class="btn btn-primary">Save</button>  
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
         </div>
@@ -239,7 +239,10 @@
 
     <script src="https://unpkg.com/sortablejs@1.5.1/Sortable.min.js"></script>
     <script src="https://unpkg.com/bootstrap-treeview@1.2.0/dist/bootstrap-treeview.min.js"></script>
-    <script src="myJson.js"></script>
+    <script src="https://unpkg.com/bootstrap-list-filter@0.3.2/bootstrap-list-filter.min.js"></script> 
+    <script src="js/myJson.js"></script>
+    <script src="js/bookmarkManager.js"></script>
+    <script src="js/treeHelper.js"></script>
 
     <script>
         loadFromMyJson(function(data){parse(data)});
@@ -248,138 +251,10 @@
             $('#addCollectionName').focus();
         })
 
-        function addCollection() {
-            var nodeId;
-            var selectedCollection = $('#tree').treeview('getSelected', nodeId)[0];
-
-            if (typeof selectedCollection == 'undefined' || selectedCollection.id === "tree") {
-                selectedCollection = {text: $('#addCollectionName').val()};
-                updateTree(selectedCollection);
-            } else {
-                if (typeof selectedCollection.nodes == 'undefined') {
-                    selectedCollection.nodes = [];
-                }
-
-                selectedCollection.nodes.push({text: $('#addCollectionName').val()});
-                updateTree();
-            }      
-        }
-
-        function addBookmark() {
-            var nodeId;
-            var selectedCollection = $('#tree').treeview('getSelected', nodeId)[0];
-
-            if (typeof selectedCollection.bookmarks == 'undefined') {
-                selectedCollection.bookmarks = [];
-            }
-
-            selectedCollection.bookmarks.push({
-                text: $('#addBookmarkName').val(),
-                url: $('#addBookmarkUrl').val(),
-                icon: "http://www.google.com/s2/favicons?domain_url=" + $('#addBookmarkUrl').val()
-            });
-
-            selectedCollection.tags = [selectedCollection.bookmarks.length];
-
-            updateTree();
-        }
-
-        function deleteBookmark(node) {
-            var selectedCollection = getSelectedCollection();
-            var bookmarkIndex = getSelectedBookmarkIndex(node);
-
-            selectedCollection.bookmarks.splice(bookmarkIndex, 1);
-
-            updateTree();
-            location.reload();
-        }
-
-        function editBookmark(node) {          
-            var bookmark = getSelectedBookmark(node);
-            var bookmarkIndex = getSelectedBookmarkIndex(node);
-
-            $("#editName").val(bookmark.text);
-            $("#editUrl").val(bookmark.url);
-            $("#editIcon").val(bookmark.icon);
-            $("#editIndex").text(bookmarkIndex);
-            $('#editModal').modal('show');
-        }
-
-        function editCollection(node) {
-            var selectedCollection = getSelectedCollection();
-
-            $("#editCollectionName").val(selectedCollection.text);
-            $("#editCollectionIcon").val(selectedCollection.icon);
-            $('#editCollectionModal').modal('show');
-        }
-
-        function save() {
-            var selectedCollection = getSelectedCollection();
-            var bookmarkIndex = parseInt($("#editIndex").text());
-
-            selectedCollection.bookmarks[bookmarkIndex].text = $("#editName").val();
-            selectedCollection.bookmarks[bookmarkIndex].url = $("#editUrl").val();
-            selectedCollection.bookmarks[bookmarkIndex].icon = $("#editIcon").val();
-
-            updateTree();
-        }
-
-        function saveCollection() {
-            var selectedCollection = getSelectedCollection();
-            selectedCollection.text = $("#editCollectionName").val();
-            selectedCollection.icon = $("#editCollectionIcon").val();
-
-            updateTree();
-        }
+        $('#bookmarks').btsListFilter('#search');
 
         function saveSettings() {
             setMyJsonCode($("#settingsSyncCode").val());
-        }
-
-        function getCollections() {
-            var collections = [];
-            var node = $('#tree').treeview('getNode', 0)
-            collections.push(node);
-            $.merge(collections, $('#tree').treeview('getSiblings', node));
-            return collections;
-        }
-
-        function getSelectedCollection() {
-            var nodeId;
-            var selectedCollection = $('#tree').treeview('getSelected', nodeId)[0];
-            return selectedCollection;
-        }
-
-        function getSelectedBookmark(node) {
-            var selectedCollection = getSelectedCollection();
-            var bookmarkIndex = getSelectedBookmarkIndex(node);
-            return selectedCollection.bookmarks[bookmarkIndex];
-        }
-
-        function getSelectedBookmarkIndex(node) {
-            return $($(node).closest('li')[0]).index();
-        }
-
-        function updateTree(element, replaceCollections) {
-            if (replaceCollections) {
-                saveToMyJson(element);
-                parse(element);
-            } else {
-                var nodes = [];        
-
-                if ($('#tree').treeview('getEnabled').length > 0 && $('#tree').treeview('getEnabled')[0].id !== "tree") {
-                    nodes.push($('#tree').treeview('getNode', 0));
-                    $.merge(nodes, $('#tree').treeview('getSiblings', nodes[0]));
-                }
-
-                if (typeof element != 'undefined') {
-                    nodes.push(element);
-                }   
-
-                saveToMyJson(nodes);
-
-                parse(nodes);
-            }
         }
 
         function getTitle() {
@@ -389,8 +264,8 @@
                 url: "http://cors.sboulema.nl/" + url,
                 async: true,
                 success: function(data) {
-                    var matches = data.match(/<title>(.*?)<\/title>/);
-                    $("#addBookmarkName").val(matches[1]);
+                    var matches = data.match(/<title>([\s\S]*?)<\/title>/);
+                    $("#addBookmarkName").val(matches[1].trim());
                     $("#spinner").hide();
                 }   
             });
@@ -398,105 +273,6 @@
 
         function loadSyncCode() {
             $('#settingsSyncCode').val(getMyJsonCode());
-        }
-
-        function parse(input) {
-            $('#tree').treeview({
-                data: input,
-                collapseIcon: "fa fa-folder-open-o",
-                expandIcon: "fa fa-folder-o",
-                backColor: "rgb(246, 246, 246)",
-                emptyIcon: "fa fa-folder-o"
-            });
-
-            $('#tree').on('nodeSelected', function(event, data) {
-                $('#bookmarks').empty();
-                $.each(data.bookmarks, function (index, bookmark) {
-
-                    var item = "<li class='list-group-item list-group-item-action' style='display:block;'>";
-                    item += "<div class='row'>";
-
-                    item += "<div class='col-sm-5'>";
-
-                    if (typeof bookmark.icon != 'undefined' || bookmark.icon === "") {
-                        item += "<img class='bookmarkIcon' src='" + bookmark.icon + "' />";
-                    } else {
-                        item += "<span class='bookmarkIcon fa fa-globe'></span>";
-                    }
-
-                    item += "<a target='_blank' href='" + bookmark.url + "'>" + bookmark.text + "</a>";
-                    item += "</div>";
-
-                    item += "<div class='col-sm-6'></div>";
-                    
-                    item += "<div class='col-sm-1'>";
-
-                    item += "<div class='btn-toolbar' role='toolbar'>";
-                    item += "<div class='btn-group mr-2' role='group'>"
-                    item += "<button type='button' style='padding-right: 5px;' class='btn btn-outline-secondary btn-sm' onclick='editBookmark(this)'><span class='fa fa-pencil' aria-hidden='true'></span></button>";
-                    item += "</div>";
-
-                    item += "<div class='btn-group' role='group'>"
-                    item += "<button type='button' class='btn btn-outline-danger btn-sm' onclick='deleteBookmark(this)'><span class='fa fa-trash-o' aria-hidden='true'></span></button>";
-                    item += "</div>";
-
-                    item += "</div>";
-
-                    item += "</div>";
-
-                    item += "</div>";
-                    item += "</li>"
-
-                    $('#bookmarks').append(item);
-                });
-
-
-                $("#collectionName").text(data.text)
-                $("#collectionIcon").addClass(data.icon)
-
-                // Make the bookmarks sortable
-                var el = document.getElementById('bookmarks');
-                if (el.children.length > 0) {
-                    var sortable = Sortable.create(el, {
-                        onSort: function (evt) {
-                            var collection = getSelectedCollection();
-
-                            var temp = collection.bookmarks[evt.oldIndex];
-                            collection.bookmarks[evt.oldIndex] = collection.bookmarks[evt.newIndex];
-                            collection.bookmarks[evt.newIndex] = temp;
-
-                            updateTree();
-                        }
-                    });
-                }
-
-                // Make the collections sortable
-                var el = document.getElementById('tree').children[0];
-                if (el.children.length > 0) {
-                    var sortable = Sortable.create(el, {
-                        onSort: function (evt) {
-                            var collection = getSelectedCollection();
-                            var parent = $('#tree').treeview('getParent', collection)[0];
-  
-                            if (parent.id === "tree") {
-                                var collections = getCollections();
-
-                                var temp = collections[evt.oldIndex];
-                                collections[evt.oldIndex] = collections[evt.newIndex];
-                                collections[evt.newIndex] = temp;
-
-                                updateTree(collections, true);
-                            } else {
-                                var temp = parent.nodes[evt.oldIndex];
-                                parent.nodes[evt.oldIndex] = parent.nodes[evt.newIndex];
-                                parent.nodes[evt.newIndex] = temp;
-
-                                updateTree();
-                            }
-                        }
-                    });
-                }
-            });
         }
     </script>
 
