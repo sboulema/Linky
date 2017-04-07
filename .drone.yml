@@ -14,3 +14,4 @@ pipeline:
       - sudo docker-compose -f /home/sboulema/stackfiles/HaProxy.yml up -d
     when:
       status: success
+
