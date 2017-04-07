@@ -1,0 +1,19 @@
+/* Hide dropdown button chevron */
+.dropdown-toggle::after {
+    display:none
+}
+
+#settingsButton {
+    margin-right: 5px;
+}
+
+.bookmarkIcon {
+    margin-right: 5px;
+    width: 16px;
+    height: 16px;
+}
+
+.node-icon {
+    margin-left: 5px;
+    margin-right: 10px !important;
+}
