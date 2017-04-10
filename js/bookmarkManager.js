@@ -51,19 +51,32 @@ function deleteBookmark(node) {
 
 function deleteCollection() {
     var collection = getSelectedCollection();
-    var index = getIndex(collection);
-    var parent = $('#tree').treeview('getParent', collection)[0];
 
-    if (parent.id === "tree") {
-        var collections = getCollections();
+    if (typeof collection.parentId != 'undefined') {
+        var parent = $('#tree').treeview('getNode', collection.parentId);
 
-        collections.splice(index, 1);
-
-        updateTree(collections, true);
+        $.each(parent.nodes, function (index, node) {
+            if (node.nodeId === collection.nodeId) {
+                parent.nodes.splice(index, 1);
+                updateTree();
+                return false;
+            }
+        });
     } else {
-        parent.nodes.slice(index, 1);
+        var index = getIndex(collection);
+        var parent = $('#tree').treeview('getParent', collection)[0];
 
-        updateTree();
+        if (parent.id === "tree") {
+            var collections = getCollections();
+
+            collections.splice(index, 1);
+
+            updateTree(collections, true);
+        } else {
+            parent.nodes.slice(index, 1);
+
+            updateTree();
+        }
     }
 }
 
@@ -123,8 +136,6 @@ function showBookmarks(bookmarks) {
 
         item += "<a target='_blank' href='" + bookmark.url + "'>" + bookmark.text + "</a>";
         item += "</div>";
-
-        // item += "<div class='col-sm-6'></div>";
         
         item += "<div class='col-sm-1'>";
 
