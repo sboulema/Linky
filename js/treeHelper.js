@@ -94,8 +94,9 @@ function parse(input) {
             $('#bookmarks').append(item);
         });
 
-
         $("#collectionName").text(data.text)
+
+        $("#collectionIcon").removeClass();
         $("#collectionIcon").addClass(data.icon)
 
         // Make the bookmarks sortable

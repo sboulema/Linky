@@ -17,3 +17,16 @@
     margin-left: 5px;
     margin-right: 10px !important;
 }
+
+/* Only show bookmark related buttons on hover */
+#bookmarks li.list-group-item .btn-toolbar {
+    visibility: hidden;
+}
+
+#bookmarks li.list-group-item:hover .btn-toolbar {
+    visibility: visible;
+}
+
+button {
+    cursor: pointer;
+}
