@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-treeview@1.2.0/dist/bootstrap-treeview.min.css">  
+
     <link rel="stylesheet" href="css/style.css"> 
   </head>
 
@@ -191,7 +192,7 @@
             <label for="editIcon">Assign an icon:</label>
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="fa fa-heart" id="editCollectionIcon">
-                <span class="input-group-addon" id="editCollectionIconAddon"></span>
+                <span class="input-group-addon"><i id="editCollectionIconAddon"></i></span>
             </div>
 
             <div id="editIndex" style="display: none;"></div>
@@ -244,7 +245,8 @@
 
     <script src="https://unpkg.com/sortablejs@1.5.1/Sortable.min.js"></script>
     <script src="https://unpkg.com/bootstrap-treeview@1.2.0/dist/bootstrap-treeview.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-list-filter@0.3.2/bootstrap-list-filter.min.js"></script> 
+    <script src="https://unpkg.com/bootstrap-list-filter@0.3.2/bootstrap-list-filter.min.js"></script>   
+
     <script src="js/myJson.js"></script>
     <script src="js/bookmarkManager.js"></script>
     <script src="js/treeHelper.js"></script>
@@ -257,8 +259,7 @@
         })
 
         $("#editCollectionIcon").change(function() {
-            $("#editCollectionIconAddon").removeClass();
-            $("#editCollectionIconAddon").addClass("input-group-addon");        
+            $("#editCollectionIconAddon").removeClass();    
             $("#editCollectionIconAddon").addClass($("#editCollectionIcon").val());
         });
 
