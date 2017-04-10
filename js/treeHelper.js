@@ -42,6 +42,16 @@ function updateTree(element, replaceCollections) {
 
         parse(nodes);
     }
+
+    updateSelectedCollection();
+}
+
+function updateSelectedCollection() {
+    var selectedCollection = getSelectedCollection();
+    if (typeof selectedCollection != 'undefined') {
+        $('#tree').treeview('unselectNode', selectedCollection);
+        $('#tree').treeview('selectNode', selectedCollection);
+    }
 }
 
 function parse(input) {
