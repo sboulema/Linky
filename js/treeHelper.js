@@ -57,7 +57,9 @@ function parse(input) {
         if (typeof data.bookmarks != 'undefined' && data.bookmarks.length > 0) {
             $("#accordion").empty();
             showBookmarks(data.bookmarks, "#bookmarks");
-        } else {
+        }
+
+        if (typeof data.nodes != 'undefined' && data.nodes.length > 0) {
             $("#accordion").empty();
             $.each(data.nodes, function (index, node) {
                 var card = "<div class='card'>";

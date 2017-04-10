@@ -31,7 +31,6 @@ button {
     cursor: pointer;
 }
 
-
 #accordion li.list-group-item {
     border-left: 0;
     border-right: 0;
@@ -43,4 +42,8 @@ button {
 
 #accordion li.list-group-item:last-child {
     border-bottom: 0;
+}
+
+#collectionColumn {
+    border-right: 1px solid rgb(222,222,222);
 }

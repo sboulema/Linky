@@ -22,7 +22,7 @@
 
         <div class="row" style="height:100%; background-color: rgb(246, 246, 246)">
 
-            <div class="col col-md-2" style="padding-top:5px;">
+            <div id="collectionColumn" class="col col-md-2" style="padding-top:5px;">
                 <button type="button" class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#addModal">
                     <span class="fa fa-plus" aria-hidden="true"></span>
                 </button>
@@ -156,7 +156,7 @@
 
             <label for="editIcon">Assign an icon:</label>
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Icon" id="editIcon">
+                <input type="text" class="form-control" placeholder="Icon" id="editIcon">               
             </div>
 
             <div id="editIndex" style="display: none;"></div>
@@ -188,7 +188,8 @@
 
             <label for="editIcon">Assign an icon:</label>
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Icon" id="editCollectionIcon">
+                <input type="text" class="form-control" placeholder="fa fa-heart" id="editCollectionIcon">
+                <span class="input-group-addon" id="editCollectionIconAddon"></span>
             </div>
 
             <div id="editIndex" style="display: none;"></div>
@@ -253,6 +254,19 @@
             $('#addCollectionName').focus();
         })
 
+        $("#editCollectionIcon").change(function() {
+            $("#editCollectionIconAddon").removeClass();
+            $("#editCollectionIconAddon").addClass("input-group-addon");        
+            $("#editCollectionIconAddon").addClass($("#editCollectionIcon").val());
+        });
+
+        $('#addCollectionName').on('keypress', function (e) {
+            if(e.which === 13) {
+                addCollection();
+                $('#addModal').modal('hide');
+            }
+        });
+
         $('#bookmarks').btsListFilter('#search');
 
         function saveSettings() {
@@ -266,7 +280,7 @@
                 url: "http://cors.sboulema.nl/" + url,
                 async: true,
                 success: function(data) {
-                    var matches = data.match(/<title>([\s\S]*?)<\/title>/);
+                    var matches = data.match(/<title.*?>([\s\S]*?)<\/title>/);
                     $("#addBookmarkName").val(matches[1].trim());
                     $("#spinner").hide();                    
                 },
