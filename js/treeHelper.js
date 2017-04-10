@@ -54,50 +54,38 @@ function parse(input) {
     });
 
     $('#tree').on('nodeSelected', function(event, data) {
-        $('#bookmarks').empty();
-        $.each(data.bookmarks, function (index, bookmark) {
+        if (typeof data.bookmarks != 'undefined' && data.bookmarks.length > 0) {
+            $("#accordion").empty();
+            showBookmarks(data.bookmarks, "#bookmarks");
+        } else {
+            $("#accordion").empty();
+            $.each(data.nodes, function (index, node) {
+                var card = "<div class='card'>";
 
-            var item = "<li class='list-group-item list-group-item-action' style='display:block;'>";
-            item += "<div class='row'>";
+                card += "<div class='card-header' role='tab' id='heading" + index + "'>";
+                card += "<h5 class='mb-0'>";
+                card += "<a data-toggle='collapse' data-parent='#accordion' href='#collapse" + index + "' aria-expanded='true' aria-controls='collapse" + index + "'>";
+                card += node.text;
+                card += "</a>";
+                card += "</h5>"
+                card += "</div>";
 
-            item += "<div class='col-sm-5'>";
+                card += "<div id='collapse" + index + "' class='collapse' role='tabpanel' aria-labelledby='heading" + index + "'>";
 
-            if (typeof bookmark.icon != 'undefined' || bookmark.icon === "") {
-                item += "<img class='bookmarkIcon' src='" + bookmark.icon + "' />";
-            } else {
-                item += "<span class='bookmarkIcon fa fa-globe'></span>";
-            }
+                card += "<ul id='nodeBookmarks" + index + "' class='list-group' style='display:block;'>"
+                card += showBookmarks(node.bookmarks, "#nodeBookmarks" + index);
+                card += "</ul>";
 
-            item += "<a target='_blank' href='" + bookmark.url + "'>" + bookmark.text + "</a>";
-            item += "</div>";
+                card += "</div></div><br/>";
 
-            item += "<div class='col-sm-6'></div>";
-            
-            item += "<div class='col-sm-1'>";
-
-            item += "<div class='btn-toolbar' role='toolbar'>";
-            item += "<div class='btn-group mr-2' role='group'>"
-            item += "<button type='button' style='padding-right: 5px;' class='btn btn-outline-secondary btn-sm' onclick='editBookmark(this)'><span class='fa fa-pencil' aria-hidden='true'></span></button>";
-            item += "</div>";
-
-            item += "<div class='btn-group' role='group'>"
-            item += "<button type='button' class='btn btn-outline-danger btn-sm' onclick='deleteBookmark(this)'><span class='fa fa-trash-o' aria-hidden='true'></span></button>";
-            item += "</div>";
-
-            item += "</div>";
-
-            item += "</div>";
-
-            item += "</div>";
-            item += "</li>"
-
-            $('#bookmarks').append(item);
-        });
-
-        $("#collectionName").text(data.text)
+                $("#accordion").append(card);
+            });
+        }
+        
+        $("#collectionName").text(data.text);
 
         $("#collectionIcon").removeClass();
-        $("#collectionIcon").addClass(data.icon)
+        $("#collectionIcon").addClass(data.icon);
 
         // Make the bookmarks sortable
         var el = document.getElementById('bookmarks');

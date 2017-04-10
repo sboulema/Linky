@@ -30,3 +30,17 @@
 button {
     cursor: pointer;
 }
+
+
+#accordion li.list-group-item {
+    border-left: 0;
+    border-right: 0;
+}
+
+#accordion li.list-group-item:first-child {
+    border-top: 0;
+}
+
+#accordion li.list-group-item:last-child {
+    border-bottom: 0;
+}

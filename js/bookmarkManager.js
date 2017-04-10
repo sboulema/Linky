@@ -104,3 +104,51 @@ function saveCollection() {
 
     updateTree();
 }
+
+function showBookmarks(bookmarks, target) {
+    $('#bookmarks').empty();
+
+    var bookmarksHtml = "";
+
+    $.each(bookmarks, function (index, bookmark) {
+
+        var item = "<li class='list-group-item list-group-item-action' style='display:block;'>";
+        item += "<div class='row'>";
+
+        item += "<div class='col-sm-5'>";
+
+        if (typeof bookmark.icon != 'undefined' || bookmark.icon === "") {
+            item += "<img class='bookmarkIcon' src='" + bookmark.icon + "' />";
+        } else {
+            item += "<span class='bookmarkIcon fa fa-globe'></span>";
+        }
+
+        item += "<a target='_blank' href='" + bookmark.url + "'>" + bookmark.text + "</a>";
+        item += "</div>";
+
+        item += "<div class='col-sm-6'></div>";
+        
+        item += "<div class='col-sm-1'>";
+
+        item += "<div class='btn-toolbar' role='toolbar'>";
+        item += "<div class='btn-group mr-2' role='group'>"
+        item += "<button type='button' style='padding-right: 5px;' class='btn btn-outline-secondary btn-sm' onclick='editBookmark(this)'><span class='fa fa-pencil' aria-hidden='true'></span></button>";
+        item += "</div>";
+
+        item += "<div class='btn-group' role='group'>"
+        item += "<button type='button' class='btn btn-outline-danger btn-sm' onclick='deleteBookmark(this)'><span class='fa fa-trash-o' aria-hidden='true'></span></button>";
+        item += "</div>";
+
+        item += "</div>";
+
+        item += "</div>";
+
+        item += "</div>";
+        item += "</li>"
+
+        $(target).append(item);
+        bookmarksHtml += item;
+    });
+
+    return bookmarksHtml;
+}
