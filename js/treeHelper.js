@@ -54,13 +54,14 @@ function parse(input) {
     });
 
     $('#tree').on('nodeSelected', function(event, data) {
-        if (typeof data.bookmarks != 'undefined' && data.bookmarks.length > 0) {
-            $("#accordion").empty();
-            showBookmarks(data.bookmarks, "#bookmarks");
+        $("#accordion").empty();
+        $('#bookmarks').empty();
+
+        if (typeof data.bookmarks != 'undefined' && data.bookmarks.length > 0) {          
+            $("#bookmarks").append(showBookmarks(data.bookmarks));
         }
 
         if (typeof data.nodes != 'undefined' && data.nodes.length > 0) {
-            $("#accordion").empty();
             $.each(data.nodes, function (index, node) {
                 var card = "<div class='card'>";
 

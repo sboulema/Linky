@@ -105,9 +105,7 @@ function saveCollection() {
     updateTree();
 }
 
-function showBookmarks(bookmarks, target) {
-    $('#bookmarks').empty();
-
+function showBookmarks(bookmarks) {
     var bookmarksHtml = "";
 
     $.each(bookmarks, function (index, bookmark) {
@@ -115,7 +113,7 @@ function showBookmarks(bookmarks, target) {
         var item = "<li class='list-group-item list-group-item-action' style='display:block;'>";
         item += "<div class='row'>";
 
-        item += "<div class='col-sm-5'>";
+        item += "<div class='col-sm-11'>";
 
         if (typeof bookmark.icon != 'undefined' || bookmark.icon === "") {
             item += "<img class='bookmarkIcon' src='" + bookmark.icon + "' />";
@@ -126,7 +124,7 @@ function showBookmarks(bookmarks, target) {
         item += "<a target='_blank' href='" + bookmark.url + "'>" + bookmark.text + "</a>";
         item += "</div>";
 
-        item += "<div class='col-sm-6'></div>";
+        // item += "<div class='col-sm-6'></div>";
         
         item += "<div class='col-sm-1'>";
 
@@ -146,7 +144,6 @@ function showBookmarks(bookmarks, target) {
         item += "</div>";
         item += "</li>"
 
-        $(target).append(item);
         bookmarksHtml += item;
     });
 
