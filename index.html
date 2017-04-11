@@ -46,6 +46,7 @@
                             </a>                
                             <div class='dropdown-menu' aria-labelledby="dropdownMenuLink">
                                 <a class="dropdown-item" href="#" onclick='editCollection()'>Edit</a>
+                                <a class="dropdown-item" href="#" onclick='exportCollection()'>Export</a>
                                 <a class='dropdown-item text-danger' href="#" onclick='deleteCollection()'>Delete</a>                  
                             </div>
                         </div>
@@ -222,10 +223,18 @@
                 <input type="text" class="form-control" placeholder="Sync code" id="settingsSyncCode">
             </div>
             <br/>
-            <button type="button" class="btn btn-default" onclick="exportData();">
-                <span class="fa fa-download" aria-hidden="true"></span> Export
-            </button>
+
             <button type="button" class="btn btn-danger pull-right" onclick="deleteAllData();">Delete ALL</button>
+
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Export
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#" onclick="exportData();">Export as JSON</a>
+                    <a class="dropdown-item" href="#" onclick="exportHTML();">Export as HTML</a>
+                </div>
+            </div>
         </div>
 
         <div class="modal-footer">
@@ -250,6 +259,7 @@
     <script src="js/myJson.js"></script>
     <script src="js/bookmarkManager.js"></script>
     <script src="js/treeHelper.js"></script>
+    <script src="js/bookmarkHTML.js"></script>
 
     <script>
         loadFromMyJson(function(data){parse(data)});
@@ -271,6 +281,16 @@
         });
 
         $('#bookmarks').btsListFilter('#search');
+
+        function exportHTML() {
+            var html = collectionsToBookmarkHtml(getCollections());
+            downloadURI('data:text/html;charset=utf-8,' + encodeURIComponent(html), "linky-bookmarks.html");
+        }
+
+        function exportCollection() {
+            var html = collectionToBookmarkHtml(getSelectedCollection());
+            downloadURI('data:text/html;charset=utf-8,' + encodeURIComponent(html), "linky-bookmarks.html");
+        }
 
         function saveSettings() {
             setMyJsonCode($("#settingsSyncCode").val());
