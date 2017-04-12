@@ -118,6 +118,18 @@ function saveCollection() {
     updateTree();
 }
 
+function showAllBookmarks() {
+    var nodeId;
+    var bookmarks = $('#tree').treeview('getEnabled', nodeId);
+
+    $("#collectionName").text("All");
+
+    $("#collectionIcon").removeClass();
+    $("#collectionIcon").addClass("fa fa-heart");
+
+    $("#bookmarks").html(showBookmarks(bookmarks));
+}
+
 function showBookmarks(bookmarks) {
     var bookmarksHtml = "";
 
