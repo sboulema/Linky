@@ -29,7 +29,7 @@ function addBookmark() {
         text: $('#addBookmarkName').val(),
         url: $('#addBookmarkUrl').val(),
         description: $('#addBookmarkDescription').val(),
-        icon: "http://www.google.com/s2/favicons?domain_url=" + $('#addBookmarkUrl').val()
+        icon: "http://logo.clearbit.com/" + $('#addBookmarkUrl').val()
     });
 
     $('#addBookmarkName').val("");
@@ -99,8 +99,8 @@ function editCollection() {
 
     $("#editCollectionName").val(selectedCollection.text);
     $("#editCollectionIcon").val(selectedCollection.icon);
-    $("#showBookmarkIcon").prop('checked', selectedCollection.showBookmarkIcon);
-    $("#showBookmarkDescription").prop('checked', selectedCollection.showBookmarkDescription);
+    $("#showBookmarkIconCheckbox").prop('checked', selectedCollection.showBookmarkIcon);
+    $("#showBookmarkDescriptionCheckbox").prop('checked', selectedCollection.showBookmarkDescription);
     $("#bookmarkIconSizeSlider").val(selectedCollection.bookmarkIconSize);
     $('#editCollectionModal').modal('show');
 }
@@ -112,6 +112,7 @@ function saveBookmark() {
     selectedCollection.bookmarks[bookmarkIndex].text = $("#editName").val();
     selectedCollection.bookmarks[bookmarkIndex].url = $("#editUrl").val();
     selectedCollection.bookmarks[bookmarkIndex].icon = $("#editIcon").val();
+    selectedCollection.bookmarks[bookmarkIndex].description = $("#editDescription").val();
 
     updateTree();
 }
@@ -176,7 +177,8 @@ function showBookmarks(collection) {
 
         if (collection.showBookmarkIcon) {
             if (typeof bookmark.icon != 'undefined' && bookmark.icon !== "" && !bookmark.icon.startsWith("fa")) {
-                item += "<img style='width: " + collection.bookmarkIconSize + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon' src='" + bookmark.icon + "' />";
+                item += "<img style='width: " + collection.bookmarkIconSize + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon' " + 
+                "src='" + (bookmark.icon.startsWith("http://logo.clearbit.com/") ? (bookmark.icon + "?size=" + collection.bookmarkIconSize) : bookmark.icon) + "' />";
             } else {
                 item += "<span style='width: " + collection.bookmarkIconSize + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon fa fa-globe'></span>";
             }
