@@ -102,6 +102,7 @@ function editCollection() {
     $("#showBookmarkIconCheckbox").prop('checked', selectedCollection.showBookmarkIcon);
     $("#showBookmarkDescriptionCheckbox").prop('checked', selectedCollection.showBookmarkDescription);
     $("#bookmarkIconSizeSlider").val(selectedCollection.bookmarkIconSize);
+    $("#showBookmarksAsCardsCheckbox").prop('checked', selectedCollection.showBookmarksAsCards);   
     $('#editCollectionModal').modal('show');
 }
 
@@ -124,6 +125,7 @@ function saveCollection() {
     selectedCollection.showBookmarkIcon = $("#showBookmarkIconCheckbox").is(':checked');
     selectedCollection.showBookmarkDescription = $("#showBookmarkDescriptionCheckbox").is(':checked');
     selectedCollection.bookmarkIconSize = $("#bookmarkIconSizeSlider").val();
+    selectedCollection.showBookmarksAsCards = $("#showBookmarksAsCardsCheckbox").is(':checked');  
 
     updateTree();
 }
@@ -165,53 +167,78 @@ function showAllBookmarks() {
     $("#bookmarks").html(showBookmarks(collection));
 }
 
-function showBookmarks(collection) {
+function showBookmarks(collection, showAsCards) {
     var bookmarksHtml = "";
 
-    $.each(collection.bookmarks, function (index, bookmark) {
+    if (collection.showBookmarksAsCards) {
+        $.each(collection.bookmarks, function (index, bookmark) {
+            var item = "<div class='card' style='max-width: 250px'>";
 
-        var item = "<li class='list-group-item list-group-item-action' style='display:block;'>";
-        item += "<div class='row'>";
-
-        item += "<div class='col-sm-11'>";
-
-        if (collection.showBookmarkIcon) {
             if (typeof bookmark.icon != 'undefined' && bookmark.icon !== "" && !bookmark.icon.startsWith("fa")) {
-                item += "<img style='width: " + collection.bookmarkIconSize + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon' " + 
-                "src='" + (bookmark.icon.startsWith("http://logo.clearbit.com/") ? (bookmark.icon + "?size=" + collection.bookmarkIconSize) : bookmark.icon) + "' />";
+                item += "<center><img class='card-img-top' style='width: " + collection.bookmarkIconSize + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon' " + 
+                "src='" + (bookmark.icon.startsWith("http://logo.clearbit.com/") ? (bookmark.icon + "?size=" + collection.bookmarkIconSize) : bookmark.icon) + "' /></center>";
             } else {
-                item += "<span style='width: " + collection.bookmarkIconSize + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon fa fa-globe'></span>";
+                item += "<span class='card-img-top' style='width: " + collection.bookmarkIconSize + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon fa fa-globe'></span>";
             }
-        }
 
-        item += "<a target='_blank' href='" + bookmark.url + "'>" + bookmark.text + "</a>";
+            item += "<div class='card-block'>";
+        	item += "<h6 class='card-title'><a target='_blank' href='" + bookmark.url + "'>" + bookmark.text + "</a></h6>";
 
-        if (collection.showBookmarkDescription && typeof bookmark.description != 'undefined') {
-            item += " - <span>" + bookmark.description + "</span>";
-        }
+            if (collection.showBookmarkDescription && typeof bookmark.description != 'undefined') {
+                item += "<p class='card-text'>" + bookmark.description + "</p>";
+            }
+          
+            item += "</div>";
+            item += "</div>";
+
+            bookmarksHtml += item;
+        });
+    } else {
+        $.each(collection.bookmarks, function (index, bookmark) {
+
+            var item = "<li class='list-group-item list-group-item-action' style='display:block;'>";
+            item += "<div class='row'>";
+
+            item += "<div class='col-sm-11'>";
+
+            if (collection.showBookmarkIcon) {
+                if (typeof bookmark.icon != 'undefined' && bookmark.icon !== "" && !bookmark.icon.startsWith("fa")) {
+                    item += "<img style='width: " + collection.bookmarkIconSize + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon' " + 
+                    "src='" + (bookmark.icon.startsWith("http://logo.clearbit.com/") ? (bookmark.icon + "?size=" + collection.bookmarkIconSize) : bookmark.icon) + "' />";
+                } else {
+                    item += "<span style='width: " + collection.bookmarkIconSize + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon fa fa-globe'></span>";
+                }
+            }
+
+            item += "<a target='_blank' href='" + bookmark.url + "'>" + bookmark.text + "</a>";
+
+            if (collection.showBookmarkDescription && typeof bookmark.description != 'undefined') {
+                item += " - <span>" + bookmark.description + "</span>";
+            }
+                
+            item += "</div>";
             
-        item += "</div>";
-        
-        item += "<div class='col-sm-1'>";
+            item += "<div class='col-sm-1'>";
 
-        item += "<div class='btn-toolbar' role='toolbar'>";
-        item += "<div class='btn-group mr-2' role='group'>"
-        item += "<button type='button' style='padding-right: 5px;' class='btn btn-outline-secondary btn-sm' onclick='editBookmark(this)'><span class='fa fa-pencil' aria-hidden='true'></span></button>";
-        item += "</div>";
+            item += "<div class='btn-toolbar' role='toolbar'>";
+            item += "<div class='btn-group mr-2' role='group'>"
+            item += "<button type='button' style='padding-right: 5px;' class='btn btn-outline-secondary btn-sm' onclick='editBookmark(this)'><span class='fa fa-pencil' aria-hidden='true'></span></button>";
+            item += "</div>";
 
-        item += "<div class='btn-group' role='group'>"
-        item += "<button type='button' class='btn btn-outline-danger btn-sm' onclick='deleteBookmark(this)'><span class='fa fa-trash-o' aria-hidden='true'></span></button>";
-        item += "</div>";
+            item += "<div class='btn-group' role='group'>"
+            item += "<button type='button' class='btn btn-outline-danger btn-sm' onclick='deleteBookmark(this)'><span class='fa fa-trash-o' aria-hidden='true'></span></button>";
+            item += "</div>";
 
-        item += "</div>";
+            item += "</div>";
 
-        item += "</div>";
+            item += "</div>";
 
-        item += "</div>";
-        item += "</li>"
+            item += "</div>";
+            item += "</li>"
 
-        bookmarksHtml += item;
-    });
+            bookmarksHtml += item;
+        });
+    }
 
     return bookmarksHtml;
 }

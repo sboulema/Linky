@@ -67,9 +67,16 @@ function parse(input) {
     $('#tree').on('nodeSelected', function(event, data) {
         $("#accordion").empty();
         $('#bookmarks').empty();
+        $('#bookmarksCards').empty();
 
-        if (typeof data.bookmarks != 'undefined' && data.bookmarks.length > 0) {          
-            $("#bookmarks").append(showBookmarks(data));
+        if (data.showBookmarksAsCards) {
+            if (typeof data.bookmarks != 'undefined' && data.bookmarks.length > 0) {          
+                $("#bookmarksCards").append(showBookmarks(data, true));
+            }
+        } else {
+            if (typeof data.bookmarks != 'undefined' && data.bookmarks.length > 0) {          
+                $("#bookmarks").append(showBookmarks(data));
+            }
         }
 
         if (typeof data.nodes != 'undefined' && data.nodes.length > 0) {
