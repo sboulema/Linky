@@ -60,7 +60,8 @@ function parse(input) {
         collapseIcon: "fa fa-folder-open-o",
         expandIcon: "fa fa-folder-o",
         backColor: "rgb(246, 246, 246)",
-        emptyIcon: "fa fa-folder-o"
+        emptyIcon: "fa fa-folder-o",
+        showTags: localStorage.getItem("showBookmarkCount") == "true"
     });
 
     $('#tree').on('nodeSelected', function(event, data) {

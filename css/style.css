@@ -47,3 +47,10 @@ button {
 #collectionColumn {
     border-right: 1px solid rgb(222,222,222);
 }
+
+.badge {
+    display: flex;
+    margin-left: auto;
+    color: rgb(123,123,123);
+    font-weight: 100;
+}

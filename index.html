@@ -28,7 +28,7 @@
                     <span class="fa fa-plus" aria-hidden="true"></span>
                 </button>
 
-                <button type="button" class="btn btn-secondary btn-sm pull-right" id="settingsButton" onclick="loadSyncCode()" data-toggle="modal" data-target="#settingsModal">
+                <button type="button" class="btn btn-secondary btn-sm pull-right" id="settingsButton" onclick="loadSettings()" data-toggle="modal" data-target="#settingsModal">
                     <span class="fa fa-cog" aria-hidden="true"></span>
                 </button>
 
@@ -231,6 +231,14 @@
             </div>
             <br/>
 
+            <div class="form-check form-check-inline">
+            <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" id="showBookmarkCountCheckbox" value="option1"> Show bookmark count on collections
+            </label>
+            </div>
+
+            <br/>
+
             <button type="button" class="btn btn-danger pull-right" onclick="deleteAllData();">Delete ALL</button>
 
             <div class="dropdown">
@@ -301,6 +309,7 @@
 
         function saveSettings() {
             setMyJsonCode($("#settingsSyncCode").val());
+            localStorage.setItem("showBookmarkCount", $("#showBookmarkCountCheckbox").is(':checked'));
         }
 
         function getTitle() {
@@ -320,8 +329,9 @@
             });
         }
 
-        function loadSyncCode() {
+        function loadSettings() {
             $('#settingsSyncCode').val(getMyJsonCode());
+            $('#showBookmarkCountCheckbox').prop('checked', localStorage.getItem("showBookmarkCount") == "true");
         }
     </script>
 
