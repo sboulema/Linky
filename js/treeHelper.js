@@ -129,6 +129,22 @@ function parse(input) {
             });
         }
 
+        // Make the bookmark cards sortable
+        var el = document.getElementById('bookmarksCards');
+        if (el.children.length > 0) {
+            var sortable = Sortable.create(el, {
+                onSort: function (evt) {
+                    var collection = getSelectedCollection();
+
+                    var temp = collection.bookmarks[evt.oldIndex];
+                    collection.bookmarks[evt.oldIndex] = collection.bookmarks[evt.newIndex];
+                    collection.bookmarks[evt.newIndex] = temp;
+
+                    updateTree();
+                }
+            });
+        }
+
         // Make the collections sortable
         var el = document.getElementById('tree').children[0];
         if (el.children.length > 0) {
