@@ -28,11 +28,13 @@ function addBookmark() {
     selectedCollection.bookmarks.push({
         text: $('#addBookmarkName').val(),
         url: $('#addBookmarkUrl').val(),
+        description: $('#addBookmarkDescription').val(),
         icon: "http://www.google.com/s2/favicons?domain_url=" + $('#addBookmarkUrl').val()
     });
 
     $('#addBookmarkName').val("");
     $('#addBookmarkUrl').val("");
+    $('#addBookmarkDescription').val("");
 
     selectedCollection.tags = [selectedCollection.bookmarks.length];
 
@@ -88,6 +90,7 @@ function editBookmark(node) {
     $("#editUrl").val(bookmark.url);
     $("#editIcon").val(bookmark.icon);
     $("#editIndex").text(bookmarkIndex);
+    $("#editDescription").val(bookmark.description);
     $('#editModal').modal('show');
 }
 
@@ -96,6 +99,9 @@ function editCollection() {
 
     $("#editCollectionName").val(selectedCollection.text);
     $("#editCollectionIcon").val(selectedCollection.icon);
+    $("#showBookmarkIcon").prop('checked', selectedCollection.showBookmarkIcon);
+    $("#showBookmarkDescription").prop('checked', selectedCollection.showBookmarkDescription);
+    $("#bookmarkIconSizeSlider").val(selectedCollection.bookmarkIconSize);
     $('#editCollectionModal').modal('show');
 }
 
@@ -114,39 +120,74 @@ function saveCollection() {
     var selectedCollection = getSelectedCollection();
     selectedCollection.text = $("#editCollectionName").val();
     selectedCollection.icon = $("#editCollectionIcon").val();
+    selectedCollection.showBookmarkIcon = $("#showBookmarkIconCheckbox").is(':checked');
+    selectedCollection.showBookmarkDescription = $("#showBookmarkDescriptionCheckbox").is(':checked');
+    selectedCollection.bookmarkIconSize = $("#bookmarkIconSizeSlider").val();
 
     updateTree();
 }
 
-function showAllBookmarks() {
-    var nodeId;
-    var bookmarks = $('#tree').treeview('getEnabled', nodeId);
+function getAllBookmarks() {
+    var bookmarks = [];
+    return search(getCollections(), "bookmarks", bookmarks);
+}
 
+search = function(hay, needle, accumulator) {
+  var accumulator = accumulator || [];
+  if (typeof hay == 'object') {
+    for (var i in hay) {
+        if (i === needle) {
+            $.merge(accumulator, hay[i]);
+        }
+        search(hay[i], needle, accumulator) == true ? accumulator.push(hay) : 1;
+    }
+  }
+  return new RegExp(needle).test(hay) || accumulator;
+}
+
+function showAllBookmarks() {
     $("#collectionName").attr("placeholder", "All bookmarks");
 
     $("#collectionIcon").removeClass();
     $("#collectionIcon").addClass("fa fa-heart");
 
-    $("#bookmarks").html(showBookmarks(bookmarks));
+    $("#accordion").empty();
+    $('#bookmarks').empty();
+
+    var collection = {
+        bookmarks: getAllBookmarks(),
+        showBookmarkIcon: true,
+        showBookmarkDescription: true,
+        bookmarkIconSize: 16
+    };
+
+    $("#bookmarks").html(showBookmarks(collection));
 }
 
-function showBookmarks(bookmarks) {
+function showBookmarks(collection) {
     var bookmarksHtml = "";
 
-    $.each(bookmarks, function (index, bookmark) {
+    $.each(collection.bookmarks, function (index, bookmark) {
 
         var item = "<li class='list-group-item list-group-item-action' style='display:block;'>";
         item += "<div class='row'>";
 
         item += "<div class='col-sm-11'>";
 
-        if (typeof bookmark.icon != 'undefined' || bookmark.icon === "") {
-            item += "<img class='bookmarkIcon' src='" + bookmark.icon + "' />";
-        } else {
-            item += "<span class='bookmarkIcon fa fa-globe'></span>";
+        if (collection.showBookmarkIcon) {
+            if (typeof bookmark.icon != 'undefined' && bookmark.icon !== "" && !bookmark.icon.startsWith("fa")) {
+                item += "<img style='width: " + collection.bookmarkIconSize + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon' src='" + bookmark.icon + "' />";
+            } else {
+                item += "<span style='width: " + collection.bookmarkIconSize + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon fa fa-globe'></span>";
+            }
         }
 
         item += "<a target='_blank' href='" + bookmark.url + "'>" + bookmark.text + "</a>";
+
+        if (collection.showBookmarkDescription && typeof bookmark.description != 'undefined') {
+            item += " - <span>" + bookmark.description + "</span>";
+        }
+            
         item += "</div>";
         
         item += "<div class='col-sm-1'>";

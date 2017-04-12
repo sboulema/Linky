@@ -69,7 +69,7 @@ function parse(input) {
         $('#bookmarks').empty();
 
         if (typeof data.bookmarks != 'undefined' && data.bookmarks.length > 0) {          
-            $("#bookmarks").append(showBookmarks(data.bookmarks));
+            $("#bookmarks").append(showBookmarks(data));
         }
 
         if (typeof data.nodes != 'undefined' && data.nodes.length > 0) {
@@ -87,7 +87,7 @@ function parse(input) {
                 card += "<div id='collapse" + index + "' class='collapse' role='tabpanel' aria-labelledby='heading" + index + "'>";
 
                 card += "<ul id='nodeBookmarks" + index + "' class='list-group' style='display:block;'>"
-                card += showBookmarks(node.bookmarks, "#nodeBookmarks" + index);
+                card += showBookmarks(node, "#nodeBookmarks" + index);
                 card += "</ul>";
 
                 card += "</div></div><br/>";
