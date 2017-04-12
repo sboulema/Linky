@@ -96,10 +96,15 @@ function parse(input) {
             });
         }
         
-        $("#collectionName").text(data.text);
+        $("#search").attr("placeholder", data.text);
 
-        $("#collectionIcon").removeClass();
-        $("#collectionIcon").addClass(data.icon);
+        if (typeof data.icon != 'undefined') {
+            $("#collectionIcon").removeClass();
+            $("#collectionIcon").addClass(data.icon);
+        } else {
+            $("#collectionIcon").removeClass();
+            $("#collectionIcon").addClass("fa fa-ellipsis-h");
+        }
 
         // Make the bookmarks sortable
         var el = document.getElementById('bookmarks');

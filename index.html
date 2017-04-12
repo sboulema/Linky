@@ -49,7 +49,7 @@
                     <div class="col col-md-auto">
                         <div class="dropdown">                
                             <a class="btn btn-outline-secondary btn-sm dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class='fa fa-ellipsis-h'></span>
+                                <span class='fa fa-ellipsis-h' id="collectionIcon"></span>
                             </a>                
                             <div class='dropdown-menu' aria-labelledby="dropdownMenuLink">
                                 <a class="dropdown-item" href="#" onclick='editCollection()'>Edit</a>
@@ -58,17 +58,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col col-md-auto">
-                        <span id="collectionIcon"></span>
+                    <div class="input-group input-group-sm col">
+                        <span class="input-group-addon fa fa-search" id="basic-addon1"></span>
+                        <input id="search" type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1">
                     </div>
-                    <div class="col col-md-auto">
-                        <h4 id="collectionName"></h4>
-                    </div>
-                </div>
-
-                <div class="input-group" style="padding-top:5px;">
-                    <span class="input-group-addon fa fa-search" id="basic-addon1"></span>
-                    <input id="search" type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1">
                 </div>
 
                 <ul id="bookmarks" class="list-group" style="margin-top: 5px; display:block;">

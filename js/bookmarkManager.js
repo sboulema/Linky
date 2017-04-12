@@ -122,7 +122,7 @@ function showAllBookmarks() {
     var nodeId;
     var bookmarks = $('#tree').treeview('getEnabled', nodeId);
 
-    $("#collectionName").text("All");
+    $("#collectionName").attr("placeholder", "All bookmarks");
 
     $("#collectionIcon").removeClass();
     $("#collectionIcon").addClass("fa fa-heart");
