@@ -37,7 +37,7 @@ function addBookmark() {
         text: $('#addBookmarkName').val(),
         url: $('#addBookmarkUrl').val(),
         description: $('#addBookmarkDescription').val(),
-        icon: "http://logo.clearbit.com/" + $('#addBookmarkUrl').val()
+        icon: "http://logo.clearbit.com/" + (new URL($('#addBookmarkUrl').val())).hostname
     });
 
     $('#addBookmarkName').val("");

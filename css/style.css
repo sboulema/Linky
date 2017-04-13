@@ -11,6 +11,11 @@
     margin-right: 10px !important;
 }
 
+#editIconAddon {
+    width: 16px;
+    height: 16px;
+}
+
 /* Only show bookmark related buttons on hover */
 #bookmarks li.list-group-item .btn-toolbar {
     visibility: hidden;
