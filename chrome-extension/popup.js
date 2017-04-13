@@ -69,6 +69,8 @@ function getUnsortedCollection(data) {
 }
 
 function addBookmark() {
+  $("#innerButton").empty();
+  $("#innerButton").addClass("loader");
   loadFromMyJson(function(data) {
     var unsortedCollection = getUnsortedCollection(data);
 
@@ -92,6 +94,8 @@ function addBookmark() {
           });
           unsortedCollection.tags = [unsortedCollection.bookmarks.length];
           saveToMyJson(data);
+          $("#innerButton").removeClass("loader");
+          $("#innerButton").text("Saved!")
         });
       });
     });
