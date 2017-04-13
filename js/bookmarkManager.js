@@ -180,7 +180,7 @@ function showBookmarks(collection, showAsCards) {
 
     if (collection.showBookmarksAsCards) {
         $.each(collection.bookmarks, function (index, bookmark) {
-            var item = "<div class='card' style='max-width: 250px'>";
+            var item = "<div class='card'>";
 
             if (typeof bookmark.icon != 'undefined' && bookmark.icon !== "" && !bookmark.icon.startsWith("fa")) {
                 item += "<center><img class='card-img-top' style='width: " + collection.bookmarkIconSize + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon' " + 

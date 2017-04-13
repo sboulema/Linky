@@ -47,3 +47,10 @@ button {
     color: rgb(123,123,123);
     font-weight: 100;
 }
+
+.card {
+    max-width: 250px;
+    min-width: 250px;
+    margin-left: 0px !important;
+    margin-bottom: 15px;
+}
