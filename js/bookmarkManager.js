@@ -105,6 +105,7 @@ function editBookmark(node, isCard) {
     $("#editName").val(bookmark.text);
     $("#editUrl").val(bookmark.url);
     $("#editIcon").val(bookmark.icon);
+    $("#editIconAddon").attr("src", bookmark.icon);
     $("#editIndex").text(bookmarkIndex);
     $("#editDescription").val(bookmark.description);
     $('#editModal').modal('show');

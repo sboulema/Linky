@@ -174,7 +174,8 @@
 
             <label for="editIcon">Assign an icon:</label>
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Icon" id="editIcon">               
+                <input type="text" class="form-control" placeholder="Icon" id="editIcon">
+                <span class="input-group-addon"><img id="editIconAddon" /></span>           
             </div>
             <p class="text-muted">
                 <small>http://logo.clearbit.com/{url}</small><br/>
@@ -326,6 +327,10 @@
         $("#editCollectionIcon").change(function() {
             $("#editCollectionIconAddon").removeClass();    
             $("#editCollectionIconAddon").addClass($("#editCollectionIcon").val());
+        });
+
+        $("#editIcon").change(function() {
+            $("#editIconAddon").attr("src", $("#editIcon").val());
         });
 
         $('#addCollectionName').on('keypress', function (e) {
