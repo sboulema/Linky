@@ -12,6 +12,12 @@ function getSelectedCollection() {
     return selectedCollection;
 }
 
+function getSelectedBookmarkCard(card) {
+    var selectedCollection = getSelectedCollection();
+    var bookmarkIndex = getIndexCard(card);
+    return selectedCollection.bookmarks[bookmarkIndex];
+}
+
 function getSelectedBookmark(node) {
     var selectedCollection = getSelectedCollection();
     var bookmarkIndex = getIndex(node);
@@ -20,6 +26,10 @@ function getSelectedBookmark(node) {
 
 function getIndex(node) {
     return $($(node).closest('li')[0]).index();
+}
+
+function getIndexCard(node) {
+    return $($(node).closest('.card')[0]).index();
 }
 
 function updateTree(element, replaceCollections) {

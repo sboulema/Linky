@@ -90,9 +90,17 @@ function deleteCollection() {
     }
 }
 
-function editBookmark(node) {          
-    var bookmark = getSelectedBookmark(node);
-    var bookmarkIndex = getIndex(node);
+function editBookmark(node, isCard) {     
+    var bookmark;
+    var bookmarkIndex;
+
+    if (isCard) {
+        bookmark = getSelectedBookmarkCard(node);
+        bookmarkIndex = getIndexCard(node);
+    } else {
+        bookmark = getSelectedBookmark(node);
+        bookmarkIndex = getIndex(node);
+    }   
 
     $("#editName").val(bookmark.text);
     $("#editUrl").val(bookmark.url);
@@ -197,6 +205,19 @@ function showBookmarks(collection, showAsCards) {
             }
           
             item += "</div>";
+
+            item += "<div class='card-footer'>";
+                item += "<div class='btn-toolbar' role='toolbar'>";
+                    item += "<div class='btn-group mr-2' role='group'>"
+                        item += "<button type='button' style='padding-right: 5px;' class='btn btn-outline-secondary btn-sm' onclick='editBookmark(this, true)'><span class='fa fa-pencil' aria-hidden='true'></span></button>";
+                    item += "</div>";
+
+            item += "<div class='btn-group' role='group'>"
+            item += "<button type='button' class='btn btn-outline-danger btn-sm' onclick='deleteBookmark(this)'><span class='fa fa-trash-o' aria-hidden='true'></span></button>";
+            item += "</div>";
+            item += "</div>";
+            item += "</div>";
+
             item += "</div>";
 
             bookmarksHtml += item;
