@@ -49,14 +49,19 @@ function addBookmark() {
     updateTree();
 }
 
-function deleteBookmark(node) {
+function deleteBookmark(node, isCard) {
     var selectedCollection = getSelectedCollection();
-    var bookmarkIndex = getIndex(node);
+    var bookmarkIndex;
+
+    if (isCard) {
+        bookmarkIndex = getIndexCard(node);
+    } else {
+        bookmarkIndex = getIndex(node);
+    }
 
     selectedCollection.bookmarks.splice(bookmarkIndex, 1);
 
     updateTree();
-    location.reload();
 }
 
 function deleteCollection() {
@@ -214,7 +219,7 @@ function showBookmarks(collection, showAsCards) {
                     item += "</div>";
 
             item += "<div class='btn-group' role='group'>"
-            item += "<button type='button' class='btn btn-outline-danger btn-sm' onclick='deleteBookmark(this)'><span class='fa fa-trash-o' aria-hidden='true'></span></button>";
+            item += "<button type='button' class='btn btn-outline-danger btn-sm' onclick='deleteBookmark(this, true)'><span class='fa fa-trash-o' aria-hidden='true'></span></button>";
             item += "</div>";
             item += "</div>";
             item += "</div>";
