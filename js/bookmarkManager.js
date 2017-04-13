@@ -2,15 +2,23 @@ function addCollection() {
     var nodeId;
     var selectedCollection = $('#tree').treeview('getSelected', nodeId)[0];
 
+    var newCollection = {
+        text: $('#addCollectionName').val(),
+        showBookmarkDescription: true,
+        showBookmarkIcon: true,
+        showBookmarksAsCards: false,
+        bookmarkIconSize: 16
+    };
+
     if (typeof selectedCollection == 'undefined' || selectedCollection.id === "tree") {
-        selectedCollection = {text: $('#addCollectionName').val()};
+        selectedCollection = newCollection;
         updateTree(selectedCollection);
     } else {
         if (typeof selectedCollection.nodes == 'undefined') {
             selectedCollection.nodes = [];
         }
 
-        selectedCollection.nodes.push({text: $('#addCollectionName').val()});
+        selectedCollection.nodes.push(newCollection);
         updateTree();
     }      
 
