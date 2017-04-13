@@ -48,6 +48,11 @@ button {
     font-weight: 100;
 }
 
+#bookmarkColumn {
+    height: 100%;
+    overflow-y: auto;
+}
+
 .card {
     max-width: 250px;
     min-width: 250px;
