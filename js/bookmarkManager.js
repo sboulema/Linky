@@ -49,15 +49,9 @@ function addBookmark() {
     updateTree();
 }
 
-function deleteBookmark(node, isCard) {
+function deleteBookmark() {
     var selectedCollection = getSelectedCollection();
-    var bookmarkIndex;
-
-    if (isCard) {
-        bookmarkIndex = getIndexCard(node);
-    } else {
-        bookmarkIndex = getIndex(node);
-    }
+    var bookmarkIndex = parseInt($("#editIndex").text());
 
     selectedCollection.bookmarks.splice(bookmarkIndex, 1);
 
@@ -205,17 +199,8 @@ function showBookmarks(collection, showAsCards) {
             }
             item += "</a>";
 
-            item += "<div class='card-footer'>";
-                item += "<div class='btn-toolbar' role='toolbar'>";
-                    item += "<div class='btn-group mr-2' role='group'>"
-                        item += "<button type='button' style='padding-right: 5px;' class='btn btn-outline-secondary btn-sm' onclick='editBookmark(this, true)'><span class='fa fa-pencil' aria-hidden='true'></span></button>";
-                    item += "</div>";
-
-            item += "<div class='btn-group' role='group'>"
-            item += "<button type='button' class='btn btn-outline-danger btn-sm' onclick='deleteBookmark(this, true)'><span class='fa fa-trash-o' aria-hidden='true'></span></button>";
-            item += "</div>";
-            item += "</div>";
-            item += "</div>";
+            item += "<button type='button' class='btn btn-primary btn-sm cardEditButton' onclick='editBookmark(this, true)'>" + 
+                "<span class='fa fa-pencil' aria-hidden='true'></span></button>";
 
             item += "</div>";
 
@@ -228,7 +213,7 @@ function showBookmarks(collection, showAsCards) {
             var item = "<li class='list-group-item list-group-item-action' style='display:block;'>";
             item += "<div class='row'>";
 
-            item += "<div class='col-sm-11'>";
+            item += "<div class='col'>";
 
             if (collection.showBookmarkIcon) {
                 if (typeof bookmark.icon != 'undefined' && bookmark.icon !== "" && !bookmark.icon.startsWith("fa")) {
@@ -247,19 +232,9 @@ function showBookmarks(collection, showAsCards) {
                 
             item += "</div>";
             
-            item += "<div class='col-sm-1'>";
-
-            item += "<div class='btn-toolbar' role='toolbar'>";
-            item += "<div class='btn-group mr-2' role='group'>"
-            item += "<button type='button' style='padding-right: 5px;' class='btn btn-outline-secondary btn-sm' onclick='editBookmark(this)'><span class='fa fa-pencil' aria-hidden='true'></span></button>";
-            item += "</div>";
-
-            item += "<div class='btn-group' role='group'>"
-            item += "<button type='button' class='btn btn-outline-danger btn-sm' onclick='deleteBookmark(this)'><span class='fa fa-trash-o' aria-hidden='true'></span></button>";
-            item += "</div>";
-
-            item += "</div>";
-
+            item += "<div class='col-md-auto' style='margin-right: 15px;'>";
+            item += "<button type='button' style='padding-right: 5px;' class='btn btn-outline-secondary btn-sm' onclick='editBookmark(this)'>" + 
+                "<span class='fa fa-pencil' aria-hidden='true'></span></button>";
             item += "</div>";
 
             item += "</div>";

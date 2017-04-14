@@ -13,11 +13,11 @@
 }
 
 /* Only show bookmark related buttons on hover */
-#bookmarks li.list-group-item .btn-toolbar {
+#bookmarks li.list-group-item button {
     visibility: hidden;
 }
 
-#bookmarks li.list-group-item:hover .btn-toolbar {
+#bookmarks li.list-group-item:hover button {
     visibility: visible;
 }
 
@@ -59,4 +59,18 @@ button {
     min-width: 128px;
     margin-left: 0px !important;
     margin-bottom: 15px;
+}
+
+#bookmarksCards button {
+    visibility: hidden;
+}
+
+#bookmarksCards div.card:hover button {
+    visibility: visible;
+}
+
+.cardEditButton {
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }
