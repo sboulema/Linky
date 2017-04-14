@@ -376,7 +376,9 @@
                 async: true,
                 success: function(data) {
                     var matches = data.match(/<title.*?>([\s\S]*?)<\/title>/);
-                    $("#addBookmarkName").val(matches[1].trim());
+                    if (matches != null) {
+                        $("#addBookmarkName").val(matches[1].trim());
+                    }               
                     $("#spinner").hide();                    
                 },
                 error: function(data) {
