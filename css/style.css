@@ -74,3 +74,8 @@ button {
     top: 5px;
     right: 5px;
 }
+
+#deleteButton {
+    position: absolute;
+    left: 15px;
+}
