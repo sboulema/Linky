@@ -64,6 +64,17 @@ function updateSelectedCollection() {
     }
 }
 
+Array.prototype.move = function (old_index, new_index) {
+    if (new_index >= this.length) {
+        var k = new_index - this.length;
+        while ((k--) + 1) {
+            this.push(undefined);
+        }
+    }
+    this.splice(new_index, 0, this.splice(old_index, 1)[0]);
+    return this; // for testing purposes
+};
+
 function parse(input) {
     $('#tree').treeview({
         data: input,
@@ -130,11 +141,7 @@ function parse(input) {
             var sortable = Sortable.create(el, {
                 onSort: function (evt) {
                     var collection = getSelectedCollection();
-
-                    var temp = collection.bookmarks[evt.oldIndex];
-                    collection.bookmarks[evt.oldIndex] = collection.bookmarks[evt.newIndex];
-                    collection.bookmarks[evt.newIndex] = temp;
-
+                    collection.bookmarks.move(evt.oldIndex - 1, evt.newIndex - 1);
                     updateTree();
                 }
             });
@@ -146,11 +153,7 @@ function parse(input) {
             var sortable = Sortable.create(el, {
                 onSort: function (evt) {
                     var collection = getSelectedCollection();
-
-                    var temp = collection.bookmarks[evt.oldIndex];
-                    collection.bookmarks[evt.oldIndex] = collection.bookmarks[evt.newIndex];
-                    collection.bookmarks[evt.newIndex] = temp;
-
+                    collection.bookmarks.move(evt.oldIndex - 1, evt.newIndex - 1);
                     updateTree();
                 }
             });
@@ -162,9 +165,9 @@ function parse(input) {
             var sortable = Sortable.create(el, {
                 onSort: function (evt) {
                     var collection = getSelectedCollection();
-                    var parent = $('#tree').treeview('getParent', collection)[0];
+                    var parent = $('#tree').treeview('getNode', collection.parentId);
 
-                    if (parent.id === "tree") {
+                    if (typeof parent == 'undefined') {
                         var collections = getCollections();
 
                         var temp = collections[evt.oldIndex];
@@ -173,10 +176,7 @@ function parse(input) {
 
                         updateTree(collections, true);
                     } else {
-                        var temp = parent.nodes[evt.oldIndex];
-                        parent.nodes[evt.oldIndex] = parent.nodes[evt.newIndex];
-                        parent.nodes[evt.newIndex] = temp;
-
+                        parent.nodes.move(evt.oldIndex - 1, evt.newIndex - 1);
                         updateTree();
                     }
                 }
