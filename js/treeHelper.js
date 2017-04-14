@@ -141,7 +141,7 @@ function parse(input) {
             var sortable = Sortable.create(el, {
                 onSort: function (evt) {
                     var collection = getSelectedCollection();
-                    collection.bookmarks.move(evt.oldIndex - 1, evt.newIndex - 1);
+                    collection.bookmarks.move(evt.oldIndex % parent.nodes.length, evt.newIndex % parent.nodes.length);
                     updateTree();
                 }
             });
@@ -153,7 +153,7 @@ function parse(input) {
             var sortable = Sortable.create(el, {
                 onSort: function (evt) {
                     var collection = getSelectedCollection();
-                    collection.bookmarks.move(evt.oldIndex - 1, evt.newIndex - 1);
+                    collection.bookmarks.move(evt.oldIndex % parent.nodes.length, evt.newIndex % parent.nodes.length);
                     updateTree();
                 }
             });
@@ -163,9 +163,9 @@ function parse(input) {
         var el = document.getElementById('tree').children[0];
         if (el.children.length > 0) {
             var sortable = Sortable.create(el, {
-                onSort: function (evt) {
+                onEnd: function (evt) {
                     var collection = getSelectedCollection();
-                    var parent = $('#tree').treeview('getNode', collection.parentId);
+                    var parent = $('#tree').treeview('getParent', collection);
 
                     if (typeof parent == 'undefined') {
                         var collections = getCollections();
@@ -176,7 +176,7 @@ function parse(input) {
 
                         updateTree(collections, true);
                     } else {
-                        parent.nodes.move(evt.oldIndex - 1, evt.newIndex - 1);
+                        parent.nodes.move(evt.oldIndex % parent.nodes.length, evt.newIndex % parent.nodes.length);
                         updateTree();
                     }
                 }
