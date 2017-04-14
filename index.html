@@ -25,15 +25,26 @@
         <div class="row" style="height:100%; background-color: rgb(246, 246, 246)">
 
             <div id="collectionColumn" class="col col-md-2" style="padding-top:5px;">
-                <button type="button" class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#addModal">
-                    <span class="fa fa-plus" aria-hidden="true"></span>
-                </button>
 
-                <button type="button" class="btn btn-secondary btn-sm pull-right" id="settingsButton" onclick="loadSettings()" data-toggle="modal" data-target="#settingsModal">
-                    <span class="fa fa-cog" aria-hidden="true"></span>
-                </button>
-
-                <h4>Linky</h4>
+                <!--Title Bar-->
+                <div class="row">
+                    <div class="col col-md-auto" style="padding-right:0;"><a href="index.html"><span class="fa fa-heart text-danger"></span></a></div>
+                    <div class="col"><h4>Linky</h4></div>
+                    <div class="col col-md-auto">
+                        <div class='btn-toolbar' role='toolbar'>
+                            <div class='btn-group mr-2' role='group'>
+                                <button type="button" class="btn btn-secondary btn-sm" id="settingsButton" onclick="loadSettings()" data-toggle="modal" data-target="#settingsModal">
+                                    <span class="fa fa-cog" aria-hidden="true"></span>
+                                </button>   
+                            </div>
+                            <div class='btn-group' role='group'>
+                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addModal">
+                                    <span class="fa fa-plus" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <button type="button" class="btn btn-sm btn-outline-secondary btn-block text-left" onclick="showAllBookmarks()">
                     <span class="fa fa-heart" aria-hidden="true"></span> All bookmarks
@@ -220,7 +231,7 @@
             <i class="fa fa-picture-o"></i>
             <div class="input-group" style="margin-left:15px;margin-right:15px;">
                 <input id="bookmarkIconSizeSlider" type="text" data-provide="slider" 
-                    data-slider-min="16" data-slider-max="90" data-slider-step="1" data-slider-value="16">
+                    data-slider-min="16" data-slider-max="128" data-slider-step="1" data-slider-value="16">
             </div>
             <i class="fa fa-picture-o fa-lg"></i>
             </form>

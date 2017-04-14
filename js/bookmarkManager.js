@@ -196,21 +196,14 @@ function showBookmarks(collection, showAsCards) {
         $.each(collection.bookmarks, function (index, bookmark) {
             var item = "<div class='card'>";
 
+            item += "<a target='_blank' href='" + bookmark.url + "' data-toggle='tooltip' data-placement='bottom' title='" + bookmark.text + "'>";
             if (typeof bookmark.icon != 'undefined' && bookmark.icon !== "" && !bookmark.icon.startsWith("fa")) {
                 item += "<center><img class='card-img-top' style='width: " + collection.bookmarkIconSize + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon' " + 
                 "src='" + (bookmark.icon.startsWith("http://logo.clearbit.com/") ? (bookmark.icon + "?size=" + collection.bookmarkIconSize) : bookmark.icon) + "' /></center>";
             } else {
                 item += "<span class='card-img-top' style='width: " + collection.bookmarkIconSize + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon fa fa-globe'></span>";
             }
-
-            item += "<div class='card-block'>";
-        	item += "<h6 class='card-title'><a target='_blank' href='" + bookmark.url + "'>" + bookmark.text + "</a></h6>";
-
-            if (collection.showBookmarkDescription && typeof bookmark.description != 'undefined') {
-                item += "<p class='card-text'>" + bookmark.description + "</p>";
-            }
-          
-            item += "</div>";
+            item += "</a>";
 
             item += "<div class='card-footer'>";
                 item += "<div class='btn-toolbar' role='toolbar'>";
@@ -228,6 +221,7 @@ function showBookmarks(collection, showAsCards) {
 
             bookmarksHtml += item;
         });
+        
     } else {
         $.each(collection.bookmarks, function (index, bookmark) {
 

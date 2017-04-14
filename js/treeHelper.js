@@ -82,6 +82,7 @@ function parse(input) {
         if (data.showBookmarksAsCards) {
             if (typeof data.bookmarks != 'undefined' && data.bookmarks.length > 0) {          
                 $("#bookmarksCards").append(showBookmarks(data, true));
+                $('[data-toggle="tooltip"]').tooltip();
             }
         } else {
             if (typeof data.bookmarks != 'undefined' && data.bookmarks.length > 0) {          

@@ -2,6 +2,7 @@
   "manifest_version": 2,
 
   "name": "Linky Extension",
+  "short_name": "Linky",
   "description": "Add new links to Linky.",
   "version": "1.2",
 
