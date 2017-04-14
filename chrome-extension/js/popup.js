@@ -16,7 +16,11 @@ function getTitle(url, callback) {
     url: url,
     success: function(data) {
       var matches = data.match(/<title.*?>([\s\S]*?)<\/title>/);
-      callback(matches[1].trim());                   
+      if (matches === null) {
+        callback("");
+      } else {
+        callback(matches[1].trim()); 
+      }                      
     }
   });
 }
@@ -68,37 +72,64 @@ function getUnsortedCollection(data) {
   } 
 }
 
-function addBookmark() {
-  $("#innerButton").empty();
-  $("#innerButton").addClass("loader");
-  loadFromMyJson(function(data) {
-    var unsortedCollection = getUnsortedCollection(data);
+function saveBookmark() {
+  var nodes = [];        
+  if ($('#tree').treeview('getEnabled').length > 0 && $('#tree').treeview('getEnabled')[0].id !== "tree") {
+      nodes.push($('#tree').treeview('getNode', 0));
+      $.merge(nodes, $('#tree').treeview('getSiblings', nodes[0]));
+  }
+  saveToMyJson(nodes);
+}
 
-    if (typeof unsortedCollection == 'undefined') {
-      unsortedCollection = {
+function addBookmark() {
+  loadFromMyJson(function(data) {
+    $("#addSpan").empty();
+    $("#addSpan").addClass("fa fa-spinner fa-spin");
+    var nodeId;
+    var selectedCollection = $('#tree').treeview('getSelected', nodeId)[0];
+    if (selectedCollection === null) {
+      selectedCollection = getUnsortedCollection(data);
+    }
+
+    if (typeof selectedCollection == 'undefined') {
+      selectedCollection = {
         text: "Unsorted",
         bookmarks: [],
         icon: "fa fa-inbox"
       };
-      data.push(unsortedCollection);
+      data.push(selectedCollection);
     }
 
     getCurrentTabUrl(function(url) {
       getTitle(url, function(title) {
         getDescription(url, function(desc) {
-          unsortedCollection.bookmarks.push({
+          selectedCollection.bookmarks.push({
             text: title,
             url: url,
             description: desc,
             icon: "https://logo.clearbit.com/" + (new URL(url)).hostname
           });
-          unsortedCollection.tags = [unsortedCollection.bookmarks.length];
-          saveToMyJson(data);
-          $("#innerButton").removeClass("loader");
-          $("#innerButton").text("Saved!")
+          selectedCollection.tags = [selectedCollection.bookmarks.length];
+          saveBookmark();
+          $("#addSpan").removeClass();
+          $("#addSpan").text("Saved!")
         });
       });
     });
+  });
+}
+
+function createCollectionDropdown() {
+  $("#collectionHeader").hide();
+  loadFromMyJson(function(data) {
+    $('#tree').treeview({
+        data: data,
+        collapseIcon: "fa fa-folder-open-o",
+        expandIcon: "fa fa-folder-o",
+        emptyIcon: "fa fa-folder-o"
+    });
+    $('#tree').treeview('collapseAll', { silent: true });
+    $("#collectionHeader").show();
   });
 }
 
@@ -115,6 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (code != null) {
     document.getElementById("login").style.display = 'none';
     document.getElementById("add").style.display = 'block';
+    createCollectionDropdown();
   } else {
     document.getElementById("login").style.display = 'block';
     document.getElementById("add").style.display = 'none';

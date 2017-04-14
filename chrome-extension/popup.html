@@ -2,46 +2,16 @@
 <html>
   <head>
     <title>Getting Started Extension's Popup</title>
-    <style>
-      body {
-        font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
-        font-size: 100%;
-      }
-      #addButton {
-        background-color: white;
-        border: 2px solid #4CAF50;
-        color: #4CAF50;
-        padding: 15px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        width: 160px;
-        border-radius: 4px;
-      }
-      #addButton:hover {
-        background-color: #4CAF50;
-        border: 2px solid #4CAF50;
-        color: white;
-      }
-      .loader {
-        border: 5px solid #f3f3f3; /* Light grey */
-        border-top: 5px solid #4CAF50;
-        border-bottom: 5px solid #4CAF50;
-        border-radius: 50%;
-        width: 10px;
-        height: 10px;
-        animation: spin 2s linear infinite;
-      }
 
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-    </style>
+    <link rel="stylesheet" href="css/popup.css"> 
+    <link rel="stylesheet" href="css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="css/bootstrap-treeview.min.css"> 
+    <link rel="stylesheet" href="css/font-awesome.min.css"> 
 
-    <script src="popup.js"></script>
-    <script src="jquery-3.2.1.min.js"></script>  
+    <script src="js/popup.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>  
+    <script src="js/bootstrap.min.js"></script>  
+    <script src="js/bootstrap-treeview.min.js"></script>
   </head>
   <body>
     <div id="login">
@@ -51,9 +21,11 @@
     </div>
 
     <div id="add">
-      <button id="addButton"><center><div id="innerButton">Add to <strong>Linky</strong></div></center></button>
-      
-      <!--<center><div class="loader"><br/><br/></div></center>-->
+      <button id="addButton" type="button" class="btn btn-outline-success btn-block">
+        <span id="addSpan">Add to <strong>Linky</strong></span>
+      </button>
+      <h6 id="collectionHeader">My Collections</h6>
+      <div id="tree"></div>
     </div>
   </body>
 </html>
