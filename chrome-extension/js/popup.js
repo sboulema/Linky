@@ -17,7 +17,7 @@ function getTitle(url, callback) {
     success: function(data) {
       var matches = data.match(/<title.*?>([\s\S]*?)<\/title>/);
       if (matches === null) {
-        callback("");
+        callback(url);
       } else {
         callback(matches[1].trim()); 
       }                      
