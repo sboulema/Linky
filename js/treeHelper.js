@@ -75,6 +75,22 @@ Array.prototype.move = function (old_index, new_index) {
     return this; // for testing purposes
 };
 
+function loadMoveBookmarkTree() {
+  loadFromMyJson(function(data) {
+    $('#moveBookmark').treeview({
+        data: data,
+        collapseIcon: "fa fa-folder-open-o",
+        expandIcon: "fa fa-folder-o",
+        emptyIcon: "fa fa-folder-o"
+    });
+    $('#moveBookmark').treeview('collapseAll', { silent: true });
+    $('#moveBookmark').on('nodeSelected', function(event, data) {
+        $("#editMoveToCollection").text(data.nodeId);
+        $("#editBookmarkCollection").val(data.text);
+    });
+  });
+}
+
 function parse(input) {
     $('#tree').treeview({
         data: input,

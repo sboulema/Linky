@@ -100,6 +100,7 @@ function editBookmark(node, isCard) {
         bookmark = getSelectedBookmark(node);
         bookmarkIndex = getIndex(node);
     }   
+    var selectedCollection = getSelectedCollection();
 
     $("#editName").val(bookmark.text);
     $("#editUrl").val(bookmark.url);
@@ -107,6 +108,8 @@ function editBookmark(node, isCard) {
     $("#editIconAddon").attr("src", bookmark.icon);
     $("#editIndex").text(bookmarkIndex);
     $("#editDescription").val(bookmark.description);
+    $("#editBookmarkCollection").val(selectedCollection.text);
+
     $('#editModal').modal('show');
 }
 
@@ -130,6 +133,16 @@ function saveBookmark() {
     selectedCollection.bookmarks[bookmarkIndex].url = $("#editUrl").val();
     selectedCollection.bookmarks[bookmarkIndex].icon = $("#editIcon").val();
     selectedCollection.bookmarks[bookmarkIndex].description = $("#editDescription").val();
+
+    var moveToCollection = $('#tree').treeview('getNode', $("#editMoveToCollection").text());
+
+    if (selectedCollection !== moveToCollection) {
+        var bookmark = selectedCollection.bookmarks[bookmarkIndex];
+        selectedCollection.bookmarks.splice(bookmarkIndex, 1);
+        moveToCollection.bookmarks.push(bookmark);
+        moveToCollection.tags = [moveToCollection.bookmarks.length];
+        selectedCollection.tags = [selectedCollection.bookmarks.length];
+    }
 
     updateTree();
 }

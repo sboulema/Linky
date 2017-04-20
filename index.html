@@ -91,6 +91,7 @@
 
     </div>
 
+    <!--Add Bookmark/Collection Modal-->
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -157,6 +158,7 @@
     </div>
     </div>
 
+    <!--Edit Bookmark Modal-->
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -178,7 +180,7 @@
                 <input type="text" class="form-control" placeholder="Name" id="editName">
             </div>
 
-            <label for="addBookmarkDescription">Enter a description:</label>
+            <label for="editDescription">Enter a description:</label>
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Description" id="editDescription">
             </div>
@@ -193,7 +195,17 @@
                 <small>http://www.google.com/s2/favicons?domain_url={url}</small>
             </p>      
 
+            <label for="editBookmarkCollection">Move bookmark:</label>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Collection" id="editBookmarkCollection" readonly>
+                <span class="input-group-btn">
+                    <button class="btn btn-secondary" onclick="loadMoveBookmarkTree()" type="button" 
+                        data-toggle="popover" title="Move" data-content="<div id='moveBookmark'></div>">Move</button>
+                </span>
+            </div>
+
             <div id="editIndex" style="display: none;"></div>
+            <div id="editMoveToCollection" style="display: none;"></div>
         </div>
 
         <div class="modal-footer">
@@ -205,6 +217,7 @@
     </div>
     </div>
 
+    <!--Edit Collection Modal-->
     <div class="modal fade" id="editCollectionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -266,6 +279,7 @@
     </div>
     </div>
 
+    <!--Settings Modal-->
     <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -289,7 +303,7 @@
             </label>
             </div>
 
-            <a class="btn btn-primary" role="button" href="https://chrome.google.com/webstore/detail/linky-extension/pghdabpagojegpfplckdbnlalpgidikc">
+            <a target='_blank' class="btn btn-primary" role="button" href="https://chrome.google.com/webstore/detail/linky-extension/pghdabpagojegpfplckdbnlalpgidikc">
                 Install Chrome extension
             </a>
 
@@ -361,6 +375,10 @@
                 addBookmark();
                 $('#addModal').modal('hide');
             }
+        });
+
+        $('[data-toggle="popover"]').popover( {
+            html: true
         });
 
         $('#bookmarks').btsListFilter('#search');
