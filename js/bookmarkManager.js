@@ -136,7 +136,7 @@ function saveBookmark() {
 
     var moveToCollection = $('#tree').treeview('getNode', $("#editMoveToCollection").text());
 
-    if (selectedCollection !== moveToCollection) {
+    if (typeof moveToCollection.nodeId != 'undefined' && selectedCollection !== moveToCollection) {
         var bookmark = selectedCollection.bookmarks[bookmarkIndex];
         selectedCollection.bookmarks.splice(bookmarkIndex, 1);
         moveToCollection.bookmarks.push(bookmark);
