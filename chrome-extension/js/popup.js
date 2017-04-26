@@ -103,6 +103,10 @@ function addBookmark() {
     getCurrentTabUrl(function(url) {
       getTitle(url, function(title) {
         getDescription(url, function(desc) {
+          if (typeof selectedCollection.bookmarks == 'undefined') {
+            selectedCollection.bookmarks = [];
+          }
+
           selectedCollection.bookmarks.push({
             text: title,
             url: url,
