@@ -205,7 +205,7 @@ function showBookmarks(collection, showAsCards) {
 
             item += "<a target='_blank' href='" + bookmark.url + "' data-toggle='tooltip' data-placement='bottom' title='" + bookmark.text + "'>";
             if (typeof bookmark.icon != 'undefined' && bookmark.icon !== "" && !bookmark.icon.startsWith("fa")) {
-                item += "<center><img class='card-img-top' style='width: " + collection.bookmarkIconSize + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon' " + 
+                item += "<center><img class='card-img-top' style='width: " + (collection.bookmarkIconSize - 2) + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon' " + 
                 "src='" + (bookmark.icon.startsWith("http://logo.clearbit.com/") ? (bookmark.icon + "?size=" + collection.bookmarkIconSize) : bookmark.icon) + "' /></center>";
             } else {
                 item += "<span class='card-img-top' style='width: " + collection.bookmarkIconSize + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon fa fa-globe'></span>";
