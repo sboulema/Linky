@@ -33,6 +33,8 @@ function getIndexCard(node) {
 }
 
 function updateTree(element, replaceCollections) {
+    loadFromMyJson(function(data){parse(data)});
+
     if (replaceCollections) {
         saveToMyJson(element);
         parse(element);
