@@ -2,6 +2,8 @@ function addCollection() {
     var nodeId;
     var selectedCollection = $('#tree').treeview('getSelected', nodeId)[0];
 
+    syncTree();
+
     var newCollection = {
         text: $('#addCollectionName').val(),
         showBookmarkDescription: true,
@@ -28,6 +30,8 @@ function addCollection() {
 function addBookmark() {
     var nodeId;
     var selectedCollection = $('#tree').treeview('getSelected', nodeId)[0];
+
+    syncTree();
 
     if (typeof selectedCollection.bookmarks == 'undefined') {
         selectedCollection.bookmarks = [];
@@ -93,6 +97,8 @@ function editBookmark(node, isCard) {
     var bookmark;
     var bookmarkIndex;
 
+    syncTree();
+
     if (isCard) {
         bookmark = getSelectedBookmarkCard(node);
         bookmarkIndex = getIndexCard(node);
@@ -115,6 +121,8 @@ function editBookmark(node, isCard) {
 
 function editCollection() {
     var selectedCollection = getSelectedCollection();
+
+    syncTree();
 
     $("#editCollectionName").val(selectedCollection.text);
     $("#editCollectionIcon").val(selectedCollection.icon);

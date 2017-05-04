@@ -32,9 +32,11 @@ function getIndexCard(node) {
     return $($(node).closest('.card')[0]).index();
 }
 
-function updateTree(element, replaceCollections) {
+function syncTree() {
     loadFromMyJson(function(data){parse(data)});
+}
 
+function updateTree(element, replaceCollections) {
     if (replaceCollections) {
         saveToMyJson(element);
         parse(element);
