@@ -2,55 +2,55 @@ function addCollection() {
     var nodeId;
     var selectedCollection = $('#tree').treeview('getSelected', nodeId)[0];
 
-    syncTree();
+    syncTree(function() {
+        var newCollection = {
+            text: $('#addCollectionName').val(),
+            showBookmarkDescription: true,
+            showBookmarkIcon: true,
+            showBookmarksAsCards: false,
+            bookmarkIconSize: 16
+        };
 
-    var newCollection = {
-        text: $('#addCollectionName').val(),
-        showBookmarkDescription: true,
-        showBookmarkIcon: true,
-        showBookmarksAsCards: false,
-        bookmarkIconSize: 16
-    };
+        if (typeof selectedCollection == 'undefined' || selectedCollection.id === "tree") {
+            selectedCollection = newCollection;
+            updateTree(selectedCollection);
+        } else {
+            if (typeof selectedCollection.nodes == 'undefined') {
+                selectedCollection.nodes = [];
+            }
 
-    if (typeof selectedCollection == 'undefined' || selectedCollection.id === "tree") {
-        selectedCollection = newCollection;
-        updateTree(selectedCollection);
-    } else {
-        if (typeof selectedCollection.nodes == 'undefined') {
-            selectedCollection.nodes = [];
-        }
+            selectedCollection.nodes.push(newCollection);
+            updateTree();
+        }      
 
-        selectedCollection.nodes.push(newCollection);
-        updateTree();
-    }      
-
-    $('#addCollectionName').val("");
+        $('#addCollectionName').val("");
+    });
 }
 
 function addBookmark() {
-    var nodeId;
-    var selectedCollection = $('#tree').treeview('getSelected', nodeId)[0];
+    syncTree(function(){
+        var nodeId;
+        var selectedCollection = $('#tree').treeview('getSelected', nodeId)[0];
 
-    syncTree();
+        if (typeof selectedCollection.bookmarks == 'undefined') {
+            selectedCollection.bookmarks = [];
+        }
 
-    if (typeof selectedCollection.bookmarks == 'undefined') {
-        selectedCollection.bookmarks = [];
-    }
+        selectedCollection.bookmarks.push({
+            text: $('#addBookmarkName').val(),
+            url: $('#addBookmarkUrl').val(),
+            description: $('#addBookmarkDescription').val(),
+            icon: "http://logo.clearbit.com/" + (new URL($('#addBookmarkUrl').val())).hostname
+        });
 
-    selectedCollection.bookmarks.push({
-        text: $('#addBookmarkName').val(),
-        url: $('#addBookmarkUrl').val(),
-        description: $('#addBookmarkDescription').val(),
-        icon: "http://logo.clearbit.com/" + (new URL($('#addBookmarkUrl').val())).hostname
+        $('#addBookmarkName').val("");
+        $('#addBookmarkUrl').val("");
+        $('#addBookmarkDescription').val("");
+
+        selectedCollection.tags = [selectedCollection.bookmarks.length];
+
+        updateTree();
     });
-
-    $('#addBookmarkName').val("");
-    $('#addBookmarkUrl').val("");
-    $('#addBookmarkDescription').val("");
-
-    selectedCollection.tags = [selectedCollection.bookmarks.length];
-
-    updateTree();
 }
 
 function deleteBookmark() {
@@ -97,40 +97,40 @@ function editBookmark(node, isCard) {
     var bookmark;
     var bookmarkIndex;
 
-    syncTree();
+    syncTree(function() {
+        if (isCard) {
+            bookmark = getSelectedBookmarkCard(node);
+            bookmarkIndex = getIndexCard(node);
+        } else {
+            bookmark = getSelectedBookmark(node);
+            bookmarkIndex = getIndex(node);
+        }   
+        var selectedCollection = getSelectedCollection();
 
-    if (isCard) {
-        bookmark = getSelectedBookmarkCard(node);
-        bookmarkIndex = getIndexCard(node);
-    } else {
-        bookmark = getSelectedBookmark(node);
-        bookmarkIndex = getIndex(node);
-    }   
-    var selectedCollection = getSelectedCollection();
+        $("#editName").val(bookmark.text);
+        $("#editUrl").val(bookmark.url);
+        $("#editIcon").val(bookmark.icon);
+        $("#editIconAddon").attr("src", bookmark.icon);
+        $("#editIndex").text(bookmarkIndex);
+        $("#editDescription").val(bookmark.description);
+        $("#editBookmarkCollection").val(selectedCollection.text);
 
-    $("#editName").val(bookmark.text);
-    $("#editUrl").val(bookmark.url);
-    $("#editIcon").val(bookmark.icon);
-    $("#editIconAddon").attr("src", bookmark.icon);
-    $("#editIndex").text(bookmarkIndex);
-    $("#editDescription").val(bookmark.description);
-    $("#editBookmarkCollection").val(selectedCollection.text);
-
-    $('#editModal').modal('show');
+        $('#editModal').modal('show');
+    });
 }
 
 function editCollection() {
     var selectedCollection = getSelectedCollection();
 
-    syncTree();
-
-    $("#editCollectionName").val(selectedCollection.text);
-    $("#editCollectionIcon").val(selectedCollection.icon);
-    $("#showBookmarkIconCheckbox").prop('checked', selectedCollection.showBookmarkIcon);
-    $("#showBookmarkDescriptionCheckbox").prop('checked', selectedCollection.showBookmarkDescription);
-    $("#bookmarkIconSizeSlider").val(selectedCollection.bookmarkIconSize);
-    $("#showBookmarksAsCardsCheckbox").prop('checked', selectedCollection.showBookmarksAsCards);   
-    $('#editCollectionModal').modal('show');
+    syncTree(function() {
+        $("#editCollectionName").val(selectedCollection.text);
+        $("#editCollectionIcon").val(selectedCollection.icon);
+        $("#showBookmarkIconCheckbox").prop('checked', selectedCollection.showBookmarkIcon);
+        $("#showBookmarkDescriptionCheckbox").prop('checked', selectedCollection.showBookmarkDescription);
+        $("#bookmarkIconSizeSlider").val(selectedCollection.bookmarkIconSize);
+        $("#showBookmarksAsCardsCheckbox").prop('checked', selectedCollection.showBookmarksAsCards);   
+        $('#editCollectionModal').modal('show');
+    });
 }
 
 function saveBookmark() {
