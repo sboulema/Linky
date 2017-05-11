@@ -1,7 +1,4 @@
 function addCollection() {
-    var nodeId;
-    var selectedCollection = $('#tree').treeview('getSelected', nodeId)[0];
-
     syncTree(function() {
         var newCollection = {
             text: $('#addCollectionName').val(),
@@ -10,6 +7,8 @@ function addCollection() {
             showBookmarksAsCards: false,
             bookmarkIconSize: 16
         };
+
+        var selectedCollection = getSelectedCollection();
 
         if (typeof selectedCollection == 'undefined' || selectedCollection.id === "tree") {
             selectedCollection = newCollection;
@@ -29,8 +28,7 @@ function addCollection() {
 
 function addBookmark() {
     syncTree(function(){
-        var nodeId;
-        var selectedCollection = $('#tree').treeview('getSelected', nodeId)[0];
+        var selectedCollection = getSelectedCollection();
 
         if (typeof selectedCollection.bookmarks == 'undefined') {
             selectedCollection.bookmarks = [];
