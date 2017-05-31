@@ -79,3 +79,7 @@ button {
     position: absolute;
     left: 15px;
 }
+
+.mfb-component__button, .mfb-component__button--child, .mfb-component__button--main {
+    background-color: #5cb85c;
+}

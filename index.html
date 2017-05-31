@@ -14,6 +14,7 @@
 
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-treeview@1.2.0/dist/bootstrap-treeview.min.css">  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.3/css/bootstrap-slider.min.css">  
+    <link rel="stylesheet" href="https://unpkg.com/mfb@0.12.0/src/mfb.min.css">  
 
     <link rel="stylesheet" href="css/style.css"> 
   </head>
@@ -32,15 +33,10 @@
                     <div class="col"><h4>Linky</h4></div>
                     <div class="col col-md-auto">
                         <div class='btn-toolbar' role='toolbar'>
-                            <div class='btn-group mr-2' role='group'>
+                            <div class='btn-group' role='group'>
                                 <button type="button" class="btn btn-secondary btn-sm" id="settingsButton" onclick="loadSettings()" data-toggle="modal" data-target="#settingsModal">
                                     <span class="fa fa-cog" aria-hidden="true"></span>
                                 </button>   
-                            </div>
-                            <div class='btn-group' role='group'>
-                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addModal">
-                                    <span class="fa fa-plus" aria-hidden="true"></span>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -90,68 +86,88 @@
 
         </div>
 
+        <ul class="mfb-component--br mfb-zoomin" data-mfb-toggle="hover">
+        <li class="mfb-component__wrap">
+            <a data-mfb-label="Add" class="mfb-component__button--main">
+            <i class="mfb-component__main-icon--resting fa fa-plus"></i>
+            <i class="mfb-component__main-icon--active fa fa-times"></i>
+            </a>
+            <ul class="mfb-component__list">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#addBookmarkModal" data-mfb-label="Bookmark" class="mfb-component__button--child">
+                    <i class="mfb-component__child-icon fa fa-globe"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#addCollectionModal" data-mfb-label="Collection" class="mfb-component__button--child">
+                    <i class="mfb-component__child-icon fa fa-folder"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        </ul>
+
     </div>
 
-    <!--Add Bookmark/Collection Modal-->
-    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!--Add Bookmark Modal-->
+    <div class="modal fade" id="addBookmarkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Add bookmark</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
 
         <div class="modal-body">
-
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" role="tab" href="#bookmark">Bookmark</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" role="tab" href="#collection">Collection</a>
-                </li>
-            </ul>
-
-            <div class="tab-content">
-                <div class="tab-pane active" id="bookmark" role="tabpanel">
-                    <br/>
-
-                    <label for="addBookmarkUrl">Enter your url:</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Url" id="addBookmarkUrl" onfocusout="getTitle()">
-                    </div>
-
-                    <label for="addBookmarkName">Assign a name:</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Name" id="addBookmarkName">
-                    </div>
-
-                    <label for="addBookmarkDescription">Enter a description:</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Description" id="addBookmarkDescription">
-                    </div>
-
-                    <br/>
-                    <span id="spinner" class="fa fa-spinner fa-spin hide" style="display:none;"></span>
-                    <button id="addBookmarkButton" type="button" onclick="addBookmark()" data-dismiss="modal" class="btn btn-success pull-right">Add</button>
-                </div>
-                <div class="tab-pane" id="collection" role="tabpanel">
-                    <br/>
-
-                    <label for="addCollectionName">Assign a name:</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Name" id="addCollectionName">
-                    </div>
-
-                    <br/>
-                    <button id="addCollectionButton" type="button" onclick="addCollection()" data-dismiss="modal" class="btn btn-primary">Add</button>                 
-                </div>
+            <label for="addBookmarkUrl">Enter your url:</label>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Url" id="addBookmarkUrl" onfocusout="getTitle()">
             </div>
 
-            
+            <label for="addBookmarkName">Assign a name:</label>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Name" id="addBookmarkName">
+            </div>
+
+            <label for="addBookmarkDescription">Enter a description:</label>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Description" id="addBookmarkDescription">
+            </div>
+
+            <br/>
+            <span id="spinner" class="fa fa-spinner fa-spin hide" style="display:none;"></span>
+            <button id="addBookmarkButton" type="button" onclick="addBookmark()" data-dismiss="modal" class="btn btn-success pull-right">Add</button>
         </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
+    <!--Add Collection Modal-->
+    <div class="modal fade" id="addCollectionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add collection</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <label for="addCollectionName">Assign a name:</label>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Name" id="addCollectionName">
+            </div>
+
+            <br/>
+            <button id="addCollectionButton" type="button" onclick="addCollection()" data-dismiss="modal" class="btn btn-primary">Add</button>                 
+        </div>
+
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
@@ -342,6 +358,7 @@
     <script src="https://unpkg.com/bootstrap-treeview@1.2.0/dist/bootstrap-treeview.min.js"></script>
     <script src="https://unpkg.com/bootstrap-list-filter@0.3.2/bootstrap-list-filter.min.js"></script>   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.3/bootstrap-slider.min.js"></script>   
+    <script src="https://unpkg.com/mfb@0.12.0/src/mfb.min.js"></script>   
 
     <script src="js/myJson.js"></script>
     <script src="js/bookmarkManager.js"></script>
