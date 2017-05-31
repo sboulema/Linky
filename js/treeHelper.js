@@ -33,7 +33,13 @@ function getIndexCard(node) {
 }
 
 function syncTree(callback) {
-    loadFromMyJson(function(data){parse(data);callback();});
+    var selectedCollection = getSelectedCollection();
+
+    loadFromMyJson(function(data){
+        parse(data);
+        $('#tree').treeview('selectNode', selectedCollection.nodeId)
+        callback();
+    });
 }
 
 function updateTree(element, replaceCollections) {
