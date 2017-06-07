@@ -95,7 +95,7 @@ function editBookmark(node, isCard) {
     var bookmark;
     var bookmarkIndex;
 
-    syncTree(function() {
+    // syncTree(function() {
         if (isCard) {
             bookmark = getSelectedBookmarkCard(node);
             bookmarkIndex = getIndexCard(node);
@@ -114,7 +114,7 @@ function editBookmark(node, isCard) {
         $("#editBookmarkCollection").val(selectedCollection.text);
 
         $('#editModal').modal('show');
-    });
+    // });
 }
 
 function editCollection() {
