@@ -167,7 +167,7 @@ function parse(input) {
             var sortable = Sortable.create(el, {
                 onSort: function (evt) {
                     var collection = getSelectedCollection();
-                    collection.bookmarks.move(evt.oldIndex % parent.nodes.length, evt.newIndex % parent.nodes.length);
+                    collection.bookmarks.move(evt.oldIndex, evt.newIndex);
                     updateTree();
                 }
             });
@@ -179,7 +179,7 @@ function parse(input) {
             var sortable = Sortable.create(el, {
                 onSort: function (evt) {
                     var collection = getSelectedCollection();
-                    collection.bookmarks.move(evt.oldIndex % parent.nodes.length, evt.newIndex % parent.nodes.length);
+                    collection.bookmarks.move(evt.oldIndex, evt.newIndex);
                     updateTree();
                 }
             });
