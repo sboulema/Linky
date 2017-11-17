@@ -1,0 +1,28 @@
+{
+  "name": "linky",
+  "version": "1.0.0",
+  "description": "Online Bookmark Manager",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sboulema/Linky.git"
+  },
+  "author": "Samir L. Boulema",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sboulema/Linky/issues"
+  },
+  "homepage": "https://github.com/sboulema/Linky#readme",
+  "dependencies": {
+    "bootstrap-list-filter": "^0.3.2",
+    "bootstrap-slider": "^10.0.0",
+    "bootstrap-treeview": "^1.2.0",
+    "bower": "^1.8.2",
+    "gulp": "^3.9.1",
+    "mfb": "^0.12.0",
+    "sortablejs": "^1.7.0"
+  }
+}
