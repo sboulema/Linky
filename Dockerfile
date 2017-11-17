@@ -3,6 +3,7 @@ FROM monostream/nodejs-gulp-bower
 
 COPY . /workspace
 
+RUN echo '{ "allow_root": true }' > /root/.bowerrc
 RUN npm install
 RUN gulp build
 
