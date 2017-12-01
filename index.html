@@ -411,8 +411,9 @@
         }
 
         function exportCollection() {
-            var html = collectionToBookmarkHtml(getSelectedCollection());
-            downloadURI('data:text/html;charset=utf-8,' + encodeURIComponent(html), "linky-bookmarks.html");
+            var collection = getSelectedCollection();
+            var html = collectionToBookmarkHtml(collection);
+            downloadURI('data:text/html;charset=utf-8,' + encodeURIComponent(html), "linky-bookmarks-" + collection.text + ".html");
         }
 
         function saveSettings() {

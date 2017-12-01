@@ -202,7 +202,7 @@ function parse(input) {
 
                         updateTree(collections, true);
                     } else {
-                        parent.nodes.move(evt.oldIndex % parent.nodes.length, evt.newIndex % parent.nodes.length);
+                        parent.nodes.move(evt.oldIndex - 1, evt.newIndex - 1);
                         updateTree();
                     }
                 }
