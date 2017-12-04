@@ -39,7 +39,7 @@ function transformCollection(collection) {
     });
 
     $.each(collection.nodes, function (index, node) {
-        transformCollection(html, node);
+        html += transformCollection(node);
     });
 
     html += "</DL><p>";
