@@ -13,6 +13,10 @@ gulp.task('scripts', function () {
   gulp.src('node_modules/mfb/src/*.css').pipe(gulp.dest('dist/css'));
 
   gulp.src('node_modules/sortablejs/*.js').pipe(gulp.dest('dist/js'));
+
+  gulp.src('node_modules/clipboard/dist/*.js').pipe(gulp.dest('dist/js'));
+
+  gulp.src('node_modules/bootstrap-notify/*.js').pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('copy', function () {

@@ -254,6 +254,8 @@ function showBookmarks(collection, showAsCards) {
             item += "<div class='col-md-auto' style='margin-right: 15px;'>";
             item += "<button type='button' style='padding-right: 5px;' class='btn btn-outline-secondary btn-sm' onclick='editBookmark(this)'>" + 
                 "<span class='fa fa-pencil' aria-hidden='true'></span></button>";
+            item += "<button type='button' style='padding-right: 5px;' class='btn btn-outline-secondary btn-sm btn-clipboard' data-clipboard-text='" + 
+                bookmark.url +  "'>" + "<span class='fa fa-copy' aria-hidden='true'></span></button>";
             item += "</div>";
 
             item += "</div>";

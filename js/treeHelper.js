@@ -161,6 +161,20 @@ function parse(input) {
             $("#collectionIcon").addClass("fa fa-ellipsis-h");
         }
 
+        // Enable Copy Url buttons
+        var clipboard = new Clipboard('.btn-clipboard');
+        clipboard.on('success', function(e) {          
+            $.notify(
+                {
+                    message: "Bookmark URL copied to clipboard"
+                }
+                ,{
+                    type: 'success',
+                    delay: 1000
+                }
+            );
+        });
+
         // Make the bookmarks sortable
         var el = document.getElementById('bookmarks');
         if (el.children.length > 0) {
