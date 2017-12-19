@@ -126,7 +126,8 @@ function editCollection() {
         $("#showBookmarkIconCheckbox").prop('checked', selectedCollection.showBookmarkIcon);
         $("#showBookmarkDescriptionCheckbox").prop('checked', selectedCollection.showBookmarkDescription);
         $("#bookmarkIconSizeSlider").val(selectedCollection.bookmarkIconSize);
-        $("#showBookmarksAsCardsCheckbox").prop('checked', selectedCollection.showBookmarksAsCards);   
+        $("#showBookmarksAsCardsCheckbox").prop('checked', selectedCollection.showBookmarksAsCards); 
+        $("#editCollectionIconAddon").html("<i class='" + selectedCollection.icon + "'></i>");  
         $('#editCollectionModal').modal('show');
     });
 }
@@ -186,8 +187,7 @@ search = function(hay, needle, accumulator) {
 function showAllBookmarks() {
     $("#collectionName").attr("placeholder", "All bookmarks");
 
-    $("#collectionIcon").removeClass();
-    $("#collectionIcon").addClass("fa fa-heart");
+    $("#collectionIcon").html("<i class='fas fa-heart'></i>");
 
     $("#accordion").empty();
     $('#bookmarks').empty();
@@ -214,12 +214,12 @@ function showBookmarks(collection, showAsCards) {
                 item += "<center><img class='card-img-top' style='width: " + (collection.bookmarkIconSize - 2) + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon' " + 
                 "src='" + (bookmark.icon.startsWith("http://logo.clearbit.com/") ? (bookmark.icon + "?size=" + collection.bookmarkIconSize) : bookmark.icon) + "' /></center>";
             } else {
-                item += "<span class='card-img-top' style='width: " + collection.bookmarkIconSize + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon fa fa-globe'></span>";
+                item += "<span class='card-img-top' style='width: " + collection.bookmarkIconSize + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon fas fa-globe'></span>";
             }
             item += "</a>";
 
             item += "<button type='button' class='btn btn-primary btn-sm cardEditButton' onclick='editBookmark(this, true)'>" + 
-                "<span class='fa fa-pencil' aria-hidden='true'></span></button>";
+                "<span class='fas fa-pencil' aria-hidden='true'></span></button>";
 
             item += "</div>";
 
@@ -240,7 +240,7 @@ function showBookmarks(collection, showAsCards) {
                     "src='" + (bookmark.icon.startsWith("http://logo.clearbit.com/") ? (bookmark.icon + "?size=" + collection.bookmarkIconSize) : bookmark.icon) + "' />";
                     item += "<a target='_blank' href='" + bookmark.url + "'>" + bookmark.text + "</a>";
                 } else {
-                    item += "<span style='font-size: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon fa fa-globe'></span>";
+                    item += "<span style='font-size: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon fas fa-globe'></span>";
                     item += "<a style='vertical-align: -webkit-baseline-middle; height: 100%; display: inline-block;' target='_blank' href='" + bookmark.url + "'>" + bookmark.text + "</a>";
                 }
             }          
@@ -253,9 +253,9 @@ function showBookmarks(collection, showAsCards) {
             
             item += "<div class='col-md-auto' style='margin-right: 15px;'>";
             item += "<button type='button' style='padding-right: 5px;' class='btn btn-outline-secondary btn-sm' onclick='editBookmark(this)'>" + 
-                "<span class='fa fa-pencil' aria-hidden='true'></span></button>";
+                "<span class='fas fa-pencil' aria-hidden='true'></span></button>";
             item += "<button type='button' style='padding-right: 5px;' class='btn btn-outline-secondary btn-sm btn-clipboard' data-clipboard-text='" + 
-                bookmark.url +  "'>" + "<span class='fa fa-copy' aria-hidden='true'></span></button>";
+                bookmark.url +  "'>" + "<span class='fas fa-copy' aria-hidden='true'></span></button>";
             item += "</div>";
 
             item += "</div>";

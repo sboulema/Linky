@@ -11,7 +11,9 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+
+    <link rel="stylesheet" href="css/fa-svg-with-js.css"> 
 
     <link rel="stylesheet" href="css/bootstrap-treeview.min.css">  
     <link rel="stylesheet" href="css/bootstrap-slider.min.css">  
@@ -30,13 +32,13 @@
 
                 <!--Title Bar-->
                 <div class="row">
-                    <div class="col col-md-auto" style="padding-right:0;"><a href="index.html"><span class="fa fa-heart text-danger"></span></a></div>
+                    <div class="col col-md-auto" style="padding-right:0;"><a href="index.html"><i class="fas fa-heart text-danger"></i></a></div>
                     <div class="col"><h4>Linky</h4></div>
                     <div class="col col-md-auto">
                         <div class='btn-toolbar' role='toolbar'>
                             <div class='btn-group' role='group'>
                                 <button type="button" class="btn btn-secondary btn-sm" id="settingsButton" onclick="loadSettings()" data-toggle="modal" data-target="#settingsModal">
-                                    <span class="fa fa-cog" aria-hidden="true"></span>
+                                    <span class="fas fa-cog" aria-hidden="true"></span>
                                 </button>   
                             </div>
                         </div>
@@ -44,7 +46,7 @@
                 </div>
 
                 <button type="button" class="btn btn-sm btn-outline-secondary btn-block text-left" onclick="showAllBookmarks()">
-                    <span class="fa fa-heart" aria-hidden="true"></span> All bookmarks
+                    <span class="fas fa-heart" aria-hidden="true"></span> All bookmarks
                 </button>
 
                 <br/>
@@ -58,7 +60,7 @@
                     <div class="col col-md-auto">
                         <div class="dropdown">                
                             <a class="btn btn-outline-secondary btn-sm dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class='fa fa-ellipsis-h' id="collectionIcon"></span>
+                                <span id="collectionIcon"><i class="fas fa-ellipsis-h"></i></span>
                             </a>                
                             <div class='dropdown-menu' aria-labelledby="dropdownMenuLink">
                                 <a class="dropdown-item" href="#" onclick='editCollection()'>Edit</a>
@@ -70,7 +72,7 @@
                     </div>
                     <!--Search Bar-->
                     <div class="input-group input-group-sm col">
-                        <span class="input-group-addon fa fa-search" id="basic-addon1"></span>
+                        <span class="input-group-addon" id="basic-addon1"><i class="fas fa-search"></i></span>
                         <input id="search" type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1">
                     </div>
                 </div>
@@ -90,18 +92,22 @@
         <ul class="mfb-component--br mfb-zoomin" data-mfb-toggle="hover">
         <li class="mfb-component__wrap">
             <a data-mfb-label="Add" class="mfb-component__button--main">
-            <i class="mfb-component__main-icon--resting fa fa-plus"></i>
-            <i class="mfb-component__main-icon--active fa fa-times"></i>
+            <i class="mfb-component__main-icon--resting"><i class="fas fa-plus"></i></i>
+            <i class="mfb-component__main-icon--active"><i class="fas fa-times"></i></i>
             </a>
             <ul class="mfb-component__list">
                 <li>
                     <a href="#" data-toggle="modal" data-target="#addBookmarkModal" data-mfb-label="Bookmark" class="mfb-component__button--child">
-                    <i class="mfb-component__child-icon fa fa-globe"></i>
+                    <i class="mfb-component__child-icon">
+                        <i class="fas fa-globe"></i>
+                    </i>
                     </a>
                 </li>
                 <li>
                     <a href="#" data-toggle="modal" data-target="#addCollectionModal" data-mfb-label="Collection" class="mfb-component__button--child">
-                    <i class="mfb-component__child-icon fa fa-folder"></i>
+                    <i class="mfb-component__child-icon">
+                        <i class="fas fa-folder"></i>
+                    </i>
                     </a>
                 </li>
             </ul>
@@ -138,7 +144,7 @@
             </div>
 
             <br/>
-            <span id="spinner" class="fa fa-spinner fa-spin hide" style="display:none;"></span>
+            <span id="spinner" class="fas fa-spinner fa-spin hide" style="display:none;"></span>
             <button id="addBookmarkButton" type="button" onclick="addBookmark()" data-dismiss="modal" class="btn btn-success pull-right">Add</button>
         </div>
         <div class="modal-footer">
@@ -254,18 +260,18 @@
 
             <label for="editIcon">Assign an icon:</label>
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="fa fa-heart" id="editCollectionIcon">
-                <span class="input-group-addon"><i id="editCollectionIconAddon"></i></span>
+                <input type="text" class="form-control" placeholder="fas fa-heart" id="editCollectionIcon">
+                <span class="input-group-addon" id="editCollectionIconAddon"></span>
             </div>
 
             <label for="editName">Bookmark icon size:</label>
             <form class="form-inline">         
-            <i class="fa fa-picture-o"></i>
+            <i class="fas fa-image"></i>
             <div class="input-group" style="margin-left:15px;margin-right:15px;">
                 <input id="bookmarkIconSizeSlider" type="text" data-provide="slider" 
                     data-slider-min="16" data-slider-max="128" data-slider-step="1" data-slider-value="16">
             </div>
-            <i class="fa fa-picture-o fa-lg"></i>
+            <i class="fas fa-image fa-lg"></i>
             </form>
 
             <div class="form-check">
@@ -358,6 +364,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
+    <script defer src="js/fontawesome-all.min.js"></script>
+
     <script src="js/Sortable.min.js"></script>
     <script src="js/bootstrap-treeview.min.js"></script>
     <script src="js/bootstrap-list-filter.min.js"></script>   
@@ -379,8 +387,7 @@
         })
 
         $("#editCollectionIcon").change(function() {
-            $("#editCollectionIconAddon").removeClass();    
-            $("#editCollectionIconAddon").addClass($("#editCollectionIcon").val());
+            $("#editCollectionIconAddon").html("<i class='" + $("#editCollectionIcon").val() + "'></i>");
         });
 
         $("#editIcon").change(function() {

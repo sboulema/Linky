@@ -89,9 +89,9 @@ function loadMoveBookmarkTree() {
   loadFromMyJson(function(data) {
     $('#moveBookmark').treeview({
         data: data,
-        collapseIcon: "fa fa-folder-open-o",
-        expandIcon: "fa fa-folder-o",
-        emptyIcon: "fa fa-folder-o"
+        collapseIcon: "fal fa-folder-open",
+        expandIcon: "fal fa-folder",
+        emptyIcon: "fal fa-folder"
     });
     $('#moveBookmark').treeview('collapseAll', { silent: true });
     $('#moveBookmark').on('nodeSelected', function(event, data) {
@@ -104,10 +104,10 @@ function loadMoveBookmarkTree() {
 function parse(input) {
     $('#tree').treeview({
         data: input,
-        collapseIcon: "fa fa-folder-open-o",
-        expandIcon: "fa fa-folder-o",
+        collapseIcon: "fal fa-folder-open",
+        expandIcon: "fal fa-folder",
         backColor: "rgb(246, 246, 246)",
-        emptyIcon: "fa fa-folder-o",
+        emptyIcon: "fal fa-folder",
         showTags: localStorage.getItem("showBookmarkCount") == "true"
     });
 
@@ -154,11 +154,9 @@ function parse(input) {
         $("#search").attr("placeholder", data.text);
 
         if (typeof data.icon != 'undefined') {
-            $("#collectionIcon").removeClass();
-            $("#collectionIcon").addClass(data.icon);
+            $("#collectionIcon").html("<i class='" + data.icon + "'></i>");
         } else {
-            $("#collectionIcon").removeClass();
-            $("#collectionIcon").addClass("fa fa-ellipsis-h");
+            $("#collectionIcon").html("<i class='fas fa-ellipsis-h'></i>");
         }
 
         // Enable Copy Url buttons
