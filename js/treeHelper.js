@@ -35,7 +35,7 @@ function getIndexCard(node) {
 function syncTree(callback) {
     var selectedCollection = getSelectedCollection();
 
-    loadFromMyJson(function(data){
+    loadFromFirebase(function(data){
         parse(data);
         $('#tree').treeview('selectNode', selectedCollection.nodeId)
         callback();
@@ -44,7 +44,7 @@ function syncTree(callback) {
 
 function updateTree(element, replaceCollections) {
     if (replaceCollections) {
-        saveToMyJson(element);
+        saveToFirebase(element);
         parse(element);
     } else {
         var nodes = [];        
@@ -58,7 +58,7 @@ function updateTree(element, replaceCollections) {
             nodes.push(element);
         }   
 
-        saveToMyJson(nodes);
+        saveToFirebase(nodes);
 
         parse(nodes);
     }
@@ -86,7 +86,7 @@ Array.prototype.move = function (old_index, new_index) {
 };
 
 function loadMoveBookmarkTree() {
-  loadFromMyJson(function(data) {
+    loadFromFirebase(function(data) {
     $('#moveBookmark').treeview({
         data: data,
         collapseIcon: "fal fa-folder-open",
@@ -102,6 +102,18 @@ function loadMoveBookmarkTree() {
 }
 
 function parse(input) {
+    // var db = firebase.firestore();
+
+    // db.collection("bookmarks").add({
+    //     bookmarks: input
+    // })
+    // .then(function(docRef) {
+    //     console.log("Document written with ID: ", docRef.id);
+    // })
+    // .catch(function(error) {
+    //     console.error("Error adding document: ", error);
+    // });
+
     $('#tree').treeview({
         data: input,
         collapseIcon: "fal fa-folder-open",

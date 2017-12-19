@@ -11,13 +11,12 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
-    <!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-
     <link rel="stylesheet" href="css/fa-svg-with-js.css"> 
 
     <link rel="stylesheet" href="css/bootstrap-treeview.min.css">  
     <link rel="stylesheet" href="css/bootstrap-slider.min.css">  
     <link rel="stylesheet" href="css/mfb.min.css">  
+    <link rel="stylesheet" href="css/fileinput.min.css">  
 
     <link rel="stylesheet" href="css/style.css"> 
   </head>
@@ -336,17 +335,28 @@
 
             <br/><br/>
 
-            <button type="button" class="btn btn-danger pull-right" onclick="deleteAllData();">Delete ALL</button>
-
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Export
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" onclick="exportData('linky-bookmarks.json');">Export as JSON</a>
-                    <a class="dropdown-item" href="#" onclick="exportHTML('linky-bookmarks.html');">Export as HTML</a>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-1">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Export
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#" onclick="exportData('linky-bookmarks.json');">Export as JSON</a>
+                                <a class="dropdown-item" href="#" onclick="exportHTML('linky-bookmarks.html');">Export as HTML</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <input id="btn-import" name="btn-import[]" type="file">
+                    </div>
                 </div>
             </div>
+
+            <br/><br/>
+
+            <button type="button" class="btn btn-danger pull-right" onclick="deleteAllData();">Delete ALL</button>
         </div>
 
         <div class="modal-footer">
@@ -373,14 +383,37 @@
     <script src="js/mfb.min.js"></script>
     <script src="js/clipboard.min.js"></script> 
     <script src="js/bootstrap-notify.min.js"></script> 
+    <script src="js/fileinput.min.js"></script> 
 
-    <script src="js/myJson.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-firestore.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+          apiKey: "AIzaSyD_5zP59NL_S0PBuNNjfpex-m_4e3q9zNE",
+          authDomain: "linky-5cb10.firebaseapp.com",
+          databaseURL: "https://linky-5cb10.firebaseio.com",
+          projectId: "linky-5cb10",
+          storageBucket: "linky-5cb10.appspot.com",
+          messagingSenderId: "892580651576"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <script src="js/firebaseHelper.js"></script>
     <script src="js/bookmarkManager.js"></script>
     <script src="js/treeHelper.js"></script>
     <script src="js/bookmarkHTML.js"></script>
 
     <script>
-        loadFromMyJson(function(data){parse(data)});
+        loadFromFirebase(function(data){parse(data)});
+
+        $("#btn-import").fileinput({showCaption: false, 
+            allowedFileExtensions: ["json"],
+            browseLabel: "Import",
+            browseIcon: "<i class='fas fa-folder-open'></i>&nbsp;"
+        });
 
         $('#addModal').on('shown.bs.modal', function () {
             $('#addCollectionName').focus();
@@ -426,7 +459,7 @@
         }
 
         function saveSettings() {
-            setMyJsonCode($("#settingsSyncCode").val());
+            setFirebaseCode($("#settingsSyncCode").val());
             localStorage.setItem("showBookmarkCount", $("#showBookmarkCountCheckbox").is(':checked'));
         }
 
@@ -460,7 +493,7 @@
         }
 
         function loadSettings() {
-            $('#settingsSyncCode').val(getMyJsonCode());
+            $('#settingsSyncCode').val(getFirebaseCode());
             $('#showBookmarkCountCheckbox').prop('checked', localStorage.getItem("showBookmarkCount") == "true");
         }
     </script>
