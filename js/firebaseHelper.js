@@ -3,6 +3,13 @@ var db = firebase.firestore();
 function saveToFirebase(element) {
     var firebaseCode = localStorage.getItem("firebaseCode");
 
+    // undefined is not a valid value to save in FireStore
+    $.each(element, function (index, collection) {
+        if (collection.parentId === undefined) {
+            collection.parentId = -1;
+        }
+    });
+
     if (firebaseCode === null || firebaseCode === "") {   
         db.collection("bookmarks").add({
             bookmarks: element
@@ -69,4 +76,10 @@ function importData(event) {
     } else {
         alert("Failed to load file");
     }
+}
+
+function exportJson(filename) {
+    loadFromFirebase(function(data) {
+        downloadURI('data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(data)), filename);
+    });
 }

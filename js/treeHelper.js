@@ -102,18 +102,6 @@ function loadMoveBookmarkTree() {
 }
 
 function parse(input) {
-    // var db = firebase.firestore();
-
-    // db.collection("bookmarks").add({
-    //     bookmarks: input
-    // })
-    // .then(function(docRef) {
-    //     console.log("Document written with ID: ", docRef.id);
-    // })
-    // .catch(function(error) {
-    //     console.error("Error adding document: ", error);
-    // });
-
     $('#tree').treeview({
         data: input,
         collapseIcon: "fal fa-folder-open",
