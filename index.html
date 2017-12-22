@@ -25,7 +25,7 @@
 
     <div class="container-fluid" style="height:100%;">
 
-        <div class="row" style="height:100%; background-color: rgb(246, 246, 246)">
+        <div id="row-main" class="row" style="height:100%; background-color: rgb(246, 246, 246)">
 
             <div id="collectionColumn" class="col col-md-2" style="padding-top:5px;">
 
@@ -55,21 +55,30 @@
             </div>
 
             <div id="bookmarkColumn" class="col col-md-10" style="background-color: white; padding-top:5px;">
+                <!--Search Bar-->
                 <div class="row">
                     <div class="col col-md-auto">
-                        <div class="dropdown">                
-                            <a class="btn btn-outline-secondary btn-sm dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span id="collectionIcon"><i class="fas fa-ellipsis-h"></i></span>
-                            </a>                
-                            <div class='dropdown-menu' aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#" onclick='editCollection()'>Edit</a>
-                                <a class="dropdown-item" href="#" onclick='exportCollection()'>Export</a>
-                                <div class="dropdown-divider"></div>
-                                <a class='dropdown-item text-danger' href="#" onclick='deleteCollection()'>Delete</a>                  
+                        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                            <div class="btn-group mr-2" role="group">
+                                <a href="#" id="collapseButton" onclick="collapseCollectionColumn()" class="btn btn-outline-secondary btn-sm">
+                                    <i class="fas fa-sign-in" data-fa-transform="flip-h"></i>
+                                </a>
+                            </div>
+                            <div class="btn-group" role="group">
+                                <div class="dropdown">                
+                                    <a class="btn btn-outline-secondary btn-sm dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span id="collectionIcon"><i class="fas fa-ellipsis-h"></i></span>
+                                    </a>                
+                                    <div class='dropdown-menu' aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" href="#" onclick='editCollection()'>Edit</a>
+                                        <a class="dropdown-item" href="#" onclick='exportCollection()'>Export</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class='dropdown-item text-danger' href="#" onclick='deleteCollection()'>Delete</a>                  
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <!--Search Bar-->
                     <div class="input-group input-group-sm col">
                         <span class="input-group-addon" id="basic-addon1"><i class="fas fa-search"></i></span>
                         <input id="search" type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1">
@@ -252,15 +261,20 @@
         </div>
 
         <div class="modal-body">
-            <label for="editName">Assign a name:</label>
+            <label for="editCollectionName">Assign a name:</label>
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Name" id="editCollectionName">
             </div>
 
-            <label for="editIcon">Assign an icon:</label>
+            <label for="editCollectionIcon">Assign an icon:</label>
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="fas fa-heart" id="editCollectionIcon">
                 <span class="input-group-addon" id="editCollectionIconAddon"></span>
+            </div>
+
+            <label for="editCollectionBackground">Assign a background:</label>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Background" id="editCollectionBackground">
             </div>
 
             <label for="editName">Bookmark icon size:</label>
@@ -495,6 +509,17 @@
         function loadSettings() {
             $('#settingsSyncCode').val(getFirebaseCode());
             $('#showBookmarkCountCheckbox').prop('checked', localStorage.getItem("showBookmarkCount") == "true");
+        }
+
+        function collapseCollectionColumn() {
+            $("#collectionColumn").toggleClass("collapsed");
+            $("#bookmarkColumn").toggleClass("col-md-12 col-md-10");
+
+            if ($("#collectionColumn").hasClass("collapsed")) {
+                $("#collapseButton").html("<i class='fas fa-sign-out'></i>");
+            } else {
+                $("#collapseButton").html("<i class='fas fa-sign-in' data-fa-transform='flip-h'></i>");
+            }                   
         }
     </script>
 

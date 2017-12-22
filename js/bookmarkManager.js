@@ -123,6 +123,7 @@ function editCollection() {
     syncTree(function() {
         $("#editCollectionName").val(selectedCollection.text);
         $("#editCollectionIcon").val(selectedCollection.icon);
+        $("#editCollectionBackground").val(selectedCollection.background);
         $("#showBookmarkIconCheckbox").prop('checked', selectedCollection.showBookmarkIcon);
         $("#showBookmarkDescriptionCheckbox").prop('checked', selectedCollection.showBookmarkDescription);
         $("#bookmarkIconSizeSlider").val(selectedCollection.bookmarkIconSize);
@@ -158,6 +159,7 @@ function saveCollection() {
     var selectedCollection = getSelectedCollection();
     selectedCollection.text = $("#editCollectionName").val();
     selectedCollection.icon = $("#editCollectionIcon").val();
+    selectedCollection.background = $("#editCollectionBackground").val();
     selectedCollection.showBookmarkIcon = $("#showBookmarkIconCheckbox").is(':checked');
     selectedCollection.showBookmarkDescription = $("#showBookmarkDescriptionCheckbox").is(':checked');
     selectedCollection.bookmarkIconSize = $("#bookmarkIconSizeSlider").val();
@@ -266,4 +268,28 @@ function showBookmarks(collection, showAsCards) {
     }
 
     return bookmarksHtml;
+}
+
+function getCollectionBackground(collection) {
+    if (typeof collection !== 'undefined' &&
+        typeof collection.background !== 'undefined' && 
+        collection.background !== "inherit") {
+        return collection.background;
+    }
+
+    if (collection.id === "tree") {
+        return "";
+    }
+
+    return getCollectionBackground(getParent(collection));
+}
+
+function getParent(collection) {
+    var parent = $('#tree').treeview('getNode', collection.parentId);
+
+    if (parent.length === 1) {
+        return parent[0];
+    }
+
+    return parent;
 }

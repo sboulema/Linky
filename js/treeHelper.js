@@ -124,6 +124,7 @@ function parse(input) {
         } else {
             if (typeof data.bookmarks != 'undefined' && data.bookmarks.length > 0) {          
                 $("#bookmarks").append(showBookmarks(data));
+                $("#bookmarkColumn").css("background-image", "linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)), url(" + getCollectionBackground(data) + ")")
             }
         }
 
@@ -153,7 +154,8 @@ function parse(input) {
         
         $("#search").attr("placeholder", data.text);
 
-        if (typeof data.icon != 'undefined') {
+        // Set the collection icon in the search bar
+        if (typeof data.icon != 'undefined' && data.icon != "") {
             $("#collectionIcon").html("<i class='" + data.icon + "'></i>");
         } else {
             $("#collectionIcon").html("<i class='fas fa-ellipsis-h'></i>");

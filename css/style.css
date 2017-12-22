@@ -42,6 +42,10 @@ button {
     border-right: 1px solid rgb(222,222,222);
 }
 
+#bookmarks li.list-group-item {
+    background: rgba(255, 255, 255, .8);
+}
+
 .badge {
     display: flex;
     margin-left: auto;
@@ -52,6 +56,11 @@ button {
 #bookmarkColumn, #collectionColumn {
     height: 100%;
     overflow-y: auto;
+}
+
+#bookmarkColumn {
+    background-size: cover !important;
+    background-position: top;
 }
 
 #bookmarksCards div.card {
@@ -82,4 +91,30 @@ button {
 
 .mfb-component__button, .mfb-component__button--child, .mfb-component__button--main {
     background-color: #5cb85c;
+}
+
+/* Collapse styles */
+.collapsed {
+    display: none; /* hide it for small displays */
+}
+@media (min-width: 992px) {
+    .collapsed {
+        display: block;
+        margin-left: -16.7%; /* same width as sidebar */
+    }
+}
+#row-main {
+    overflow-x: hidden; /* necessary to hide collapsed sidebar */
+}
+#bookmarkColumn {
+    -webkit-transition: width 0.3s ease;
+    -moz-transition: width 0.3s ease;
+    -o-transition: width 0.3s ease;
+    transition: width 0.3s ease;
+}
+#collectionColumn {
+    -webkit-transition: margin 0.3s ease;
+    -moz-transition: margin 0.3s ease;
+    -o-transition: margin 0.3s ease;
+    transition: margin 0.3s ease;
 }
