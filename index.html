@@ -363,7 +363,7 @@
                         </div>
                     </div>
                     <div class="col-sm-1">
-                        <input id="btn-import" name="btn-import[]" type="file">
+                        <input id="btn-import" name="btn-import[]" type="file" accept=".html,.json" onchange="importData(this)">
                     </div>
                 </div>
             </div>
@@ -424,7 +424,10 @@
         loadFromFirebase(function(data){parse(data)});
 
         $("#btn-import").fileinput({showCaption: false, 
-            allowedFileExtensions: ["json"],
+            allowedFileExtensions: ["json","html"],
+            showPreview: false,
+            showRemove: false,
+            showUpload: false,
             browseLabel: "Import",
             browseIcon: "<i class='fas fa-folder-open'></i>&nbsp;"
         });

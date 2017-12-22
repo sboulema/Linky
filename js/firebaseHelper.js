@@ -64,13 +64,18 @@ function setFirebaseCode(code) {
 }
 
 function importData(event) { 
-    var file = event.target.files[0];
+    var file = event.files[0];
 
     if (file) {
         var r = new FileReader();
         r.onload = function (e) {
             var contents = e.target.result;
-            saveToFirebase(contents);      
+
+            if (file.name.endsWith("html")) {
+                contents = importHTML(contents);
+            }
+
+            saveToFirebase(contents);            
         }
         r.readAsText(file);
     } else {
@@ -82,4 +87,11 @@ function exportJson(filename) {
     loadFromFirebase(function(data) {
         downloadURI('data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(data)), filename);
     });
+}
+
+function downloadURI(uri, name) {
+    var link = document.createElement("a");
+    link.download = name;
+    link.href = uri;
+    link.click();
 }
