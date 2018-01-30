@@ -85,7 +85,8 @@ function importData(event) {
 
 function exportJson(filename) {
     loadFromFirebase(function(data) {
-        downloadURI('data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(data)), filename);
+        var file = new File([JSON.stringify(data)], filename, {type: "application/json;charset=utf-8"});
+        saveAs(file);
     });
 }
 

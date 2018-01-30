@@ -17,6 +17,8 @@ gulp.task('scripts', function () {
   gulp.src('node_modules/clipboard/dist/*.js').pipe(gulp.dest('dist/js'));
 
   gulp.src('node_modules/bootstrap-notify/*.js').pipe(gulp.dest('dist/js'));
+
+  gulp.src('node_modules/file-saver/*.js').pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('copy', function () {
