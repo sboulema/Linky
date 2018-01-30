@@ -129,7 +129,11 @@ function editCollection() {
         $("#bookmarkIconSizeSlider").val(selectedCollection.bookmarkIconSize);
         $("#showBookmarksAsCardsCheckbox").prop('checked', selectedCollection.showBookmarksAsCards); 
         $("#editCollectionIconAddon").html("<i class='" + selectedCollection.icon + "'></i>");  
-        $('#editCollectionModal').modal('show');
+
+        $("#editIndex").text(getIndex(selectedCollection));
+        $("#editCollectionParent").val(getParent(selectedCollection).text);
+
+        $('#editCollectionModal').modal('show');    
     });
 }
 
@@ -157,6 +161,7 @@ function saveBookmark() {
 
 function saveCollection() {
     var selectedCollection = getSelectedCollection();
+
     selectedCollection.text = $("#editCollectionName").val();
     selectedCollection.icon = $("#editCollectionIcon").val();
     selectedCollection.background = $("#editCollectionBackground").val();
@@ -164,6 +169,22 @@ function saveCollection() {
     selectedCollection.showBookmarkDescription = $("#showBookmarkDescriptionCheckbox").is(':checked');
     selectedCollection.bookmarkIconSize = $("#bookmarkIconSizeSlider").val();
     selectedCollection.showBookmarksAsCards = $("#showBookmarksAsCardsCheckbox").is(':checked');  
+
+    // Check if we need to move the collection to a new parent
+    var moveToCollection = $('#tree').treeview('getNode', $("#editMoveToCollection").text());
+    var parentCollection = $('#tree').treeview('getParent', selectedCollection)[0];
+
+    if (typeof moveToCollection.nodeId != 'undefined' && moveToCollection !== parentCollection) {
+        var copyCollection = $.extend(true, {}, selectedCollection);
+
+        if (typeof moveToCollection.nodes == 'undefined') {
+            moveToCollection.nodes = [];
+        }
+
+        moveToCollection.nodes.push(copyCollection);
+
+        deleteCollection();
+    }
 
     updateTree();
 }

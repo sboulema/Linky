@@ -305,7 +305,17 @@
                 </label>
             </div>
 
+            <label for="editCollectionParent">Move collection:</label>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Collection" id="editCollectionParent" readonly>
+                <span class="input-group-btn">
+                    <button class="btn btn-secondary" onclick="loadMoveBookmarkTree()" type="button" 
+                        data-toggle="popover" title="Move" data-content="<div id='moveBookmark'></div>">Move</button>
+                </span>
+            </div>
+
             <div id="editIndex" style="display: none;"></div>
+            <div id="editMoveToCollection" style="display: none;"></div>
         </div>
 
         <div class="modal-footer">
