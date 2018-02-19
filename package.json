@@ -25,6 +25,7 @@
     "clipboard": "^1.7.1",
     "file-saver": "^1.3.3",
     "gulp": "^3.9.1",
+    "keymaster": "^1.6.2",
     "mfb": "^0.12.0",
     "sortablejs": "^1.7.0"
   }

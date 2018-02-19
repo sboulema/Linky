@@ -80,7 +80,9 @@
                         </div>
                     </div>
                     <div class="input-group input-group-sm col">
-                        <span class="input-group-addon" id="basic-addon1"><i class="fas fa-search"></i></span>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
+                          </div>
                         <input id="search" type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1">
                     </div>
                 </div>
@@ -408,6 +410,7 @@
     <script src="js/bootstrap-notify.min.js"></script> 
     <script src="js/fileinput.min.js"></script>
     <script src="js/FileSaver.min.js"></script>
+    <script src="js/keymaster.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js"></script>
@@ -442,8 +445,12 @@
             browseIcon: "<i class='fas fa-folder-open'></i>&nbsp;"
         });
 
-        $('#addModal').on('shown.bs.modal', function () {
+        $('#addCollectionModal').on('shown.bs.modal', function () {
             $('#addCollectionName').focus();
+        })
+
+        $('#addBookmarkModal').on('shown.bs.modal', function () {
+            $('#addBookmarkUrl').focus();
         })
 
         $("#editCollectionIcon").change(function() {
@@ -457,14 +464,14 @@
         $('#addCollectionName').on('keypress', function (e) {
             if(e.which === 13) {
                 addCollection();
-                $('#addModal').modal('hide');
+                $('#addCollectionName').modal('hide');
             }
         });
 
         $('#addBookmarkName').on('keypress', function (e) {
             if(e.which === 13) {
                 addBookmark();
-                $('#addModal').modal('hide');
+                $('#addBookmarkModal').modal('hide');
             }
         });
 
@@ -473,6 +480,11 @@
         });
 
         $('#bookmarks').btsListFilter('#search', {initial: false});
+
+        // Keyboard shortcuts
+        key('[', function(){ collapseCollectionColumn() });
+        key('b', function(){ $('#addBookmarkModal').modal('show') });
+        key('c', function(){ $('#addCollectionModal').modal('show') });        
 
         function exportHTML() {
             var html = collectionsToBookmarkHtml(getCollections());
