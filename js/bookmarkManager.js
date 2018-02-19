@@ -274,12 +274,17 @@ function showBookmarks(collection, showAsCards) {
                 
             item += "</div>";
             
-            item += "<div class='col-md-auto' style='margin-right: 15px;'>";
-            item += "<button type='button' style='padding-right: 5px;' class='btn btn-outline-secondary btn-sm' onclick='editBookmark(this)'>" + 
-                "<span class='fas fa-pencil' aria-hidden='true'></span></button>";
-            item += "<button type='button' style='padding-right: 5px;' class='btn btn-outline-secondary btn-sm btn-clipboard' data-clipboard-text='" + 
-                bookmark.url +  "'>" + "<span class='fas fa-copy' aria-hidden='true'></span></button>";
-            item += "</div>";
+            item += 
+                "<div class='col-auto btn-toolbar' role='toolbar'>" +
+                    "<div class='btn-group mr-2' role='group'>" +
+                        "<button type='button' class='btn btn-outline-secondary btn-sm' onclick='editBookmark(this)'>" + 
+                        "<span class='fas fa-pencil fa-fw' aria-hidden='true'></span></button>" +
+                    "</div>" +
+                    "<div class='btn-group' role='group'>" + 
+                        "<button type='button' class='btn btn-outline-secondary btn-sm btn-clipboard' data-clipboard-text='" + 
+                        bookmark.url +  "'>" + "<span class='fas fa-copy fa-fw' aria-hidden='true'></span></button>" +
+                    "</div>" + 
+                "</div>";
 
             item += "</div>";
             item += "</li>"
