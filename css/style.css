@@ -94,9 +94,6 @@ button {
 }
 
 /* Collapse styles */
-.collapsed {
-    display: none; /* hide it for small displays */
-}
 @media (min-width: 992px) {
     .collapsed {
         display: block;
