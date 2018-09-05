@@ -448,10 +448,15 @@
         });
 
         $('#addCollectionModal').on('shown.bs.modal', function () {
+            $('#addCollectionName').val('');
             $('#addCollectionName').focus();
         })
 
         $('#addBookmarkModal').on('shown.bs.modal', function () {
+            $('#addBookmarkUrl').val('');
+            $('#addBookmarkName').val('');
+            $('#addBookmarkDescription').val('');
+            $("#spinner").hide();
             $('#addBookmarkUrl').focus();
         })
 
