@@ -495,13 +495,13 @@
 
         function exportHTML() {
             var html = collectionsToBookmarkHtml(getCollections());
-            downloadURI('data:text/html;charset=utf-8,' + encodeURIComponent(html), "linky-bookmarks.html");
+            exportHtml(html, "linky-bookmarks.html");
         }
 
         function exportCollection() {
             var collection = getSelectedCollection();
             var html = collectionToBookmarkHtml(collection);
-            downloadURI('data:text/html;charset=utf-8,' + encodeURIComponent(html), "linky-bookmarks-" + collection.text + ".html");
+            exportHtml(html, "linky-bookmarks-" + collection.text + ".html")
         }
 
         function saveSettings() {
