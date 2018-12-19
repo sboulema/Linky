@@ -111,6 +111,8 @@ function parse(input) {
         showTags: localStorage.getItem("showBookmarkCount") == "true"
     });
 
+    var clipboard;
+
     $('#tree').on('nodeSelected', function(event, data) {
         $("#accordion").empty();
         $('#bookmarks').empty();
@@ -162,7 +164,11 @@ function parse(input) {
         }
 
         // Enable Copy Url buttons
-        var clipboard = new Clipboard('.btn-clipboard');
+        if (clipboard) {
+            clipboard.destroy();
+        }
+
+        clipboard = new Clipboard('.btn-clipboard');
         clipboard.on('success', function(e) {          
             $.notify(
                 {
