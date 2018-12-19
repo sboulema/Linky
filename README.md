@@ -6,3 +6,7 @@ Online bookmark manager
 
 ## Firefox extension
 [Firefox add-ons](https://addons.mozilla.org/addon/linky-extension/)
+
+## Building
+- npm install
+- gulp build

@@ -90,9 +90,7 @@ function exportJson(filename) {
     });
 }
 
-function downloadURI(uri, name) {
-    var link = document.createElement("a");
-    link.download = name;
-    link.href = uri;
-    link.click();
+function exportHtml(html, filename) {
+    var file = new File([html], filename, {type: "text/html;charset=utf-8"});
+    saveAs(file);
 }
