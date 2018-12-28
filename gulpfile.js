@@ -1,6 +1,9 @@
 var gulp = require('gulp');
 
-gulp.task('scripts', function () {
+gulp.task('scripts', function (done) {
+  gulp.src('node_modules/bootstrap/dist/js/*.js').pipe(gulp.dest('dist/js'));
+  gulp.src('node_modules/bootstrap/dist/css/*.css').pipe(gulp.dest('dist/css'));
+
   gulp.src('node_modules/bootstrap-treeview/dist/*.js').pipe(gulp.dest('dist/js'));
   gulp.src('node_modules/bootstrap-treeview/dist/*.css').pipe(gulp.dest('dist/css'));
 
@@ -21,16 +24,21 @@ gulp.task('scripts', function () {
   gulp.src('node_modules/file-saver/*.js').pipe(gulp.dest('dist/js'));
 
   gulp.src('node_modules/keymaster/*.js').pipe(gulp.dest('dist/js'));
+
+  gulp.src('node_modules/jquery/dist/*.js').pipe(gulp.dest('dist/js'));
+
+  gulp.src('node_modules/popper.js/*.js').pipe(gulp.dest('dist/js'));
+
+  done();
 });
 
-gulp.task('copy', function () {
+gulp.task('copy', function (done) {
   gulp.src('css/*').pipe(gulp.dest('dist/css'));
   gulp.src('js/*').pipe(gulp.dest('dist/js'));
   gulp.src('favicon.ico').pipe(gulp.dest('dist'));
   gulp.src('index.html').pipe(gulp.dest('dist'));
+
+  done();
 });
 
-gulp.task('build', function () {
-  gulp.start('scripts');
-  gulp.start('copy');
-});
+gulp.task('build', gulp.parallel('scripts', 'copy'));

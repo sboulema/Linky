@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/sboulema/Linky#readme",
   "dependencies": {
+    "bootstrap": "^4.1.3",
     "bootstrap-list-filter": "^0.3.2",
     "bootstrap-notify": "^3.1.3",
     "bootstrap-slider": "^10.0.0",
@@ -24,9 +25,11 @@
     "bower": "^1.8.2",
     "clipboard": "^1.7.1",
     "file-saver": "^1.3.3",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.0",
+    "jquery": "^3.3.1",
     "keymaster": "^1.6.2",
     "mfb": "^0.12.0",
+    "popper.js": "^1.14.6",
     "sortablejs": "^1.7.0"
   }
 }

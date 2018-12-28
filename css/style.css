@@ -1,3 +1,7 @@
+body {
+    font-family: 'Product Sans', sans-serif;
+}
+
 .bookmarkIcon {
     margin-right: 5px;
 }
@@ -38,8 +42,12 @@ button {
     border-bottom: 0;
 }
 
-#collectionColumn {
+/* #collectionColumn {
     border-right: 1px solid rgb(222,222,222);
+} */
+
+#collectionColumn li {
+    background-color: white;
 }
 
 #bookmarks li.list-group-item {
@@ -55,7 +63,11 @@ button {
 
 #bookmarkColumn, #collectionColumn {
     height: 100%;
-    overflow-y: auto;
+    overflow-y: hidden;
+}
+
+#bookmarkColumn:hover, #collectionColumn:hover {
+    overflow-y: scroll;
 }
 
 #bookmarkColumn {
@@ -93,9 +105,14 @@ button {
     background-color: #5cb85c;
 }
 
+#row-main {
+    height: 100%;
+    background-color: white;
+}
+
 /* Collapse styles */
 @media (min-width: 992px) {
-    .collapsed {
+    div.collapsed {
         display: block;
         margin-left: -16.7%; /* same width as sidebar */
     }
