@@ -14,12 +14,15 @@
     <link rel="stylesheet" href="css/bootstrap-slider.min.css">  
     <link rel="stylesheet" href="css/mfb.min.css">  
     <link rel="stylesheet" href="css/fileinput.min.css">  
+    <link rel="stylesheet" href="css/fontawesome-iconpicker.min.css"> 
 
     <link rel="stylesheet" href="css/style.css"> 
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans"> 
-
+    
     <script defer src="https://pro.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-4Gm0M5DjJ0zGaEtLu0ztNIoHWiuJ5rKiaVlpZKeNqXAW49eIIa2ymxb3C4c3uEXR" crossorigin="anonymous"></script>
+
+    <!-- <script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-EIHISlAOj4zgYieurP0SdoiBYfGJKkgWedPHH4jCzpCXLmzVsw1ouK59MuUtP4a1" crossorigin="anonymous"></script> -->
 </head>
 
   <body style="height:100%;">
@@ -271,8 +274,10 @@
 
             <label for="editCollectionIcon">Assign an icon:</label>
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="fas fa-heart" id="editCollectionIcon">
-                <span class="input-group-addon" id="editCollectionIconAddon"></span>
+                <input type="text" class="form-control icp icp-auto" placeholder="fas fa-heart" id="editCollectionIcon">
+                <div class="input-group-append">
+                    <span class="input-group-text" id="editCollectionIconAddon"></span>
+                </div>
             </div>
 
             <label for="editCollectionBackground">Assign a background:</label>
@@ -409,6 +414,7 @@
     <script src="js/fileinput.min.js"></script>
     <script src="js/FileSaver.min.js"></script>
     <script src="js/keymaster.js"></script>
+    <script src="js/fontawesome-iconpicker.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js"></script>
@@ -434,6 +440,12 @@
     <script>
         loadFromFirebase(function(data){parse(data)});
 
+        $('.icp-auto').iconpicker({animation:false});
+        $('.icp-auto').on('iconpickerSelected', function(event){
+            $("#editCollectionIcon").val($("#editCollectionIcon").val() + " fa-fw")
+            $("#editCollectionIconAddon").html("<i class='" + $("#editCollectionIcon").val() + "'></i>");
+        });
+
         $("#btn-import").fileinput({showCaption: false, 
             allowedFileExtensions: ["json","html"],
             showPreview: false,
@@ -455,10 +467,6 @@
             $("#spinner").hide();
             $('#addBookmarkUrl').focus();
         })
-
-        $("#editCollectionIcon").change(function() {
-            $("#editCollectionIconAddon").html("<i class='" + $("#editCollectionIcon").val() + "'></i>");
-        });
 
         $("#editIcon").change(function() {
             $("#editIconAddon").attr("src", $("#editIcon").val());

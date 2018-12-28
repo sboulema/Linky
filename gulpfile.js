@@ -29,6 +29,9 @@ gulp.task('scripts', function (done) {
 
   gulp.src('node_modules/popper.js/*.js').pipe(gulp.dest('dist/js'));
 
+  gulp.src('node_modules/fontawesome-iconpicker/dist/js/*.js').pipe(gulp.dest('dist/js'));
+  gulp.src('node_modules/fontawesome-iconpicker/dist/css/*.css').pipe(gulp.dest('dist/css'));
+
   done();
 });
 
