@@ -5,6 +5,7 @@ COPY . /usr/share/nginx/html
 
 RUN echo '{ "allow_root": true }' > /root/.bowerrc
 RUN npm install
+RUN npm i -g gulp-cli
 RUN gulp build
 
 # Second Stage
