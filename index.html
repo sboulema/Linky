@@ -28,13 +28,12 @@
 
         <div id="row-main" class="row">
 
-            <div id="collectionColumn" class="col col-md-2" style="padding-top:5px;">
+            <div id="collectionColumn" class="col-0 col-md-2" style="padding-top:5px;">
 
                 <!--Title Bar-->
-                <div class="row">
-                    <div class="col col-md-auto" style="padding-right:0;"><a href="index.html"><i class="fas fa-heart text-danger"></i></a></div>
-                    <div class="col"><h4>Linky</h4></div>
-                    <div class="col col-md-auto">
+                <div class="row justify-content-between">
+                    <div class="col-auto"><a href="index.html"><i class="fas fa-heart text-danger"></i></a><h4>Linky</h4></div>
+                    <div class="col-auto">
                         <div class='btn-toolbar' role='toolbar'>
                             <div class='btn-group' role='group'>
                                 <button type="button" class="btn btn-secondary btn-sm" id="settingsButton" onclick="loadSettings()" data-toggle="modal" data-target="#settingsModal">
@@ -55,13 +54,13 @@
                 <div id="tree"></div>
             </div>
 
-            <div id="bookmarkColumn" class="col col-md-10" style="background-color: white; padding-top:5px;">
+            <div id="bookmarkColumn" class="col" style="background-color: white; padding-top:5px;">
                 <!--Search Bar-->
                 <div class="row">
-                    <div class="col col-md-auto">
+                    <div class="col-auto">
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                            <div class="btn-group mr-2" role="group">
-                                <a href="#" id="collapseButton" onclick="collapseCollectionColumn()" class="btn btn-outline-secondary btn-sm">
+                            <div class="btn-group mr-2 d-none d-block" role="group">
+                                <a href="#" id="collapseButton" onclick="collapseCollectionColumn()" class="btn btn-outline-secondary btn-sm d-none d-lg-block">
                                     <i class="fas fa-sign-in" data-fa-transform="flip-h"></i>
                                 </a>
                             </div>

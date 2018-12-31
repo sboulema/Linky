@@ -276,11 +276,11 @@ function showBookmarks(collection, showAsCards) {
             
             item += 
                 "<div class='col-auto btn-toolbar' role='toolbar'>" +
-                    "<div class='btn-group mr-2' role='group'>" +
+                    "<div class='btn-group mr-2' role='group' style='height: 31px'>" +
                         "<button type='button' class='btn btn-outline-secondary btn-sm' onclick='editBookmark(this)'>" + 
                         "<span class='fas fa-pencil fa-fw' aria-hidden='true'></span></button>" +
                     "</div>" +
-                    "<div class='btn-group' role='group'>" + 
+                    "<div class='btn-group' role='group' style='height: 31px'>" + 
                         "<button type='button' class='btn btn-outline-secondary btn-sm btn-clipboard' data-clipboard-text='" + 
                         bookmark.url +  "'>" + "<span class='fas fa-copy fa-fw' aria-hidden='true'></span></button>" +
                     "</div>" + 
