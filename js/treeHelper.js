@@ -136,7 +136,7 @@ function parse(input) {
 
                 card += "<div class='card-header' role='tab' id='heading" + index + "'>";
                 card += "<h5 class='mb-0'>";
-                card += "<a data-toggle='collapse' data-parent='#accordion' href='#collapse" + index + "' aria-expanded='true' aria-controls='collapse" + index + "'>";
+                card += "<a data-toggle='collapse' class=' text-danger' data-parent='#accordion' href='#collapse" + index + "' aria-expanded='true' aria-controls='collapse" + index + "'>";
                 card += node.text;
                 card += "</a>";
                 card += "</h5>"

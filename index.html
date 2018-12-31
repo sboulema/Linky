@@ -32,17 +32,24 @@
 
                 <!--Title Bar-->
                 <div class="row justify-content-between">
-                    <div class="col-auto"><a href="index.html"><i class="fas fa-heart text-danger"></i></a><h4>Linky</h4></div>
+                    <div class="col-auto">
+                        <a href="index.html">
+                            <i class="fas fa-heart text-danger fa-lg" data-fa-transform="up-2"></i>
+                        </a>
+                        <span class="h4">Linky</span>
+                    </div>
                     <div class="col-auto">
                         <div class='btn-toolbar' role='toolbar'>
                             <div class='btn-group' role='group'>
-                                <button type="button" class="btn btn-secondary btn-sm" id="settingsButton" onclick="loadSettings()" data-toggle="modal" data-target="#settingsModal">
+                                <button type="button" class="btn btn-outline-secondary btn-sm" id="settingsButton" onclick="loadSettings()" data-toggle="modal" data-target="#settingsModal">
                                     <span class="fas fa-cog" aria-hidden="true"></span>
                                 </button>   
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <br/>
 
                 <button type="button" class="btn btn-sm btn-outline-secondary btn-block text-left" onclick="showAllBookmarks()">
                     <span class="fas fa-heart" aria-hidden="true"></span> All bookmarks
