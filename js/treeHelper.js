@@ -169,16 +169,8 @@ function parse(input) {
         }
 
         clipboard = new Clipboard('.btn-clipboard');
-        clipboard.on('success', function(e) {          
-            $.notify(
-                {
-                    message: "Bookmark URL copied to clipboard"
-                }
-                ,{
-                    type: 'success',
-                    delay: 1000
-                }
-            );
+        clipboard.on('success', function(e) {
+            $('#urlCopiedToast').toast('show');
         });
 
         // Make the bookmarks sortable
