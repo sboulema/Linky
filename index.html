@@ -11,7 +11,6 @@
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-treeview.min.css">  
-    <link rel="stylesheet" href="css/bootstrap-slider.min.css">  
     <link rel="stylesheet" href="css/mfb.min.css">  
     <link rel="stylesheet" href="css/fileinput.min.css">  
     <link rel="stylesheet" href="css/fontawesome-iconpicker.min.css"> 
@@ -20,9 +19,9 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans"> 
     
-    <script defer src="https://pro.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-4Gm0M5DjJ0zGaEtLu0ztNIoHWiuJ5rKiaVlpZKeNqXAW49eIIa2ymxb3C4c3uEXR" crossorigin="anonymous"></script>
+    <!-- <script defer src="https://pro.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-4Gm0M5DjJ0zGaEtLu0ztNIoHWiuJ5rKiaVlpZKeNqXAW49eIIa2ymxb3C4c3uEXR" crossorigin="anonymous"></script> -->
 
-    <!-- <script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-EIHISlAOj4zgYieurP0SdoiBYfGJKkgWedPHH4jCzpCXLmzVsw1ouK59MuUtP4a1" crossorigin="anonymous"></script> -->
+    <script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-EIHISlAOj4zgYieurP0SdoiBYfGJKkgWedPHH4jCzpCXLmzVsw1ouK59MuUtP4a1" crossorigin="anonymous"></script>
 </head>
 
   <body style="height:100%;">
@@ -103,24 +102,24 @@
 
         </div>
 
-        <ul class="mfb-component--br mfb-zoomin" data-mfb-toggle="hover">
+        <ul class="mfb-component--br mfb-zoomin text-danger" data-mfb-toggle="hover">
         <li class="mfb-component__wrap">
             <a data-mfb-label="Add" class="mfb-component__button--main">
-            <i class="mfb-component__main-icon--resting"><i class="fas fa-plus"></i></i>
-            <i class="mfb-component__main-icon--active"><i class="fas fa-times"></i></i>
+            <i class="mfb-component__main-icon--resting"><i class="fas fa-plus fa-2x" data-fa-transform="down-4"></i></i>
+            <i class="mfb-component__main-icon--active"><i class="fas fa-times fa-2x" data-fa-transform="down-4"></i></i>
             </a>
             <ul class="mfb-component__list">
                 <li>
                     <a href="#" data-toggle="modal" data-target="#addBookmarkModal" data-mfb-label="Bookmark" class="mfb-component__button--child">
                     <i class="mfb-component__child-icon">
-                        <i class="fas fa-globe"></i>
+                        <i class="fas fa-globe text-danger"></i>
                     </i>
                     </a>
                 </li>
                 <li>
                     <a href="#" data-toggle="modal" data-target="#addCollectionModal" data-mfb-label="Collection" class="mfb-component__button--child">
                     <i class="mfb-component__child-icon">
-                        <i class="fas fa-folder"></i>
+                        <i class="fas fa-folder text-danger"></i>
                     </i>
                     </a>
                 </li>
@@ -161,12 +160,9 @@
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Description" id="addBookmarkDescription">
             </div>
-
-            <br/>
-
-            <button id="addBookmarkButton" type="button" onclick="addBookmark()" data-dismiss="modal" class="btn btn-success pull-right">Add</button>
         </div>
         <div class="modal-footer">
+            <button id="addBookmarkButton" type="button" onclick="addBookmark()" data-dismiss="modal" class="btn btn-success pull-right">Add</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
         </div>
@@ -188,13 +184,11 @@
             <label for="addCollectionName">Assign a name:</label>
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Name" id="addCollectionName">
-            </div>
-
-            <br/>
-            <button id="addCollectionButton" type="button" onclick="addCollection()" data-dismiss="modal" class="btn btn-primary">Add</button>                 
+            </div>         
         </div>
 
         <div class="modal-footer">
+            <button id="addCollectionButton" type="button" onclick="addCollection()" data-dismiss="modal" class="btn btn-primary">Add</button>  
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
         </div>
@@ -293,9 +287,8 @@
             <label for="editName">Bookmark icon size:</label>
             <form class="form-inline">         
             <i class="fas fa-image"></i>
-            <div class="input-group" style="margin-left:15px;margin-right:15px;">
-                <input id="bookmarkIconSizeSlider" type="text" data-provide="slider" 
-                    data-slider-min="16" data-slider-max="128" data-slider-step="1" data-slider-value="16">
+            <div class="input-group" style="margin-left:15px;margin-right:15px;">              
+                <input type="range" class="custom-range" min="16" max="128" id="bookmarkIconSizeSlider">
             </div>
             <i class="fas fa-image fa-lg"></i>
             </form>
@@ -357,12 +350,15 @@
             </div>
             <br/>
 
-            <div class="form-check">
-            <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" id="showBookmarkCountCheckbox" value="option1"> Show bookmark count on collections
-            </label>
+            Settings:
+            <br/>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="showBookmarkCountCheckbox">
+                <label class="custom-control-label" for="showBookmarkCountCheckbox">Show bookmark count on collections</label>
             </div>
 
+            Browser Extensions:
+            <br/>
             <a target='_blank' class="btn btn-primary" role="button" href="https://chrome.google.com/webstore/detail/linky-extension/pghdabpagojegpfplckdbnlalpgidikc">
                 Install Chrome extension
             </a>
@@ -372,6 +368,7 @@
 
             <br/><br/>
 
+            Data:
             <div class="container">
                 <div class="row">
                     <div class="col-xs-1">
@@ -407,19 +404,20 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/jquery.min.js"></script>
+    <!-- <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>   
     <script src="js/Sortable.min.js"></script>
     <script src="js/bootstrap-treeview.min.js"></script>
     <script src="js/bootstrap-list-filter.min.js"></script>   
-    <script src="js/bootstrap-slider.min.js"></script>   
+    <script src="js/fileinput.min.js"></script>   
     <script src="js/mfb.min.js"></script>
     <script src="js/clipboard.min.js"></script> 
     <script src="js/bootstrap-notify.min.js"></script> 
-    <script src="js/fileinput.min.js"></script>
     <script src="js/FileSaver.min.js"></script>
     <script src="js/keymaster.js"></script>
-    <script src="js/fontawesome-iconpicker.js"></script>
+    <script src="js/fontawesome-iconpicker.js"></script> -->
+
+<script src="js/vendor.bundle.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js"></script>
@@ -457,7 +455,7 @@
             showRemove: false,
             showUpload: false,
             browseLabel: "Import",
-            browseIcon: "<i class='fas fa-folder-open'></i>&nbsp;"
+            browseIcon: "<i class='fas fa-folder-open'></i>"
         });
 
         $('#addCollectionModal').on('shown.bs.modal', function () {

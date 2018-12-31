@@ -106,8 +106,8 @@ function parse(input) {
         data: input,
         collapseIcon: "fal fa-folder-open",
         expandIcon: "fal fa-folder",
-        backColor: "rgb(246, 246, 246)",
         emptyIcon: "fal fa-folder",
+        selectedBackColor: "rgb(220, 53, 69)",
         showTags: localStorage.getItem("showBookmarkCount") == "true"
     });
 

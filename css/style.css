@@ -42,10 +42,6 @@ button {
     border-bottom: 0;
 }
 
-#collectionColumn li {
-    background-color: white;
-}
-
 #bookmarks li.list-group-item {
     background: rgba(255, 255, 255, .8);
 }
@@ -98,7 +94,7 @@ button {
 }
 
 .mfb-component__button, .mfb-component__button--child, .mfb-component__button--main {
-    background-color: #5cb85c;
+    background-color: white;
 }
 
 #row-main {
