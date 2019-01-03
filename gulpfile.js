@@ -9,9 +9,6 @@ gulp.task('scripts', function (done) {
 
   gulp.src('node_modules/bootstrap-list-filter/bootstrap-list-filter.min.js').pipe(gulp.dest('dist/js'));
 
-  gulp.src('node_modules/mfb/src/*.js').pipe(gulp.dest('dist/js'));
-  gulp.src('node_modules/mfb/src/*.css').pipe(gulp.dest('dist/css'));
-
   gulp.src('node_modules/sortablejs/*.js').pipe(gulp.dest('dist/js'));
 
   gulp.src('node_modules/clipboard/dist/*.js').pipe(gulp.dest('dist/js'));

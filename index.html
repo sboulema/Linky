@@ -11,7 +11,6 @@
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-treeview.min.css">  
-    <link rel="stylesheet" href="css/mfb.min.css">  
     <link rel="stylesheet" href="css/fileinput.min.css">  
     <link rel="stylesheet" href="css/fontawesome-iconpicker.min.css"> 
 
@@ -19,6 +18,8 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans"> 
     
+    <!-- <script src="js/all.js"></script> -->
+
     <script defer src="https://pro.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-4Gm0M5DjJ0zGaEtLu0ztNIoHWiuJ5rKiaVlpZKeNqXAW49eIIa2ymxb3C4c3uEXR" crossorigin="anonymous"></script>
 </head>
 
@@ -51,14 +52,27 @@
 
                 <br/>
 
-                <button type="button" class="btn btn-sm btn-outline-secondary btn-block text-left" onclick="showAllBookmarks()">
-                    <span class="fas fa-heart" aria-hidden="true"></span> All bookmarks
-                </button>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-plus"></i> Add
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#addBookmarkModal"><i class="fas fa-globe"></i> Bookmark</a>
+                      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#addCollectionModal"><i class="fas fa-folder"></i> Collection</a>
+                    </div>
+                </div>
 
-                <br/>
+                <br/><br/>
 
                 <h6>My Collections</h6>
                 <div id="tree"></div>
+
+                <br/>
+
+                <button type="button" class="btn btn-sm btn-outline-secondary btn-block text-left" onclick="showAllBookmarks()">
+                    <span class="fas fa-heart" aria-hidden="true"></span> All bookmarks
+                </button>
+             
             </div>
 
             <div id="bookmarkColumn" class="col" style="background-color: white; padding-top:5px;">
@@ -105,31 +119,6 @@
             </div>
 
         </div>
-
-        <ul class="mfb-component--br mfb-zoomin text-danger" data-mfb-toggle="hover">
-        <li class="mfb-component__wrap">
-            <a data-mfb-label="Add" class="mfb-component__button--main">
-            <i class="mfb-component__main-icon--resting"><i class="fas fa-plus fa-2x" data-fa-transform="down-4"></i></i>
-            <i class="mfb-component__main-icon--active"><i class="fas fa-times fa-2x" data-fa-transform="down-4"></i></i>
-            </a>
-            <ul class="mfb-component__list">
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#addBookmarkModal" data-mfb-label="Bookmark" class="mfb-component__button--child">
-                    <i class="mfb-component__child-icon">
-                        <i class="fas fa-globe text-danger"></i>
-                    </i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#addCollectionModal" data-mfb-label="Collection" class="mfb-component__button--child">
-                    <i class="mfb-component__child-icon">
-                        <i class="fas fa-folder text-danger"></i>
-                    </i>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        </ul>
 
     </div>
 
@@ -361,6 +350,8 @@
                 <label class="custom-control-label" for="showBookmarkCountCheckbox">Show bookmark count on collections</label>
             </div>
 
+            <br/>
+
             Browser Extensions:
             <br/>
             <a target='_blank' class="btn btn-primary" role="button" href="https://chrome.google.com/webstore/detail/linky-extension/pghdabpagojegpfplckdbnlalpgidikc">
@@ -428,9 +419,7 @@
     <script src="js/bootstrap-treeview.min.js"></script>
     <script src="js/bootstrap-list-filter.min.js"></script>   
     <script src="js/fileinput.min.js"></script>   
-    <script src="js/mfb.min.js"></script>
     <script src="js/clipboard.min.js"></script> 
-    <script src="js/bootstrap-notify.min.js"></script> 
     <script src="js/FileSaver.min.js"></script>
     <script src="js/keymaster.js"></script>
     <script src="js/fontawesome-iconpicker.js"></script>

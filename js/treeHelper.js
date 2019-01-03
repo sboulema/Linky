@@ -173,52 +173,70 @@ function parse(input) {
             $('#urlCopiedToast').toast('show');
         });
 
-        // Make the bookmarks sortable
-        var el = document.getElementById('bookmarks');
-        if (el.children.length > 0) {
-            var sortable = Sortable.create(el, {
-                onSort: function (evt) {
-                    var collection = getSelectedCollection();
-                    collection.bookmarks.move(evt.oldIndex, evt.newIndex);
-                    updateTree();
-                }
-            });
-        }
-
-        // Make the bookmark cards sortable
-        var el = document.getElementById('bookmarksCards');
-        if (el.children.length > 0) {
-            var sortable = Sortable.create(el, {
-                onSort: function (evt) {
-                    var collection = getSelectedCollection();
-                    collection.bookmarks.move(evt.oldIndex, evt.newIndex);
-                    updateTree();
-                }
-            });
-        }
-
-        // Make the collections sortable
-        var el = document.getElementById('tree').children[0];
-        if (el.children.length > 0) {
-            var sortable = Sortable.create(el, {
-                onEnd: function (evt) {
-                    var collection = getSelectedCollection();
-                    var parent = $('#tree').treeview('getParent', collection);
-
-                    if (typeof parent == 'undefined') {
-                        var collections = getCollections();
-
-                        var temp = collections[evt.oldIndex];
-                        collections[evt.oldIndex] = collections[evt.newIndex];
-                        collections[evt.newIndex] = temp;
-
-                        updateTree(collections, true);
-                    } else {
-                        parent.nodes.move(evt.oldIndex - 1, evt.newIndex - 1);
+        if(!is_touch_device()) {
+            // Make the bookmarks sortable
+            var el = document.getElementById('bookmarks');
+            if (el.children.length > 0) {
+                var sortable = Sortable.create(el, {
+                    onSort: function (evt) {
+                        var collection = getSelectedCollection();
+                        collection.bookmarks.move(evt.oldIndex, evt.newIndex);
                         updateTree();
                     }
-                }
-            });
+                });
+            }
+
+            // Make the bookmark cards sortable
+            var el = document.getElementById('bookmarksCards');
+            if (el.children.length > 0) {
+                var sortable = Sortable.create(el, {
+                    onSort: function (evt) {
+                        var collection = getSelectedCollection();
+                        collection.bookmarks.move(evt.oldIndex, evt.newIndex);
+                        updateTree();
+                    }
+                });
+            }
+
+            // Make the collections sortable
+            var el = document.getElementById('tree').children[0];
+            if (el.children.length > 0) {
+                var sortable = Sortable.create(el, {
+                    onEnd: function (evt) {
+                        var collection = getSelectedCollection();
+                        var parent = $('#tree').treeview('getParent', collection);
+
+                        if (typeof parent == 'undefined') {
+                            var collections = getCollections();
+
+                            var temp = collections[evt.oldIndex];
+                            collections[evt.oldIndex] = collections[evt.newIndex];
+                            collections[evt.newIndex] = temp;
+
+                            updateTree(collections, true);
+                        } else {
+                            parent.nodes.move(evt.oldIndex - 1, evt.newIndex - 1);
+                            updateTree();
+                        }
+                    }
+                });
+            }
         }
     });
+}
+
+function is_touch_device() {
+    var prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
+    var mq = function(query) {
+      return window.matchMedia(query).matches;
+    }
+  
+    if (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) {
+      return true;
+    }
+  
+    // include the 'heartz' as a way to have a non matching MQ to help terminate the join
+    // https://git.io/vznFH
+    var query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');
+    return mq(query);
 }
