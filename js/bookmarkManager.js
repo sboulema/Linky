@@ -38,7 +38,7 @@ function addBookmark() {
             text: $('#addBookmarkName').val(),
             url: $('#addBookmarkUrl').val(),
             description: $('#addBookmarkDescription').val(),
-            icon: "http://logo.clearbit.com/" + (new URL($('#addBookmarkUrl').val())).hostname
+            icon: "https://logo-core.clearbit.com/" + (new URL($('#addBookmarkUrl').val())).hostname
         });
 
         $('#addBookmarkName').val("");
@@ -235,7 +235,7 @@ function showBookmarks(collection, showAsCards) {
             item += "<a target='_blank' href='" + bookmark.url + "' data-toggle='tooltip' data-placement='bottom' title='" + bookmark.text + "'>";
             if (typeof bookmark.icon != 'undefined' && bookmark.icon !== "" && !bookmark.icon.startsWith("fa")) {
                 item += "<center><img class='card-img-top' style='width: " + (collection.bookmarkIconSize - 2) + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon' " + 
-                "src='" + (bookmark.icon.startsWith("http://logo.clearbit.com/") ? (bookmark.icon + "?size=" + collection.bookmarkIconSize) : bookmark.icon) + "' /></center>";
+                "src='" + (bookmark.icon.startsWith("https://logo-core.clearbit.com/") ? (bookmark.icon + "?size=" + collection.bookmarkIconSize) : bookmark.icon) + "' /></center>";
             } else {
                 item += "<span class='card-img-top' style='width: " + collection.bookmarkIconSize + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon fas fa-globe'></span>";
             }
@@ -260,7 +260,7 @@ function showBookmarks(collection, showAsCards) {
             if (collection.showBookmarkIcon) {
                 if (typeof bookmark.icon != 'undefined' && bookmark.icon !== "" && !bookmark.icon.startsWith("fa")) {
                     item += "<img style='width: " + collection.bookmarkIconSize + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon' " + 
-                    "src='" + (bookmark.icon.startsWith("http://logo.clearbit.com/") ? (bookmark.icon + "?size=" + collection.bookmarkIconSize) : bookmark.icon) + "' />";
+                    "src='" + (bookmark.icon.startsWith("https://logo-core.clearbit.com/") ? (bookmark.icon + "?size=" + collection.bookmarkIconSize) : bookmark.icon) + "' />";
                     item += "<a target='_blank' href='" + bookmark.url + "'>" + bookmark.text + "</a>";
                 } else {
                     item += "<span style='font-size: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon fas fa-globe'></span>";

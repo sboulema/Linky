@@ -111,7 +111,7 @@ function addBookmark() {
             text: title,
             url: url,
             description: desc,
-            icon: "https://logo.clearbit.com/" + (new URL(url)).hostname
+            icon: "https://logo-core.clearbit.com/" + (new URL(url)).hostname
           });
           selectedCollection.tags = [selectedCollection.bookmarks.length];
           saveBookmark();
