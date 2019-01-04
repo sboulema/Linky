@@ -8,14 +8,14 @@ queue:
   name: Hosted Ubuntu 1604
 
 steps:
-- task: Docker@1
+- task: Docker@0
   displayName: 'Build an image'
   inputs:
     containerregistrytype: 'Container Registry'
-    dockerRegistryEndpoint: 'Docker Hub'
+    dockerRegistryConnection: 'Docker Hub'
     imageName: sboulema/linky
     includeLatestTag: true
-    buildArguments: faToken=fontAwesomeToken
+    buildArguments: 'faToken=fontAwesomeToken'
 
 - task: Docker@1
   displayName: 'Push an image'
