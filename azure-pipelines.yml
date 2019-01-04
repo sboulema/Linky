@@ -1,6 +1,9 @@
 resources:
 - repo: self
 
+variables:
+- group: FontAwesome
+
 queue:
   name: Hosted Ubuntu 1604
 
@@ -12,6 +15,7 @@ steps:
     dockerRegistryEndpoint: 'Docker Hub'
     imageName: sboulema/linky
     includeLatestTag: true
+    arguments: faToken=fontAwesomeToken
 
 - task: Docker@1
   displayName: 'Push an image'
