@@ -1,17 +1,14 @@
 # First Stage
-FROM shito/alpine-node-gulp
+FROM node
 
-COPY . /usr/share/nginx/html
-
-RUN echo '{ "allow_root": true }' > /root/.bowerrc
+COPY . .
 
 RUN npm install
-RUN npm i -g gulp-cli
-RUN gulp build
+RUN npm run gulp build
 
 # Second Stage
 FROM nginx
 
-COPY --from=0 /usr/share/nginx/html/dist /usr/share/nginx/html/
+COPY --from=0 dist /usr/share/nginx/html/
 
 EXPOSE 80
