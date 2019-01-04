@@ -6,9 +6,11 @@ queue:
 
 steps:
 - powershell: |
+    Write-Host $env:faToken
+    Get-Content -Path .npmrc
    ((Get-Content -path .npmrc -Raw) -replace '{FATOKEN}','$env:faToken') | Set-Content -Path .nmprc
 
-  displayName: 'PowerShell Script'
+  displayName: 'Insert FontAwesome token'
   env:
     faToken: fontAwesomeToken
 
