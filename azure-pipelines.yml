@@ -1,13 +1,16 @@
 resources:
 - repo: self
 
+variables:
+- group: FontAwesome
+
 queue:
   name: Hosted Ubuntu 1604
 
 steps:
 - powershell: |
    Write-Host $env:faToken   
-   ((Get-Content -path .npmrc -Raw) -replace '{FATOKEN}','$env:faToken') | Set-Content -Path .nmprc
+   ((Get-Content -path .npmrc -Raw) -replace '{FATOKEN}','$env:faToken') | Set-Content -Path .npmrc
    Get-Content -Path .npmrc
    
   displayName: 'Insert FontAwesome token'
