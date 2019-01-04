@@ -6,13 +6,13 @@ queue:
 
 steps:
 - powershell: |
-   Write-Host $env:faToken
-   Get-Content -Path .npmrc
+   Write-Host $env:faToken   
    ((Get-Content -path .npmrc -Raw) -replace '{FATOKEN}','$env:faToken') | Set-Content -Path .nmprc
+   Get-Content -Path .npmrc
    
   displayName: 'Insert FontAwesome token'
   env:
-    faToken: fontAwesomeToken
+    faToken: $(fontAwesomeToken)
 
 - task: Docker@1
   displayName: 'Build an image'
