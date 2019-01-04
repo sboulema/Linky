@@ -1,15 +1,13 @@
+var tree;
+
 function getCollections() {
-    var collections = [];
-    var node = $('#tree').treeview('getNode', 0)
-    collections.push(node);
-    $.merge(collections, $('#tree').treeview('getSiblings', node));
-    return collections;
+    return tree.getAll();
 }
 
+// Get the data from the selected node
 function getSelectedCollection() {
-    var nodeId;
-    var selectedCollection = $('#tree').treeview('getSelected', nodeId)[0];
-    return selectedCollection;
+    var id = tree.getSelections()[0];
+    return tree.getDataById(id);
 }
 
 function getSelectedBookmarkCard(card) {
@@ -36,8 +34,8 @@ function syncTree(callback) {
     var selectedCollection = getSelectedCollection();
 
     loadFromFirebase(function(data){
-        parse(data);
-        $('#tree').treeview('selectNode', selectedCollection.nodeId)
+        parse(data);       
+        tree.select(tree.getNodeById(selectedCollection.nodeId));
         callback();
     });
 }
@@ -49,9 +47,8 @@ function updateTree(element, replaceCollections) {
     } else {
         var nodes = [];        
 
-        if ($('#tree').treeview('getEnabled').length > 0 && $('#tree').treeview('getEnabled')[0].id !== "tree") {
-            nodes.push($('#tree').treeview('getNode', 0));
-            $.merge(nodes, $('#tree').treeview('getSiblings', nodes[0]));
+        if (tree.getAll().length > 0 && tree.getAll()[0].id !== "tree") {
+            nodes = tree.getAll();
         }
 
         if (typeof element != 'undefined') {
@@ -69,8 +66,9 @@ function updateTree(element, replaceCollections) {
 function updateSelectedCollection() {
     var selectedCollection = getSelectedCollection();
     if (typeof selectedCollection != 'undefined') {
-        $('#tree').treeview('unselectNode', selectedCollection);
-        $('#tree').treeview('selectNode', selectedCollection);
+        var node = tree.getNodeById(selectedCollection.id);
+        tree.unselect(node);
+        tree.select(node);
     }
 }
 
@@ -87,33 +85,47 @@ Array.prototype.move = function (old_index, new_index) {
 
 function loadMoveBookmarkTree() {
     loadFromFirebase(function(data) {
-    $('#moveBookmark').treeview({
-        data: data,
-        collapseIcon: "fal fa-folder-open",
-        expandIcon: "fal fa-folder",
-        emptyIcon: "fal fa-folder"
+        var moveTree = $('#moveBookmark').tree({
+            uiLibrary: 'bootstrap4',
+            dataSource: data,
+            primaryKey: 'nodeId',
+            childrenField: 'nodes',
+            imageCssClassField: 'icon',
+            iconsLibrary: 'fontawesome',
+            icons: {
+                expand: '<i class="fal fa-folder"></i>',
+                collapse: '<i class="fal fa-folder-open"></i>'
+            }
+        });
+        moveTree.collapseAll();
+        moveTree.on('select', function (e, node, id) {
+            var data = tree.getDataById(id);
+            $("#editMoveToCollection").text(data.nodeId);
+            $("#editBookmarkCollection").val(data.text);
+        });
     });
-    $('#moveBookmark').treeview('collapseAll', { silent: true });
-    $('#moveBookmark').on('nodeSelected', function(event, data) {
-        $("#editMoveToCollection").text(data.nodeId);
-        $("#editBookmarkCollection").val(data.text);
-    });
-  });
 }
 
 function parse(input) {
-    $('#tree').treeview({
-        data: input,
-        collapseIcon: "fal fa-folder-open",
-        expandIcon: "fal fa-folder",
-        emptyIcon: "fal fa-folder",
-        selectedBackColor: "rgb(220, 53, 69)",
-        showTags: localStorage.getItem("showBookmarkCount") == "true"
+    tree = $('#tree').tree({
+        uiLibrary: 'bootstrap4',
+        dataSource: input,
+        primaryKey: 'nodeId',
+        childrenField: 'nodes',
+        border: true,
+        imageCssClassField: 'icon',
+        iconsLibrary: 'fontawesome',
+        icons: {
+            expand: '<i class="fal fa-folder"></i>',
+            collapse: '<i class="fal fa-folder-open"></i>'
+        }
     });
 
     var clipboard;
 
-    $('#tree').on('nodeSelected', function(event, data) {
+    tree.on('select', function (e, node, id) {
+        var data = tree.getDataById(id);
+
         $("#accordion").empty();
         $('#bookmarks').empty();
         $('#bookmarksCards').empty();

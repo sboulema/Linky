@@ -4,8 +4,8 @@ gulp.task('scripts', function (done) {
   gulp.src('node_modules/bootstrap/dist/js/*.js').pipe(gulp.dest('dist/js'));
   gulp.src('node_modules/bootstrap/dist/css/*.css').pipe(gulp.dest('dist/css'));
 
-  gulp.src('node_modules/bootstrap-treeview/dist/*.js').pipe(gulp.dest('dist/js'));
-  gulp.src('node_modules/bootstrap-treeview/dist/*.css').pipe(gulp.dest('dist/css'));
+  gulp.src('node_modules/gijgo/js/gijgo.min.js').pipe(gulp.dest('dist/js'));
+  gulp.src('node_modules/gijgo/css/gijgo.min.css').pipe(gulp.dest('dist/css'));
 
   gulp.src('node_modules/bootstrap-list-filter/bootstrap-list-filter.min.js').pipe(gulp.dest('dist/js'));
 

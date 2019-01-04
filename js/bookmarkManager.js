@@ -64,7 +64,7 @@ function deleteCollection() {
     var collection = getSelectedCollection();
 
     if (typeof collection.parentId != 'undefined') {
-        var parent = $('#tree').treeview('getNode', collection.parentId);
+        var parent = tree.getDataById(collection.parentId);
 
         $.each(parent.nodes, function (index, node) {
             if (node.nodeId === collection.nodeId) {
@@ -75,7 +75,7 @@ function deleteCollection() {
         });
     } else {
         var index = getIndex(collection);
-        var parent = $('#tree').treeview('getParent', collection)[0];
+        var parent = getParent(collection)[0];
 
         if (parent.id === "tree") {
             var collections = getCollections();
@@ -146,7 +146,7 @@ function saveBookmark() {
     selectedCollection.bookmarks[bookmarkIndex].icon = $("#editIcon").val();
     selectedCollection.bookmarks[bookmarkIndex].description = $("#editDescription").val();
 
-    var moveToCollection = $('#tree').treeview('getNode', $("#editMoveToCollection").text());
+    var moveToCollection = tree.getDataByText($("#editMoveToCollection").text());
 
     if (typeof moveToCollection.nodeId != 'undefined' && selectedCollection !== moveToCollection) {
         var bookmark = selectedCollection.bookmarks[bookmarkIndex];
@@ -171,8 +171,8 @@ function saveCollection() {
     selectedCollection.showBookmarksAsCards = $("#showBookmarksAsCardsCheckbox").is(':checked');  
 
     // Check if we need to move the collection to a new parent
-    var moveToCollection = $('#tree').treeview('getNode', $("#editMoveToCollection").text());
-    var parentCollection = $('#tree').treeview('getParent', selectedCollection)[0];
+    var moveToCollection = tree.getDataByText($("#editMoveToCollection").text());
+    var parentCollection = getParent(selectedCollection)[0];
 
     if (typeof moveToCollection.nodeId != 'undefined' && moveToCollection !== parentCollection) {
         var copyCollection = $.extend(true, {}, selectedCollection);
@@ -311,7 +311,7 @@ function getCollectionBackground(collection) {
 }
 
 function getParent(collection) {
-    var parent = $('#tree').treeview('getNode', collection.parentId);
+    var parent = tree.getDataById(collection.parentId);
 
     if (parent.length === 1) {
         return parent[0];

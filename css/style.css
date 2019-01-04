@@ -16,6 +16,10 @@ body {
     height: 16px;
 }
 
+#tree li.active {
+    background-color: rgb(220, 53, 69);
+}
+
 /* Only show bookmark related buttons on hover */
 #bookmarks li.list-group-item button {
     visibility: hidden;
