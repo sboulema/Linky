@@ -1,21 +1,24 @@
 resources:
 - repo: self
 
-variables:
-- group: FontAwesome
-
 queue:
   name: Hosted Ubuntu 1604
 
 steps:
-- task: Docker@0
+- powershell: |
+   ((Get-Content -path .npmrc -Raw) -replace '{FATOKEN}','$env:faToken') | Set-Content -Path .nmprc
+
+  displayName: 'PowerShell Script'
+  env:
+    faToken: fontAwesomeToken
+
+- task: Docker@1
   displayName: 'Build an image'
   inputs:
     containerregistrytype: 'Container Registry'
-    dockerRegistryConnection: 'Docker Hub'
+    dockerRegistryEndpoint: 'Docker Hub'
     imageName: sboulema/linky
     includeLatestTag: true
-    buildArguments: 'faToken=fontAwesomeToken'
 
 - task: Docker@1
   displayName: 'Push an image'
