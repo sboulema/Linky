@@ -148,7 +148,9 @@ function saveBookmark() {
 
     var moveToCollection = tree.getDataByText($("#editMoveToCollection").text());
 
-    if (typeof moveToCollection.nodeId != 'undefined' && selectedCollection !== moveToCollection) {
+    if (typeof moveToCollection != 'undefined' &&
+        typeof moveToCollection.nodeId != 'undefined' && 
+        selectedCollection !== moveToCollection) {
         var bookmark = selectedCollection.bookmarks[bookmarkIndex];
         selectedCollection.bookmarks.splice(bookmarkIndex, 1);
         moveToCollection.bookmarks.push(bookmark);

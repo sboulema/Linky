@@ -66,7 +66,7 @@ function updateTree(element, replaceCollections) {
 function updateSelectedCollection() {
     var selectedCollection = getSelectedCollection();
     if (typeof selectedCollection != 'undefined') {
-        var node = tree.getNodeById(selectedCollection.id);
+        var node = tree.getNodeById(selectedCollection.nodeId);
         tree.unselect(node);
         tree.select(node);
     }
