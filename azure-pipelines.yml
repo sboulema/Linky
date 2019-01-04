@@ -15,7 +15,7 @@ steps:
     dockerRegistryEndpoint: 'Docker Hub'
     imageName: sboulema/linky
     includeLatestTag: true
-    arguments: faToken=fontAwesomeToken
+    buildArguments: faToken=fontAwesomeToken
 
 - task: Docker@1
   displayName: 'Push an image'
