@@ -27,6 +27,8 @@ gulp.task('scripts', function (done) {
   gulp.src('node_modules/bootstrap-fileinput/js/*.js').pipe(gulp.dest('dist/js'));
   gulp.src('node_modules/bootstrap-fileinput/css/*.css').pipe(gulp.dest('dist/css'));
 
+  gulp.src('node_modules/@fortawesome/fontawesome-pro/js/all.min.js').pipe(gulp.dest('dist/js'));
+
   done();
 });
 

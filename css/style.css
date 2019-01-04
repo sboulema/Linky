@@ -61,7 +61,7 @@ button {
 }
 
 #bookmarkColumn:hover, #collectionColumn:hover {
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 #bookmarkColumn {

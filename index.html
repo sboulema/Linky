@@ -18,9 +18,7 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans"> 
     
-    <!-- <script src="js/all.js"></script> -->
-
-    <script defer src="https://pro.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-4Gm0M5DjJ0zGaEtLu0ztNIoHWiuJ5rKiaVlpZKeNqXAW49eIIa2ymxb3C4c3uEXR" crossorigin="anonymous"></script>
+    <script defer src="js/all.min.js"></script>
 </head>
 
   <body style="height:100%;">
@@ -218,8 +216,11 @@
             <label for="editIcon">Assign an icon:</label>
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Icon" id="editIcon">
-                <span class="input-group-addon"><img id="editIconAddon" /></span>           
+                <div class="input-group-append">
+                    <span class="input-group-text"><img id="editIconAddon" /></span>
+                </div>        
             </div>
+
             <p class="text-muted">
                 <small>https://logo-core.clearbit.com/{url}</small><br/>
                 <small>https://www.google.com/s2/favicons?domain={url}</small>
