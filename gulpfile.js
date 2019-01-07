@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var fs = require('fs');
 
 gulp.task('scripts', function (done) {
   gulp.src('node_modules/bootstrap/dist/js/*.js').pipe(gulp.dest('dist/js'));
@@ -41,4 +42,45 @@ gulp.task('copy', function (done) {
   done();
 });
 
-gulp.task('build', gulp.parallel('scripts', 'copy'));
+gulp.task('generateFA', function(done) {
+  let targetJSON = {
+    icons: []
+  };
+
+  sourceJSON = require('./icons.json');
+
+  Object.keys(sourceJSON).forEach(function(key) {
+    let ele = sourceJSON[key];
+    let icon = 'fa-' + key;
+    ele.styles.forEach(function(style) {
+      style = style.toLowerCase();
+      if (style.startsWith('brand')) {
+          targetJSON.icons.push({
+              title: 'fab ' + icon,
+              searchTerms: ele.search.terms
+          });
+      } else if (style.startsWith('solid')) {
+          targetJSON.icons.push({
+              title: 'fas ' + icon,
+              searchTerms: ele.search.terms
+          });
+      } else if (style.startsWith('regular')) {
+          targetJSON.icons.push({
+              title: 'far ' + icon,
+              searchTerms: ele.search.terms
+          });
+      } else if (style.startsWith('light')) {
+          targetJSON.icons.push({
+              title: 'fal ' + icon,
+              searchTerms: ele.search.terms
+          });
+      }
+    });
+  });
+
+  fs.writeFile('dist/js/faIcons.js', 'var faIcons = ' + JSON.stringify(targetJSON.icons), done);
+});
+
+gulp.task('build', 
+  gulp.parallel('scripts', 'copy', 'generateFA')
+);

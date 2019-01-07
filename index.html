@@ -446,10 +446,16 @@
     <script src="js/treeHelper.js"></script>
     <script src="js/bookmarkHTML.js"></script>
 
+    <script src="js/faIcons.js"></script>
+
     <script>
         loadFromFirebase(function(data){parse(data)});
 
-        $('.icp-auto').iconpicker({animation:false});
+        $('.icp-auto').iconpicker({
+            animation: false,
+            hideOnSelect: true,
+            icons: faIcons
+        });
         $('.icp-auto').on('iconpickerSelected', function(event){
             $("#editCollectionIcon").val($("#editCollectionIcon").val() + " fa-fw")
             $("#editCollectionIconAddon").html("<i class='" + $("#editCollectionIcon").val() + "'></i>");
