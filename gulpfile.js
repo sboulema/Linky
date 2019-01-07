@@ -2,33 +2,30 @@ var gulp = require('gulp');
 var fs = require('fs');
 
 gulp.task('scripts', function (done) {
-  gulp.src('node_modules/bootstrap/dist/js/*.js').pipe(gulp.dest('dist/js'));
-  gulp.src('node_modules/bootstrap/dist/css/*.css').pipe(gulp.dest('dist/css'));
+  jsSources = [
+    'node_modules/bootstrap/dist/js/*.js',
+    'node_modules/gijgo/js/gijgo.min.js',
+    'node_modules/bootstrap-list-filter/bootstrap-list-filter.min.js',
+    'node_modules/sortablejs/*.js',
+    'node_modules/clipboard/dist/*.js',
+    'node_modules/file-saver/*.js',
+    'node_modules/keymaster/*.js',
+    'node_modules/jquery/dist/*.js',
+    'node_modules/popper.js/*.js',
+    'node_modules/fontawesome-iconpicker/dist/js/*.js',
+    'node_modules/bootstrap-fileinput/js/*.js',
+    'node_modules/@fortawesome/fontawesome-pro/js/all.min.js'
+  ];
 
-  gulp.src('node_modules/gijgo/js/gijgo.min.js').pipe(gulp.dest('dist/js'));
-  gulp.src('node_modules/gijgo/css/gijgo.min.css').pipe(gulp.dest('dist/css'));
+  cssSources = [
+    'node_modules/bootstrap/dist/css/*.css',
+    'node_modules/gijgo/css/gijgo.min.css',
+    'node_modules/fontawesome-iconpicker/dist/css/*.css',
+    'node_modules/bootstrap-fileinput/css/*.css'
+  ];
 
-  gulp.src('node_modules/bootstrap-list-filter/bootstrap-list-filter.min.js').pipe(gulp.dest('dist/js'));
-
-  gulp.src('node_modules/sortablejs/*.js').pipe(gulp.dest('dist/js'));
-
-  gulp.src('node_modules/clipboard/dist/*.js').pipe(gulp.dest('dist/js'));
-
-  gulp.src('node_modules/file-saver/*.js').pipe(gulp.dest('dist/js'));
-
-  gulp.src('node_modules/keymaster/*.js').pipe(gulp.dest('dist/js'));
-
-  gulp.src('node_modules/jquery/dist/*.js').pipe(gulp.dest('dist/js'));
-
-  gulp.src('node_modules/popper.js/*.js').pipe(gulp.dest('dist/js'));
-
-  gulp.src('node_modules/fontawesome-iconpicker/dist/js/*.js').pipe(gulp.dest('dist/js'));
-  gulp.src('node_modules/fontawesome-iconpicker/dist/css/*.css').pipe(gulp.dest('dist/css'));
-
-  gulp.src('node_modules/bootstrap-fileinput/js/*.js').pipe(gulp.dest('dist/js'));
-  gulp.src('node_modules/bootstrap-fileinput/css/*.css').pipe(gulp.dest('dist/css'));
-
-  gulp.src('node_modules/@fortawesome/fontawesome-pro/js/all.min.js').pipe(gulp.dest('dist/js'));
+  gulp.src(jsSources).pipe(gulp.dest('dist/js'));
+  gulp.src(cssSources).pipe(gulp.dest('dist/css'));
 
   done();
 });
@@ -78,7 +75,9 @@ gulp.task('generateFA', function(done) {
     });
   });
 
-  fs.appendFile('dist/js/faIcons.js', 'var faIcons = ' + JSON.stringify(targetJSON.icons), done);
+  fs.closeSync(fs.openSync('dist/js/faIcons.js', 'var faIcons = ' + JSON.stringify(targetJSON.icons)));
+
+  done();
 });
 
 gulp.task('build', 
