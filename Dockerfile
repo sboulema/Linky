@@ -4,7 +4,7 @@ FROM node
 COPY . .
 
 RUN npm install
-RUN npm run gulp build
+RUN npm run gulp
 
 # Second Stage
 FROM nginx

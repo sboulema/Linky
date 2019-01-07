@@ -78,7 +78,7 @@ gulp.task('generateFA', function(done) {
     });
   });
 
-  fs.writeFile('dist/js/faIcons.js', 'var faIcons = ' + JSON.stringify(targetJSON.icons), done);
+  fs.appendFile('dist/js/faIcons.js', 'var faIcons = ' + JSON.stringify(targetJSON.icons), done);
 });
 
 gulp.task('build', 
