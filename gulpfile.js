@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var fs = require('fs');
+var newfile = require('gulp-file');
 
 gulp.task('scripts', function (done) {
   jsSources = [
@@ -75,7 +75,7 @@ gulp.task('generateFA', function(done) {
     });
   });
 
-  fs.closeSync(fs.openSync('dist/js/faIcons.js', 'var faIcons = ' + JSON.stringify(targetJSON.icons)));
+  newfile('faIcons.js', 'var faIcons = ' + JSON.stringify(targetJSON.icons)).pipe(gulp.dest('dist/js'));
 
   done();
 });
