@@ -1,31 +1,36 @@
 var gulp = require('gulp');
 var newfile = require('gulp-file');
+var concat = require('gulp-concat');
 
 gulp.task('scripts', function (done) {
-  jsSources = [
-    'node_modules/bootstrap/dist/js/*.js',
+  jsSources = [  
+    'node_modules/jquery/dist/jquery.min.js',
+    'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
     'node_modules/gijgo/js/gijgo.min.js',
     'node_modules/bootstrap-list-filter/bootstrap-list-filter.min.js',
-    'node_modules/sortablejs/*.js',
-    'node_modules/clipboard/dist/*.js',
-    'node_modules/file-saver/*.js',
-    'node_modules/keymaster/*.js',
-    'node_modules/jquery/dist/*.js',
-    'node_modules/popper.js/*.js',
-    'node_modules/fontawesome-iconpicker/dist/js/*.js',
-    'node_modules/bootstrap-fileinput/js/*.js',
+    'node_modules/sortablejs/Sortable.min.js',
+    'node_modules/clipboard/dist/clipboard.min.js',
+    'node_modules/file-saver/Filesaver.min.js',
+    'node_modules/keymaster/keymaster.js',  
+    'node_modules/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.min.js',
+    'node_modules/bootstrap-fileinput/js/fileinput.min.js',
     'node_modules/@fortawesome/fontawesome-pro/js/all.min.js'
   ];
 
   cssSources = [
-    'node_modules/bootstrap/dist/css/*.css',
+    'node_modules/bootstrap/dist/css/bootstrap.min.css',
     'node_modules/gijgo/css/gijgo.min.css',
-    'node_modules/fontawesome-iconpicker/dist/css/*.css',
-    'node_modules/bootstrap-fileinput/css/*.css'
+    'node_modules/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css',
+    'node_modules/bootstrap-fileinput/css/fileinput.min.css'
   ];
 
-  gulp.src(jsSources).pipe(gulp.dest('dist/js'));
-  gulp.src(cssSources).pipe(gulp.dest('dist/css'));
+  gulp.src(jsSources)
+    .pipe(concat('bundle.js'))  
+    .pipe(gulp.dest('dist/js'));
+
+  gulp.src(cssSources)
+    .pipe(concat('bundle.css'))  
+    .pipe(gulp.dest('dist/css'));
 
   done();
 });
