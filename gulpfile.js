@@ -10,7 +10,7 @@ gulp.task('scripts', function (done) {
     'node_modules/bootstrap-list-filter/bootstrap-list-filter.min.js',
     'node_modules/sortablejs/Sortable.min.js',
     'node_modules/clipboard/dist/clipboard.min.js',
-    'node_modules/file-saver/Filesaver.min.js',
+    'node_modules/file-saver/filesaver.min.js',
     'node_modules/keymaster/keymaster.js',  
     'node_modules/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.min.js',
     'node_modules/bootstrap-fileinput/js/fileinput.min.js',
