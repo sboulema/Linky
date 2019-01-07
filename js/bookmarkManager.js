@@ -176,7 +176,9 @@ function saveCollection() {
     var moveToCollection = tree.getDataByText($("#editMoveToCollection").text());
     var parentCollection = getParent(selectedCollection)[0];
 
-    if (typeof moveToCollection.nodeId != 'undefined' && moveToCollection !== parentCollection) {
+    if (typeof moveToCollection != 'undefined' &&
+        typeof moveToCollection.nodeId != 'undefined' && 
+        moveToCollection !== parentCollection) {
         var copyCollection = $.extend(true, {}, selectedCollection);
 
         if (typeof moveToCollection.nodes == 'undefined') {

@@ -455,6 +455,10 @@
             $("#editCollectionIconAddon").html("<i class='" + $("#editCollectionIcon").val() + "'></i>");
         });
 
+        $("#editCollectionIcon").change(function() {
+            $("#editCollectionIconAddon").html("<i class='" + $("#editCollectionIcon").val() + "'></i>");
+        });
+
         $("#btn-import").fileinput({showCaption: false, 
             allowedFileExtensions: ["json","html"],
             showPreview: false,

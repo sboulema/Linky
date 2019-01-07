@@ -4,7 +4,7 @@
   "description": "Online Bookmark Manager",
   "main": "index.js",
   "scripts": {
-    "gulp": "node node_modules/gulp/bin/gulp.js"
+    "gulp": "node node_modules/gulp/bin/gulp.js build"
   },
   "repository": {
     "type": "git",
