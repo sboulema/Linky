@@ -337,7 +337,9 @@ function createBookmarkButtons(bookmark) {
     return buttons.html();
 }
 
-function shareBookmark(bookmark) {
+function shareBookmark(node) {
+    var bookmark = getSelectedBookmark(node);
+
     navigator.share({
         title: bookmark.text,
         text: bookmark.description,
