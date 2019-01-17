@@ -525,7 +525,7 @@
             var url = $("#addBookmarkUrl").val();
             $("#addBookmarkIconAddon").show();
             $.ajax({
-                url: "http://cors.sboulema.nl/" + url,
+                url: "https://cors.sboulema.nl/" + url,
                 async: true,
                 success: function(data) {
                     var matches = data.match(/<title.*?>([\s\S]*?)<\/title>/);
@@ -542,7 +542,7 @@
 
         function getDescription() {
             $.ajax({
-                url: "http://cors.sboulema.nl/" + url,
+                url: "https://cors.sboulema.nl/" + url,
                 success: function(data) {
                     var desc = data.find('meta[name=description]').attr("content")
                     $("#addBookmarkDescription").val(desc);                    

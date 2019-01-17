@@ -16,7 +16,7 @@ body {
     height: 16px;
 }
 
-#tree li.active {
+#tree li.active, #moveBookmark li.active {
     background-color: rgb(220, 53, 69);
 }
 

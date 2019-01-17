@@ -159,7 +159,7 @@ function saveBookmark() {
         });
     }
 
-    var moveToCollection = tree.getDataByText($("#editMoveToCollection").text());
+    var moveToCollection = tree.getDataById($("#editMoveToCollection").text());
 
     if (typeof moveToCollection != 'undefined' &&
         typeof moveToCollection.nodeId != 'undefined' && 
@@ -291,17 +291,7 @@ function showBookmarks(collection, showAsCards) {
                 
             item += "</div>";
             
-            item += 
-                "<div class='col-auto btn-toolbar' role='toolbar'>" +
-                    "<div class='btn-group mr-2' role='group' style='height: 31px'>" +
-                        "<button type='button' class='btn btn-outline-secondary btn-sm' onclick='editBookmark(this)'>" + 
-                        "<span class='fas fa-pencil fa-fw' aria-hidden='true'></span></button>" +
-                    "</div>" +
-                    "<div class='btn-group' role='group' style='height: 31px'>" + 
-                        "<button type='button' class='btn btn-outline-secondary btn-sm btn-clipboard' data-clipboard-text='" + 
-                        bookmark.url +  "'>" + "<span class='fas fa-copy fa-fw' aria-hidden='true'></span></button>" +
-                    "</div>" + 
-                "</div>";
+            item += createBookmarkButtons(bookmark);
 
             item += "</div>";
             item += "</li>"
@@ -311,6 +301,50 @@ function showBookmarks(collection, showAsCards) {
     }
 
     return bookmarksHtml;
+}
+
+function createBookmarkButtons(bookmark) {
+    var buttons = $("<div/>", {
+        class: "col-auto btn-toolbar",
+        role: "toolbar"
+    });
+
+    buttons.append(
+        "<div class='btn-group mr-2' role='group' style='height: 31px'>" +
+        "<button type='button' class='btn btn-outline-secondary btn-sm' onclick='editBookmark(this)'>" + 
+        "<span class='fas fa-pencil fa-fw' aria-hidden='true'></span></button>" +
+        "</div>"
+    );
+
+    var copyButton = $(
+        "<div class='btn-group' role='group' style='height: 31px'>" + 
+        "<button type='button' class='btn btn-outline-secondary btn-sm btn-clipboard' data-clipboard-text='" + 
+        bookmark.url +  "'>" + "<span class='fas fa-copy fa-fw' aria-hidden='true'></span></button>" +
+        "</div>"
+    ).appendTo(buttons);
+
+    if (navigator.share) {
+        copyButton.addClass("mr-2");
+
+        buttons.append(
+            "<div class='btn-group' role='group' style='height: 31px'>" + 
+            "<button type='button' class='btn btn-outline-secondary btn-sm' onclick='shareBookmark(this)'>" + 
+            "<span class='fas fa-share fa-fw' aria-hidden='true'></span></button>" +
+            "</div>" 
+        );
+    }
+    
+    return buttons.html();
+}
+
+function shareBookmark(bookmark) {
+    navigator.share({
+        title: bookmark.text,
+        text: bookmark.description,
+        url: bookmark.url,
+    })
+      .then(() => console.log('Successful share'))
+      .catch((error) => console.log('Error sharing', error));  
 }
 
 function getCollectionBackground(collection) {
