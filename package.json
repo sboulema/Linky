@@ -24,7 +24,6 @@
   "dependencies": {
     "@fortawesome/fontawesome-pro": "^5.6.3",
     "bootstrap": "^4.2.1",
-    "bootstrap-fileinput": "^4.5.1",
     "bootstrap-list-filter": "^0.3.2",
     "gijgo": "^1.9.11",
     "clipboard": "^1.7.1",

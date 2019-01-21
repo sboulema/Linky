@@ -13,15 +13,13 @@ gulp.task('scripts', function (done) {
     'node_modules/file-saver/FileSaver.min.js',
     'node_modules/keymaster/keymaster.js',  
     'node_modules/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.min.js',
-    'node_modules/bootstrap-fileinput/js/fileinput.min.js',
     'node_modules/@fortawesome/fontawesome-pro/js/all.min.js'
   ];
 
   cssSources = [
     'node_modules/bootstrap/dist/css/bootstrap.min.css',
     'node_modules/gijgo/css/gijgo.min.css',
-    'node_modules/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css',
-    'node_modules/bootstrap-fileinput/css/fileinput.min.css'
+    'node_modules/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css'
   ];
 
   gulp.src(jsSources)

@@ -352,30 +352,31 @@
             Browser Extensions:
             <br/>
             <a target='_blank' class="btn btn-primary" role="button" href="https://chrome.google.com/webstore/detail/linky-extension/pghdabpagojegpfplckdbnlalpgidikc">
-                Install Chrome extension
+                <i class="fab fa-chrome"></i>
             </a>
             <a target='_blank' class="btn btn-primary" role="button" href="https://addons.mozilla.org/addon/linky-extension/">
-                Install Firefox extension
+                <i class="fab fa-firefox"></i>
             </a>
 
             <br/><br/>
 
             Data:
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-1">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Export
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#" onclick="exportJson('linky-bookmarks.json');">Export as JSON</a>
-                                <a class="dropdown-item" href="#" onclick="exportHTML('linky-bookmarks.html');">Export as HTML</a>
-                            </div>
+            <div class="row">
+                <div class="col-auto">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Export
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#" onclick="exportJson('linky-bookmarks.json');">Export as JSON</a>
+                            <a class="dropdown-item" href="#" onclick="exportHTML('linky-bookmarks.html');">Export as HTML</a>
                         </div>
                     </div>
-                    <div class="col-sm-1">
-                        <input id="btn-import" name="btn-import[]" type="file" accept=".html,.json" onchange="importData(this)">
+                </div>
+                <div class="col-auto">
+                    <div class="file btn btn-primary">
+                        Import
+                        <input type="file" name="file" accept=".html,.json" onchange="importData(this)" />
                     </div>
                 </div>
             </div>
@@ -410,9 +411,9 @@
     <!-- Javascript Dependencies -->
     <script src="js/bundle.js"></script>
 
-    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-firestore.js"></script>
     <script>
         // Initialize Firebase
         var config = {
@@ -448,15 +449,6 @@
 
         $("#editCollectionIcon").change(function() {
             $("#editCollectionIconAddon").html("<i class='" + $("#editCollectionIcon").val() + "'></i>");
-        });
-
-        $("#btn-import").fileinput({showCaption: false, 
-            allowedFileExtensions: ["json","html"],
-            showPreview: false,
-            showRemove: false,
-            showUpload: false,
-            browseLabel: "Import",
-            browseIcon: "<i class='fas fa-folder-open'></i>"
         });
 
         $('#addCollectionModal').on('shown.bs.modal', function () {

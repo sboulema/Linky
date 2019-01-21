@@ -108,6 +108,20 @@ button {
     background-color: white;
 }
 
+/* Settings - File Import */
+div.file {
+    position: relative;
+    overflow: hidden;
+}
+
+div.file input {
+    position: absolute;
+    font-size: 50px;
+    opacity: 0;
+    right: 0;
+    top: 0;
+}
+
 /* Collapse styles */
 @media (min-width: 992px) {
     div.collapsed {
