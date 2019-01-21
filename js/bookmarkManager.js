@@ -5,10 +5,12 @@ function addCollection() {
             showBookmarkDescription: true,
             showBookmarkIcon: true,
             showBookmarksAsCards: false,
-            bookmarkIconSize: 16
+            bookmarkIconSize: 16,
+            nodeId: Math.random()
         };
 
         var selectedCollection = getSelectedCollection();
+        var selectedNode = getSelectedNode();
 
         if (typeof selectedCollection == 'undefined' || selectedCollection.id === "tree") {
             selectedCollection = newCollection;
@@ -18,7 +20,9 @@ function addCollection() {
                 selectedCollection.nodes = [];
             }
 
-            selectedCollection.nodes.push(newCollection);
+            tree.addNode(newCollection, selectedNode);
+
+            // selectedCollection.nodes.push(newCollection);
             updateTree();
         }      
 
@@ -159,16 +163,20 @@ function saveBookmark() {
         });
     }
 
-    var moveToCollection = tree.getDataById($("#editMoveToCollection").text());
+    var moveToCollectionId = $("#editMoveToCollection").text();
 
-    if (typeof moveToCollection != 'undefined' &&
-        typeof moveToCollection.nodeId != 'undefined' && 
-        selectedCollection !== moveToCollection) {
-        var bookmark = selectedCollection.bookmarks[bookmarkIndex];
-        selectedCollection.bookmarks.splice(bookmarkIndex, 1);
-        moveToCollection.bookmarks.push(bookmark);
-        moveToCollection.tags = [moveToCollection.bookmarks.length];
-        selectedCollection.tags = [selectedCollection.bookmarks.length];
+    if (moveToCollectionId != "") {
+        var moveToCollection = tree.getDataById($("#editMoveToCollection").text());
+
+        if (typeof moveToCollection != 'undefined' &&
+            typeof moveToCollection.nodeId != 'undefined' && 
+            selectedCollection !== moveToCollection) {
+            var bookmark = selectedCollection.bookmarks[bookmarkIndex];
+            selectedCollection.bookmarks.splice(bookmarkIndex, 1);
+            moveToCollection.bookmarks.push(bookmark);
+            moveToCollection.tags = [moveToCollection.bookmarks.length];
+            selectedCollection.tags = [selectedCollection.bookmarks.length];
+        }
     }
 
     updateTree();

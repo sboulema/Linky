@@ -10,6 +10,12 @@ function getSelectedCollection() {
     return tree.getDataById(id);
 }
 
+// Get the selected node
+function getSelectedNode() {
+    var id = tree.getSelections()[0];
+    return tree.getNodeById(id);
+}
+
 function getSelectedBookmarkCard(card) {
     var selectedCollection = getSelectedCollection();
     var bookmarkIndex = getIndexCard(card);
@@ -34,8 +40,10 @@ function syncTree(callback) {
     var selectedCollection = getSelectedCollection();
 
     loadFromFirebase(function(data){
-        parse(data);       
-        tree.select(tree.getNodeById(selectedCollection.nodeId));
+        parse(data);
+        if (typeof selectedCollection !== 'undefined') {
+            tree.select(tree.getNodeById(selectedCollection.nodeId));
+        }   
         callback();
     });
 }
@@ -129,6 +137,8 @@ function parse(input) {
         $("#accordion").empty();
         $('#bookmarks').empty();
         $('#bookmarksCards').empty();
+
+        if (typeof data === 'undefined') return;
 
         if (data.showBookmarksAsCards) {
             if (typeof data.bookmarks != 'undefined' && data.bookmarks.length > 0) {          
