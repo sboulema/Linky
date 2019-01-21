@@ -1,17 +1,13 @@
 <!doctype html>
 <html>
   <head>
-    <title>Getting Started Extension's Popup</title>
+    <title>Linky</title>
 
+    <link rel="stylesheet" href="css/bundle.css"> 
     <link rel="stylesheet" href="css/popup.css"> 
-    <link rel="stylesheet" href="css/bootstrap.min.css"> 
-    <link rel="stylesheet" href="css/bootstrap-treeview.min.css"> 
-    <link rel="stylesheet" href="css/font-awesome.min.css"> 
 
-    <script src="js/popup.js"></script>
-    <script src="js/jquery-3.2.1.min.js"></script>  
-    <script src="js/bootstrap.min.js"></script>  
-    <script src="js/bootstrap-treeview.min.js"></script>
+    <script src="js/bundle.js"></script>
+    <script src="js/popup.js"></script> 
   </head>
   <body>
     <div id="login">
@@ -32,6 +28,24 @@
       <h6 id="collectionHeader">My Collections</h6>
       <div id="tree"></div>
     </div>
+
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-firestore.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+          apiKey: "AIzaSyD_5zP59NL_S0PBuNNjfpex-m_4e3q9zNE",
+          authDomain: "linky-5cb10.firebaseapp.com",
+          databaseURL: "https://linky-5cb10.firebaseio.com",
+          projectId: "linky-5cb10",
+          storageBucket: "linky-5cb10.appspot.com",
+          messagingSenderId: "892580651576"
+        };
+        firebase.initializeApp(config);
+
+        var db = firebase.firestore();
+    </script>
   </body>
 </html>
 

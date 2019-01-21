@@ -1,3 +1,5 @@
+var tree;
+
 function getCurrentTabUrl(callback) {
   var queryInfo = {
     active: true,
@@ -35,60 +37,80 @@ function getDescription(url, callback) {
   });
 }
 
-function loadFromMyJson(callback) {
-  var myJsonCode = localStorage.getItem("myJsonCode");
-  $.ajax({
-    url: myJsonCode,
-    type: "GET",
-    success: function (data) {
-      callback(data);
-    }
-  });
+function loadBookmarks(callback) {
+  loadFromFirebase(function(data){callback(data)});
 }
 
-function saveToMyJson(element) {
-  var myJsonCode = localStorage.getItem("myJsonCode");
-  $.ajax({
-    url: myJsonCode,
-    type: "PUT",
-    data: JSON.stringify(element),
-    contentType: " application/json; charset=utf-8",
-    dataType: "json",
-    success: function (data, textStatus, jqXHR) {
-      console.log("Bookmark saved")
-      window.close();
-    },
-    error: function (data, textStatus, jqXHR) {
-      console.log(data);
-    }
-  });
+function save(element) {
+  saveToFirebase(element);
+  window.close();
 }
 
-function getUnsortedCollection(data) {
-  for (i = 0; i < data.length; i++) { 
-    if (data[i].text === "Unsorted") {
-      return data[i];
+function saveToFirebase(element) {
+    var firebaseCode = localStorage.getItem("firebaseCode");
+
+    // undefined is not a valid value to save in FireStore
+    $.each(element, function (index, collection) {
+        if (collection.parentId === undefined) {
+            collection.parentId = -1;
+        }
+    });
+
+    if (firebaseCode === null || firebaseCode === "") {   
+        db.collection("bookmarks").add({
+            bookmarks: element
+        })
+        .then(function(docRef) {
+            localStorage.setItem("firebaseCode", docRef.id);
+        })
+        .catch(function(error) {
+            console.error("Error adding document: ", error);
+        });
     }
-  } 
+    else {
+        db.collection("bookmarks").doc(firebaseCode).set({
+            bookmarks: element
+        })
+        .then(function(docRef) {
+            // saved
+        })
+        .catch(function(error) {
+            console.error("Error adding document: ", error);
+        });
+    }
 }
 
-function saveBookmark() {
-  var nodes = [];        
-  if ($('#tree').treeview('getEnabled').length > 0 && $('#tree').treeview('getEnabled')[0].id !== "tree") {
-      nodes.push($('#tree').treeview('getNode', 0));
-      $.merge(nodes, $('#tree').treeview('getSiblings', nodes[0]));
-  }
-  saveToMyJson(nodes);
+function loadFromFirebase(callback) {
+    var firebaseCode = localStorage.getItem("firebaseCode");
+    if (firebaseCode === null || firebaseCode === "") return;
+
+    var docRef = db.collection("bookmarks").doc(firebaseCode);
+    
+    docRef.get().then(function(doc) {
+        if (doc.exists) {
+            callback(doc.data().bookmarks);
+        } else {
+            console.log("No such document!");
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+}
+
+// Get the data from the selected node
+function getSelectedCollection() {
+  var id = tree.getSelections()[0];
+  return tree.getDataById(id);
 }
 
 function addBookmark() {
-  loadFromMyJson(function(data) {
+  loadBookmarks(function(data) {
     $("#addSpan").empty();
     $("#addSpan").addClass("fa fa-spinner fa-spin");
-    var nodeId;
-    var selectedCollection = $('#tree').treeview('getSelected', nodeId)[0];
+
+    var selectedCollection = getSelectedCollection();
     if (selectedCollection === null) {
-      selectedCollection = getUnsortedCollection(data);
+      selectedCollection = tree.getDataByText("Unsorted");
     }
 
     if (typeof selectedCollection == 'undefined') {
@@ -113,8 +135,9 @@ function addBookmark() {
             description: desc,
             icon: "https://favicon.sboulema.nl/favicon?url=" + (new URL(url)).hostname
           });
-          selectedCollection.tags = [selectedCollection.bookmarks.length];
-          saveBookmark();
+
+          save(tree.getAll());
+
           $("#addSpan").removeClass();
           $("#addSpan").text("Saved!")
         });
@@ -125,34 +148,44 @@ function addBookmark() {
 
 function createCollectionDropdown() {
   $("#collectionHeader").hide();
-  loadFromMyJson(function(data) {
-    $('#tree').treeview({
-        data: data,
-        collapseIcon: "fa fa-folder-open-o",
-        expandIcon: "fa fa-folder-o",
-        emptyIcon: "fa fa-folder-o"
+  loadBookmarks(function(data) {
+    tree = $('#tree').tree({
+      uiLibrary: 'bootstrap4',
+      dataSource: data,
+      primaryKey: 'nodeId',
+      childrenField: 'nodes',
+      border: true,
+      imageCssClassField: 'icon',
+      iconsLibrary: 'fontawesome',
+      icons: {
+          expand: '<i class="fal fa-folder"></i>',
+          collapse: '<i class="fal fa-folder-open"></i>'
+      }
     });
-    $('#tree').treeview('collapseAll', { silent: true });
+    tree.collapseAll();
     $("#collectionHeader").show();
   });
 }
 
 function login() {
-  var code = document.getElementById("syncCode").value;
-  localStorage.setItem("myJsonCode", "https://api.myjson.com/bins/" + code);
+  localStorage.setItem("firebaseCode", $("#syncCode").val());
+
+  $("#login").hide();
+  $("#add").show();
+  createCollectionDropdown();
 }
 
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById("loginButton").onclick = login;
   document.getElementById("addButton").onclick = addBookmark;
 
-  var code = localStorage.getItem("myJsonCode");
+  var code = localStorage.getItem("firebaseCode");
   if (code != null) {
-    document.getElementById("login").style.display = 'none';
-    document.getElementById("add").style.display = 'block';
+    $("#login").hide();
+    $("#add").show();
     createCollectionDropdown();
   } else {
-    document.getElementById("login").style.display = 'block';
-    document.getElementById("add").style.display = 'none';
+    $("#login").show();
+    $("#add").hide();
   }
 });

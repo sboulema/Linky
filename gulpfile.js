@@ -42,6 +42,36 @@ gulp.task('copy', function (done) {
   done();
 });
 
+gulp.task('webExtension', function (done) {
+  jsSources = [  
+    'node_modules/jquery/dist/jquery.min.js',
+    'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
+    'node_modules/gijgo/js/gijgo.min.js',
+    'node_modules/@fortawesome/fontawesome-pro/js/all.min.js'
+  ];
+
+  cssSources = [
+    'node_modules/bootstrap/dist/css/bootstrap.min.css',
+    'node_modules/gijgo/css/gijgo.min.css'
+  ];
+
+  gulp.src(jsSources)
+    .pipe(concat('bundle.js'))  
+    .pipe(gulp.dest('chrome-extension/dist/js'));
+
+  gulp.src(cssSources)
+    .pipe(concat('bundle.css'))  
+    .pipe(gulp.dest('chrome-extension/dist/css'));
+
+  gulp.src('chrome-extension/img/*').pipe(gulp.dest('chrome-extension/dist/img'));
+  gulp.src('chrome-extension/js/popup.js').pipe(gulp.dest('chrome-extension/dist/js'));
+  gulp.src('chrome-extension/css/popup.css').pipe(gulp.dest('chrome-extension/dist/css'));
+  gulp.src('chrome-extension/manifest.json').pipe(gulp.dest('chrome-extension/dist'));
+  gulp.src('chrome-extension/popup.html').pipe(gulp.dest('chrome-extension/dist'));
+
+  done();
+});
+
 gulp.task('generateFA', function(done) {
   let targetJSON = {
     icons: []

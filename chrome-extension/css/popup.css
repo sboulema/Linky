@@ -6,3 +6,7 @@ body {
 #collectionHeader {
     margin-top: 15px;
 }
+
+#tree li.active {
+    background-color: rgb(220, 53, 69);
+}
