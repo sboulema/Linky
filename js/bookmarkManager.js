@@ -6,7 +6,7 @@ function addCollection() {
             showBookmarkIcon: true,
             showBookmarksAsCards: false,
             bookmarkIconSize: 16,
-            nodeId: Math.random()
+            nodeId: getRandomInt(Number.MAX_SAFE_INTEGER)
         };
 
         var selectedCollection = getSelectedCollection();
@@ -379,4 +379,8 @@ function getParent(collection) {
     }
 
     return parent;
+}
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
 }

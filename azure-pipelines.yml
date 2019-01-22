@@ -15,6 +15,20 @@ steps:
   env:
     faToken: $(fontAwesomeToken)
 
+- powershell: |  
+   ((Get-Content -path index.html -Raw) -replace '{firebaseApiKey}',$env:firebaseApiKey) | Set-Content -Path index.html
+   
+  displayName: 'Insert FirebaseApiKey'
+  env:
+    firebaseApiKey: $(firebaseApiKey)
+
+- powershell: |  
+   ((Get-Content -path webextension/popup.js -Raw) -replace '{firebaseApiKey}',$env:firebaseApiKey) | Set-Content -Path webextension/popup.js
+   
+  displayName: 'Insert FirebaseApiKey into WebExtension'
+  env:
+    firebaseApiKey: $(firebaseApiKey)
+
 - task: Docker@1
   displayName: 'Build an image'
   inputs:
