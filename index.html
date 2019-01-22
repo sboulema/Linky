@@ -129,7 +129,7 @@
         <div class="modal-body">
             <label for="addBookmarkUrl">Enter your url:</label>
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Url" id="addBookmarkUrl" onfocusout="getTitle()">
+                <input type="text" class="form-control" placeholder="Url" id="addBookmarkUrl" onfocusout="getTitle();getDescription();">
             </div>
 
             <label for="addBookmarkName">Assign a name:</label>
@@ -504,6 +504,7 @@
             setFirebaseCode($("#settingsSyncCode").val());
         }
 
+        // Get title and possibly split title for description
         function getTitle() {
             var url = $("#addBookmarkUrl").val();
             $("#addBookmarkIconAddon").show();
@@ -513,7 +514,15 @@
                 success: function(data) {
                     var matches = data.match(/<title.*?>([\s\S]*?)<\/title>/);
                     if (matches != null) {
-                        $("#addBookmarkName").val(matches[1].trim());
+                        var title = matches[1].trim();
+
+                        var titleSplit = title.split("|");
+                        if (titleSplit.length > 1) {
+                            $("#addBookmarkName").val(titleSplit[0].trim());
+                            $("#addBookmarkDescription").val(titleSplit[1].trim()); 
+                        } else {
+                            $("#addBookmarkName").val(title);
+                        }                   
                     }               
                     $("#addBookmarkIconAddon").hide();                    
                 },
@@ -524,11 +533,15 @@
         }
 
         function getDescription() {
+            var url = $("#addBookmarkUrl").val();
             $.ajax({
                 url: "https://cors.sboulema.nl/" + url,
                 success: function(data) {
                     var desc = data.find('meta[name=description]').attr("content")
-                    $("#addBookmarkDescription").val(desc);                    
+
+                    if (desc != "") {
+                        $("#addBookmarkDescription").val(desc); 
+                    }                   
                 } 
             });
         }
