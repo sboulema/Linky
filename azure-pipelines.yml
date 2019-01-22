@@ -23,7 +23,7 @@ steps:
     firebaseApiKey: $(firebaseApiKey)
 
 - powershell: |  
-   ((Get-Content -path webextension/popup.js -Raw) -replace '{firebaseApiKey}',$env:firebaseApiKey) | Set-Content -Path webextension/popup.js
+   ((Get-Content -path webextension/js/popup.js -Raw) -replace '{firebaseApiKey}',$env:firebaseApiKey) | Set-Content -Path webextension/js/popup.js
    
   displayName: 'Insert FirebaseApiKey into WebExtension'
   env:
