@@ -4,7 +4,7 @@
   "name": "Linky Extension",
   "short_name": "Linky",
   "description": "Add new links to Linky.",
-  "version": "2.1",
+  "version": "2.2",
 
   "icons": { 
     "16": "img/icon16.png",
@@ -18,6 +18,7 @@
   },
 
   "permissions": [
-    "activeTab"
+    "activeTab",
+    "https://cors.sboulema.nl/"
   ]
 }

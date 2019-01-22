@@ -338,14 +338,6 @@
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Sync code" id="settingsSyncCode">
             </div>
-            <br/>
-
-            Settings:
-            <br/>
-            <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="showBookmarkCountCheckbox">
-                <label class="custom-control-label" for="showBookmarkCountCheckbox">Show bookmark count on collections</label>
-            </div>
 
             <br/>
 
@@ -510,7 +502,6 @@
 
         function saveSettings() {
             setFirebaseCode($("#settingsSyncCode").val());
-            localStorage.setItem("showBookmarkCount", $("#showBookmarkCountCheckbox").is(':checked'));
         }
 
         function getTitle() {
@@ -544,7 +535,6 @@
 
         function loadSettings() {
             $('#settingsSyncCode').val(getFirebaseCode());
-            $('#showBookmarkCountCheckbox').prop('checked', localStorage.getItem("showBookmarkCount") == "true");
         }
 
         function collapseCollectionColumn() {

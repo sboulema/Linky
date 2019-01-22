@@ -16,7 +16,7 @@ function getCurrentTabUrl(callback) {
 
 function getTitle(url, callback) {
   $.ajax({
-    url: url,
+    url: "https://cors.sboulema.nl/" + url,
     success: function(data) {
       var matches = data.match(/<title.*?>([\s\S]*?)<\/title>/);
       if (matches === null) {
@@ -30,9 +30,12 @@ function getTitle(url, callback) {
 
 function getDescription(url, callback) {
   $.ajax({
-    url: url,
+    url: "https://cors.sboulema.nl/" + url,
     success: function(data) {
       var desc = $(data).find('meta[name=description]').attr("content");
+      if (typeof desc === 'undefined') {
+        desc = "";
+      }
       callback(desc);
     }
   });
@@ -44,41 +47,43 @@ function loadBookmarks(callback) {
 
 function save(element) {
   saveToFirebase(element);
-  window.close();
+  // window.close();
 }
 
 function saveToFirebase(element) {
-    var firebaseCode = localStorage.getItem("firebaseCode");
+  var firebaseCode = localStorage.getItem("firebaseCode");
 
-    // undefined is not a valid value to save in FireStore
-    $.each(element, function (index, collection) {
-        if (collection.parentId === undefined) {
-            collection.parentId = -1;
-        }
+  // undefined is not a valid value to save in FireStore
+  $.each(element, function (index, collection) {
+      if (collection.parentId === undefined) {
+          collection.parentId = -1;
+      }
+  });
+
+  if (firebaseCode === null || firebaseCode === "") {   
+    db.collection("bookmarks").add({
+        bookmarks: element
+    })
+    .then(function(docRef) {
+        localStorage.setItem("firebaseCode", docRef.id);
+    })
+    .catch(function(error) {
+        console.error("Error adding document: ", error);
     });
+  }
+  else {
+    console.log("Saving document");
 
-    if (firebaseCode === null || firebaseCode === "") {   
-        db.collection("bookmarks").add({
-            bookmarks: element
-        })
-        .then(function(docRef) {
-            localStorage.setItem("firebaseCode", docRef.id);
-        })
-        .catch(function(error) {
-            console.error("Error adding document: ", error);
-        });
-    }
-    else {
-        db.collection("bookmarks").doc(firebaseCode).set({
-            bookmarks: element
-        })
-        .then(function(docRef) {
-            // saved
-        })
-        .catch(function(error) {
-            console.error("Error adding document: ", error);
-        });
-    }
+    db.collection("bookmarks").doc(firebaseCode).set({
+        bookmarks: element
+    })
+    .then(function(docRef) {
+        console.log("Saved document!")
+    })
+    .catch(function(error) {
+        console.error("Error adding document: ", error);
+    });
+  }
 }
 
 function loadFromFirebase(callback) {
@@ -130,12 +135,14 @@ function addBookmark() {
             selectedCollection.bookmarks = [];
           }
 
-          selectedCollection.bookmarks.push({
+          var bookmark = {
             text: title,
             url: url,
             description: desc,
             icon: "https://favicon.sboulema.nl/favicon?url=" + (new URL(url)).hostname
-          });
+          };
+
+          selectedCollection.bookmarks.push(bookmark);
 
           save(tree.getAll());
 

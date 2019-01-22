@@ -55,14 +55,14 @@ gulp.task('webExtension', function (done) {
     'node_modules/gijgo/css/gijgo.min.css'
   ];
 
-  gulp.src(jsSources).pipe(gulp.dest('chrome-extension/dist/js'));
-  gulp.src(cssSources).pipe(gulp.dest('chrome-extension/dist/css'));
+  gulp.src(jsSources).pipe(gulp.dest('webextension/dist/js'));
+  gulp.src(cssSources).pipe(gulp.dest('webextension/dist/css'));
 
-  gulp.src('chrome-extension/img/*').pipe(gulp.dest('chrome-extension/dist/img'));
-  gulp.src('chrome-extension/js/*').pipe(gulp.dest('chrome-extension/dist/js'));
-  gulp.src('chrome-extension/css/popup.css').pipe(gulp.dest('chrome-extension/dist/css'));
-  gulp.src('chrome-extension/manifest.json').pipe(gulp.dest('chrome-extension/dist'));
-  gulp.src('chrome-extension/popup.html').pipe(gulp.dest('chrome-extension/dist'));
+  gulp.src('webextension/img/*').pipe(gulp.dest('webextension/dist/img'));
+  gulp.src('webextension/js/*').pipe(gulp.dest('webextension/dist/js'));
+  gulp.src('webextension/css/popup.css').pipe(gulp.dest('webextension/dist/css'));
+  gulp.src('webextension/manifest.json').pipe(gulp.dest('webextension/dist'));
+  gulp.src('webextension/popup.html').pipe(gulp.dest('webextension/dist'));
 
   done();
 });
