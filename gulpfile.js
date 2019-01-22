@@ -55,16 +55,11 @@ gulp.task('webExtension', function (done) {
     'node_modules/gijgo/css/gijgo.min.css'
   ];
 
-  gulp.src(jsSources)
-    .pipe(concat('bundle.js'))  
-    .pipe(gulp.dest('chrome-extension/dist/js'));
-
-  gulp.src(cssSources)
-    .pipe(concat('bundle.css'))  
-    .pipe(gulp.dest('chrome-extension/dist/css'));
+  gulp.src(jsSources).pipe(gulp.dest('chrome-extension/dist/js'));
+  gulp.src(cssSources).pipe(gulp.dest('chrome-extension/dist/css'));
 
   gulp.src('chrome-extension/img/*').pipe(gulp.dest('chrome-extension/dist/img'));
-  gulp.src('chrome-extension/js/popup.js').pipe(gulp.dest('chrome-extension/dist/js'));
+  gulp.src('chrome-extension/js/*').pipe(gulp.dest('chrome-extension/dist/js'));
   gulp.src('chrome-extension/css/popup.css').pipe(gulp.dest('chrome-extension/dist/css'));
   gulp.src('chrome-extension/manifest.json').pipe(gulp.dest('chrome-extension/dist'));
   gulp.src('chrome-extension/popup.html').pipe(gulp.dest('chrome-extension/dist'));

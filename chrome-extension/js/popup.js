@@ -1,4 +1,5 @@
 var tree;
+var db;
 
 function getCurrentTabUrl(callback) {
   var queryInfo = {
@@ -175,9 +176,26 @@ function login() {
   createCollectionDropdown();
 }
 
+function initFirebase() {
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyD_5zP59NL_S0PBuNNjfpex-m_4e3q9zNE",
+    authDomain: "linky-5cb10.firebaseapp.com",
+    databaseURL: "https://linky-5cb10.firebaseio.com",
+    projectId: "linky-5cb10",
+    storageBucket: "linky-5cb10.appspot.com",
+    messagingSenderId: "892580651576"
+  };
+  firebase.initializeApp(config);
+
+  db = firebase.firestore();
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById("loginButton").onclick = login;
   document.getElementById("addButton").onclick = addBookmark;
+
+  initFirebase();
 
   var code = localStorage.getItem("firebaseCode");
   if (code != null) {

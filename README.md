@@ -9,4 +9,8 @@ Online bookmark manager
 
 ## Building
 - npm install
-- gulp build
+- npm run gulp
+
+## Building the browser extension
+- npm install
+- npm run extension

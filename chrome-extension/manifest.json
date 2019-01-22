@@ -4,7 +4,7 @@
   "name": "Linky Extension",
   "short_name": "Linky",
   "description": "Add new links to Linky.",
-  "version": "2.0",
+  "version": "2.1",
 
   "icons": { 
     "16": "img/icon16.png",
