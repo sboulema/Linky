@@ -29,6 +29,10 @@ body {
     visibility: visible;
 }
 
+#bookmarks li.list-group-item:hover span.tag {
+    visibility: visible;
+}
+
 button {
     cursor: pointer;
 }
@@ -106,6 +110,13 @@ button {
 #row-main {
     height: 100%;
     background-color: white;
+}
+
+/* Bookmarks - Tags */
+.tag {
+    margin-left: 10px;
+    margin-right: 10px;
+    visibility: hidden;
 }
 
 /* Settings - File Import */

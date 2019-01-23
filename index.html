@@ -59,12 +59,6 @@
 
                 <h6>My Collections</h6>
                 <div id="tree"></div>
-
-                <br/>
-
-                <button type="button" class="btn btn-sm btn-outline-secondary btn-block text-left" onclick="showAllBookmarks()">
-                    <span class="fas fa-heart" aria-hidden="true"></span> All bookmarks
-                </button>
              
             </div>
 
@@ -97,7 +91,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
                           </div>
-                        <input id="search" type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1">
+                        <input id="search" type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1" onkeyup="search()">
                     </div>
                 </div>
 
@@ -221,6 +215,11 @@
                 <small>https://logo-core.clearbit.com/{url}</small><br/>
                 <small>https://www.google.com/s2/favicons?domain={url}</small>
             </p>      
+
+            <label for="editTags">Tags:</label>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Tags" id="editTags" data-role="tagsinput">
+            </div>
 
             <label for="editBookmarkCollection">Move bookmark:</label>
             <div class="input-group">
@@ -423,6 +422,7 @@
     <script src="js/bookmarkManager.js"></script>
     <script src="js/treeHelper.js"></script>
     <script src="js/bookmarkHTML.js"></script>
+    <script src="js/searchHelper.js"></script>
 
     <script src="js/faIcons.js"></script>
 
@@ -477,8 +477,6 @@
         $('[data-toggle="popover"]').popover( {
             html: true
         });
-
-        $('#bookmarks').btsListFilter('#search', {initial: false});
 
         $('.toast').toast({
             delay: 1000

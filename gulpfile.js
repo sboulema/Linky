@@ -7,7 +7,6 @@ gulp.task('scripts', function (done) {
     'node_modules/jquery/dist/jquery.min.js',
     'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
     'node_modules/gijgo/js/gijgo.min.js',
-    'node_modules/bootstrap-list-filter/bootstrap-list-filter.min.js',
     'node_modules/sortablejs/Sortable.min.js',
     'node_modules/clipboard/dist/clipboard.min.js',
     'node_modules/file-saver/FileSaver.min.js',

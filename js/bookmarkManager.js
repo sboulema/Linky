@@ -41,12 +41,16 @@ function addBookmark() {
         var bookmark = {
             text: $('#addBookmarkName').val(),
             url: $('#addBookmarkUrl').val(),
-            description: $('#addBookmarkDescription').val(),
-            icon: "https://favicon.sboulema.nl/favicon?url=" + $('#addBookmarkUrl').val()
+            description: $('#addBookmarkDescription').val()
         };
 
-        $.get(bookmark.icon + "&base64=true", function(data) {
-            bookmark.iconData = data;
+        // Get Favicon
+        var faviconUrl = "https://favicon.sboulema.nl/favicon?url=" + $('#addBookmarkUrl').val();
+        $.get(faviconUrl + "&base64=true", function(data, statusText, xhr) {
+            if (xhr.status == 200) {
+                bookmark.icon = faviconUrl;
+                bookmark.iconData = data;
+            }          
         });
 
         selectedCollection.bookmarks.push(bookmark);
@@ -121,6 +125,7 @@ function editBookmark(node, isCard) {
         $("#editIconAddon").attr("src", bookmark.icon);
         $("#editIndex").text(bookmarkIndex);
         $("#editDescription").val(bookmark.description);
+        $("#editTags").val(bookmark.tags);
         $("#editBookmarkCollection").val(selectedCollection.text);
 
         $('#editModal').modal('show');
@@ -155,6 +160,7 @@ function saveBookmark() {
     selectedCollection.bookmarks[bookmarkIndex].url = $("#editUrl").val();
     selectedCollection.bookmarks[bookmarkIndex].icon = $("#editIcon").val();
     selectedCollection.bookmarks[bookmarkIndex].description = $("#editDescription").val();
+    selectedCollection.bookmarks[bookmarkIndex].tags = $("#editTags").val();
 
     if ($("#editIcon").val().startsWith("https://favicon.sboulema.nl/favicon")) {
         $.get($("#editIcon").val() + "&base64=true", function(data) {
@@ -214,42 +220,6 @@ function saveCollection() {
     updateTree();
 }
 
-function getAllBookmarks() {
-    var bookmarks = [];
-    return search(getCollections(), "bookmarks", bookmarks);
-}
-
-search = function(hay, needle, accumulator) {
-  var accumulator = accumulator || [];
-  if (typeof hay == 'object') {
-    for (var i in hay) {
-        if (i === needle) {
-            $.merge(accumulator, hay[i]);
-        }
-        search(hay[i], needle, accumulator) == true ? accumulator.push(hay) : 1;
-    }
-  }
-  return new RegExp(needle).test(hay) || accumulator;
-}
-
-function showAllBookmarks() {
-    $("#collectionName").attr("placeholder", "All bookmarks");
-
-    $("#collectionIcon").html("<i class='fas fa-heart'></i>");
-
-    $("#accordion").empty();
-    $('#bookmarks').empty();
-
-    var collection = {
-        bookmarks: getAllBookmarks(),
-        showBookmarkIcon: true,
-        showBookmarkDescription: true,
-        bookmarkIconSize: 16
-    };
-
-    $("#bookmarks").html(showBookmarks(collection));
-}
-
 function showBookmarks(collection, showAsCards) {
     var bookmarksHtml = "";
 
@@ -296,7 +266,9 @@ function showBookmarks(collection, showAsCards) {
             if (collection.showBookmarkDescription && typeof bookmark.description != 'undefined' && bookmark.description != "") {
                 item += " - <span>" + bookmark.description + "</span>";
             }
-                
+            
+            item += showTags(bookmark);
+
             item += "</div>";
             
             item += createBookmarkButtons(bookmark);
@@ -309,6 +281,22 @@ function showBookmarks(collection, showAsCards) {
     }
 
     return bookmarksHtml;
+}
+
+function showTags(bookmark) {
+    var tags = $("<span/>", {
+        class: "tag"
+    });
+
+    if (typeof bookmark.tags === 'undefined') {
+        return tags.html();
+    }
+
+    bookmark.tags.split(",").forEach(tag => {
+        tags.append("<small><i class='fal fa-tag'></i>" + tag + "</small>");
+    });
+
+    return tags[0].outerHTML;
 }
 
 function createBookmarkButtons(bookmark) {
@@ -342,7 +330,7 @@ function createBookmarkButtons(bookmark) {
         );
     }
     
-    return buttons.html();
+    return buttons[0].outerHTML;
 }
 
 function shareBookmark(node) {

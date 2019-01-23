@@ -25,11 +25,10 @@
   "dependencies": {
     "@fortawesome/fontawesome-pro": "^5.6.3",
     "bootstrap": "^4.2.1",
-    "bootstrap-list-filter": "^0.3.2",
-    "gijgo": "^1.9.11",
     "clipboard": "^1.7.1",
     "file-saver": "^1.3.3",
     "fontawesome-iconpicker": "^3.2.0",
+    "gijgo": "^1.9.11",
     "jquery": "^3.3.1",
     "keymaster": "^1.6.2",
     "popper.js": "^1.14.6",

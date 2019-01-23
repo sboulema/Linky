@@ -7,6 +7,11 @@ function getCollections() {
 // Get the data from the selected node
 function getSelectedCollection() {
     var id = tree.getSelections()[0];
+
+    if (typeof id === 'undefined') {
+        return undefined;
+    }
+
     return tree.getDataById(id);
 }
 
