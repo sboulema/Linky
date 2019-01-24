@@ -1,0 +1,14 @@
+{
+    "short_name": "Linky",
+    "name": "Linky - Online Bookmark Manager",
+    "start_url": "index.html",
+    "background_color": "#dc3545",
+    "display": "standalone",
+    "theme_color": "#dc3545",
+    "share_target": {
+        "action": "add.html",
+        "params": {
+          "text": "text"
+        }
+    }      
+}  
