@@ -115,8 +115,11 @@ button {
 /* Bookmarks - Tags */
 .tag {
     margin-left: 10px;
-    margin-right: 10px;
     visibility: hidden;
+}
+
+.tag span {
+    margin-right: 5px;
 }
 
 /* Settings - File Import */

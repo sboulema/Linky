@@ -293,7 +293,7 @@ function showTags(bookmark) {
     }
 
     bookmark.tags.split(",").forEach(tag => {
-        tags.append("<small><i class='fal fa-tag'></i>" + tag + "</small>");
+        tags.append("<small><i class='fal fa-tag fa-fw'></i>" + tag + "</small>");
     });
 
     return tags[0].outerHTML;
