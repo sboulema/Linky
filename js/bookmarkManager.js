@@ -1,16 +1,17 @@
 function addCollection() {
     syncTree(function() {
+        var selectedCollection = getSelectedCollection();
+        var selectedNode = getSelectedNode();
+
         var newCollection = {
             text: $('#addCollectionName').val(),
             showBookmarkDescription: true,
             showBookmarkIcon: true,
             showBookmarksAsCards: false,
             bookmarkIconSize: 16,
-            nodeId: getRandomInt(Number.MAX_SAFE_INTEGER)
+            nodeId: getRandomInt(Number.MAX_SAFE_INTEGER),
+            parentId: selectedCollection.nodeId
         };
-
-        var selectedCollection = getSelectedCollection();
-        var selectedNode = getSelectedNode();
 
         if (typeof selectedCollection == 'undefined' || selectedCollection.id === "tree") {
             selectedCollection = newCollection;
@@ -22,7 +23,6 @@ function addCollection() {
 
             tree.addNode(newCollection, selectedNode);
 
-            // selectedCollection.nodes.push(newCollection);
             updateTree();
         }      
 
@@ -132,6 +132,7 @@ function editBookmark(node, isCard) {
     // });
 }
 
+// Show 'Edit Collection' modal
 function editCollection() {
     var selectedCollection = getSelectedCollection();
 
@@ -201,7 +202,7 @@ function saveCollection() {
 
     // Check if we need to move the collection to a new parent
     var moveToCollection = tree.getDataByText($("#editMoveToCollection").text());
-    var parentCollection = getParent(selectedCollection)[0];
+    var parentCollection = getParent(selectedCollection);
 
     if (typeof moveToCollection != 'undefined' &&
         typeof moveToCollection.nodeId != 'undefined' && 
@@ -216,6 +217,10 @@ function saveCollection() {
 
         deleteCollection();
     }
+
+    tree.reload();
+    tree.expand(tree.getNodeById(selectedCollection.parentId));
+    tree.select(tree.getNodeById(selectedCollection.nodeId));
 
     updateTree();
 }
@@ -360,13 +365,7 @@ function getCollectionBackground(collection) {
 }
 
 function getParent(collection) {
-    var parent = tree.getDataById(collection.parentId);
-
-    if (parent.length === 1) {
-        return parent[0];
-    }
-
-    return parent;
+    return tree.getDataById(collection.parentId);
 }
 
 function getRandomInt(max) {

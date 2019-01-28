@@ -118,7 +118,7 @@ button {
     visibility: hidden;
 }
 
-.tag span {
+.tag small {
     margin-right: 5px;
 }
 
