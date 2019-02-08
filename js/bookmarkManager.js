@@ -46,11 +46,13 @@ function addBookmark() {
 
         // Get Favicon
         var faviconUrl = "https://favicon.sboulema.nl/favicon?url=" + $('#addBookmarkUrl').val();
-        $.get(faviconUrl + "&base64=true", function(data, statusText, xhr) {
+        var faviconRetrieval = $.get(faviconUrl + "&base64=true");
+
+        faviconRetrieval.done(function(data, statusText, xhr) {
             if (xhr.status == 200) {
                 bookmark.icon = faviconUrl;
                 bookmark.iconData = data;
-            }          
+            }  
         });
 
         selectedCollection.bookmarks.push(bookmark);
@@ -293,7 +295,7 @@ function showTags(bookmark) {
         class: "tag"
     });
 
-    if (typeof bookmark.tags === 'undefined') {
+    if (typeof bookmark.tags === 'undefined' || bookmark.tags === "") {
         return tags.html();
     }
 

@@ -536,11 +536,13 @@
             $.ajax({
                 url: "https://cors.sboulema.nl/" + url,
                 success: function(data) {
-                    var desc = data.find('meta[name=description]').attr("content")
-
-                    if (desc != "") {
-                        $("#addBookmarkDescription").val(desc); 
-                    }                   
+                    var matches = data.match(/<meta name="description" content="(.*)">/)
+                    if (matches != null) {
+                        var desc = matches[0];
+                        if (desc != "") {
+                            $("#addBookmarkDescription").val(desc); 
+                        } 
+                    }                     
                 } 
             });
         }
