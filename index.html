@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="css/style.css"> 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans"> 
 
-    <script defer src="js/all.min.js"></script>
+    <!-- <script defer src="js/all.min.js"></script> -->
 </head>
 
   <body style="height:100%;">
@@ -538,7 +538,7 @@
                 success: function(data) {
                     var matches = data.match(/<meta name="description" content="(.*)">/)
                     if (matches != null) {
-                        var desc = matches[0];
+                        var desc = matches[1];
                         if (desc != "") {
                             $("#addBookmarkDescription").val(desc); 
                         } 

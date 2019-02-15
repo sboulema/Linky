@@ -30,41 +30,37 @@ function addCollection() {
     });
 }
 
-function addBookmark() {
-    syncTree(function(){
-        var selectedCollection = getSelectedCollection();
+async function addBookmark() {
+    await syncTree();
 
-        if (typeof selectedCollection.bookmarks == 'undefined') {
-            selectedCollection.bookmarks = [];
-        }
+    var selectedCollection = getSelectedCollection();
 
-        var bookmark = {
-            text: $('#addBookmarkName').val(),
-            url: $('#addBookmarkUrl').val(),
-            description: $('#addBookmarkDescription').val()
-        };
+    if (typeof selectedCollection.bookmarks == 'undefined') {
+        selectedCollection.bookmarks = [];
+    }
 
-        // Get Favicon
-        var faviconUrl = "https://favicon.sboulema.nl/favicon?url=" + $('#addBookmarkUrl').val();
-        var faviconRetrieval = $.get(faviconUrl + "&base64=true");
+    var bookmark = {
+        text: $('#addBookmarkName').val(),
+        url: $('#addBookmarkUrl').val(),
+        description: $('#addBookmarkDescription').val()
+    };
 
-        faviconRetrieval.done(function(data, statusText, xhr) {
-            if (xhr.status == 200) {
-                bookmark.icon = faviconUrl;
-                bookmark.iconData = data;
-            }  
-        });
+    // Get Favicon
+    var faviconUrl = "https://favicon.sboulema.nl/favicon?url=" + $('#addBookmarkUrl').val();
+    var faviconData = await $.get(faviconUrl + "&base64=true");
 
-        selectedCollection.bookmarks.push(bookmark);
+    bookmark.icon = faviconUrl;
+    bookmark.iconData = faviconData;
 
-        $('#addBookmarkName').val("");
-        $('#addBookmarkUrl').val("");
-        $('#addBookmarkDescription').val("");
+    selectedCollection.bookmarks.push(bookmark);
 
-        selectedCollection.tags = [selectedCollection.bookmarks.length];
+    $('#addBookmarkName').val("");
+    $('#addBookmarkUrl').val("");
+    $('#addBookmarkDescription').val("");
 
-        updateTree();
-    });
+    selectedCollection.tags = [selectedCollection.bookmarks.length];
+
+    updateTree();
 }
 
 function deleteBookmark() {

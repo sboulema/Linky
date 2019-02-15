@@ -53,6 +53,17 @@ function syncTree(callback) {
     });
 }
 
+async function syncTree() {
+    var selectedCollection = getSelectedCollection();
+    var bookmarks = await loadFromFirebaseAsync();
+    
+    parse(bookmarks);
+
+    if (typeof selectedCollection !== 'undefined') {
+        tree.select(tree.getNodeById(selectedCollection.nodeId));
+    }
+}
+
 function updateTree(element, replaceCollections) {
     if (replaceCollections) {
         saveToFirebase(element);

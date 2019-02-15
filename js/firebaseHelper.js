@@ -51,6 +51,16 @@ function loadFromFirebase(callback) {
     });
 }
 
+async function loadFromFirebaseAsync() {
+    var firebaseCode = localStorage.getItem("firebaseCode");
+    if (firebaseCode === null || firebaseCode === "") return;
+
+    var docRef = db.collection("bookmarks").doc(firebaseCode);
+    var doc = await docRef.get();
+
+    return doc.data().bookmarks;
+}
+
 function deleteAllData() {
     localStorage.clear();
 }
