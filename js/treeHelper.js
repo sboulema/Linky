@@ -41,18 +41,6 @@ function getIndexCard(node) {
     return $($(node).closest('.card')[0]).index();
 }
 
-function syncTree(callback) {
-    var selectedCollection = getSelectedCollection();
-
-    loadFromFirebase(function(data){
-        parse(data);
-        if (typeof selectedCollection !== 'undefined') {
-            tree.select(tree.getNodeById(selectedCollection.nodeId));
-        }   
-        callback();
-    });
-}
-
 async function syncTree() {
     var selectedCollection = getSelectedCollection();
     var bookmarks = await loadFromFirebaseAsync();

@@ -29,6 +29,13 @@ steps:
   env:
     firebaseApiKey: $(firebaseApiKey)
 
+- powershell: |  
+   ((Get-Content -path settings.json -Raw) -replace '{VERSION}',$env:settingsVersion) | Set-Content -Path settings.json
+   
+  displayName: 'Insert Version into Settings'
+  env:
+    settingsVersion: $(Build.BuildNumber)
+
 - task: Docker@1
   displayName: 'Build an image'
   inputs:

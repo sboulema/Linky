@@ -1,36 +1,38 @@
-function addCollection() {
-    syncTree(function() {
-        var selectedCollection = getSelectedCollection();
-        var selectedNode = getSelectedNode();
+async function addCollection() {
+    await syncTree();
 
-        var newCollection = {
-            text: $('#addCollectionName').val(),
-            showBookmarkDescription: true,
-            showBookmarkIcon: true,
-            showBookmarksAsCards: false,
-            bookmarkIconSize: 16,
-            nodeId: getRandomInt(Number.MAX_SAFE_INTEGER),
-            parentId: selectedCollection.nodeId
-        };
+    var selectedCollection = getSelectedCollection();
+    var selectedNode = getSelectedNode();
 
-        if (typeof selectedCollection == 'undefined' || selectedCollection.id === "tree") {
-            selectedCollection = newCollection;
-            updateTree(selectedCollection);
-        } else {
-            if (typeof selectedCollection.nodes == 'undefined') {
-                selectedCollection.nodes = [];
-            }
+    var newCollection = {
+        text: $('#addCollectionName').val(),
+        showBookmarkDescription: true,
+        showBookmarkIcon: true,
+        showBookmarksAsCards: false,
+        bookmarkIconSize: 16,
+        nodeId: getRandomInt(Number.MAX_SAFE_INTEGER),
+        parentId: selectedCollection.nodeId
+    };
 
-            tree.addNode(newCollection, selectedNode);
+    if (typeof selectedCollection == 'undefined' || selectedCollection.id === "tree") {
+        selectedCollection = newCollection;
+        updateTree(selectedCollection);
+    } else {
+        if (typeof selectedCollection.nodes == 'undefined') {
+            selectedCollection.nodes = [];
+        }
 
-            updateTree();
-        }      
+        tree.addNode(newCollection, selectedNode);
 
-        $('#addCollectionName').val("");
-    });
+        updateTree();
+    }      
+
+    $('#addCollectionName').val("");
 }
 
 async function addBookmark() {
+    $("#addBookmarkSpinner").show();
+
     await syncTree();
 
     var selectedCollection = getSelectedCollection();
@@ -61,6 +63,8 @@ async function addBookmark() {
     selectedCollection.tags = [selectedCollection.bookmarks.length];
 
     updateTree();
+
+    $("#addBookmarkModal").modal('hide');
 }
 
 function deleteBookmark() {
@@ -107,48 +111,44 @@ function editBookmark(node, isCard) {
     var bookmark;
     var bookmarkIndex;
 
-    // syncTree(function() {
-        if (isCard) {
-            bookmark = getSelectedBookmarkCard(node);
-            bookmarkIndex = getIndexCard(node);
-        } else {
-            bookmark = getSelectedBookmark(node);
-            bookmarkIndex = getIndex(node);
-        }   
-        var selectedCollection = getSelectedCollection();
+    if (isCard) {
+        bookmark = getSelectedBookmarkCard(node);
+        bookmarkIndex = getIndexCard(node);
+    } else {
+        bookmark = getSelectedBookmark(node);
+        bookmarkIndex = getIndex(node);
+    }   
+    var selectedCollection = getSelectedCollection();
 
-        $("#editName").val(bookmark.text);
-        $("#editUrl").val(bookmark.url);
-        $("#editIcon").val(bookmark.icon);
-        $("#editIconAddon").attr("src", bookmark.icon);
-        $("#editIndex").text(bookmarkIndex);
-        $("#editDescription").val(bookmark.description);
-        $("#editTags").val(bookmark.tags);
-        $("#editBookmarkCollection").val(selectedCollection.text);
+    $("#editName").val(bookmark.text);
+    $("#editUrl").val(bookmark.url);
+    $("#editIcon").val(bookmark.icon);
+    $("#editIconAddon").attr("src", bookmark.icon);
+    $("#editIndex").text(bookmarkIndex);
+    $("#editDescription").val(bookmark.description);
+    $("#editTags").val(bookmark.tags);
+    $("#editBookmarkCollection").val(selectedCollection.text);
 
-        $('#editModal').modal('show');
-    // });
+    $('#editModal').modal('show');
 }
 
 // Show 'Edit Collection' modal
 function editCollection() {
     var selectedCollection = getSelectedCollection();
 
-    syncTree(function() {
-        $("#editCollectionName").val(selectedCollection.text);
-        $("#editCollectionIcon").val(selectedCollection.icon);
-        $("#editCollectionBackground").val(selectedCollection.background);
-        $("#showBookmarkIconCheckbox").prop('checked', selectedCollection.showBookmarkIcon);
-        $("#showBookmarkDescriptionCheckbox").prop('checked', selectedCollection.showBookmarkDescription);
-        $("#bookmarkIconSizeSlider").val(selectedCollection.bookmarkIconSize);
-        $("#showBookmarksAsCardsCheckbox").prop('checked', selectedCollection.showBookmarksAsCards); 
-        $("#editCollectionIconAddon").html("<i class='" + selectedCollection.icon + "'></i>");  
+    $("#editCollectionName").val(selectedCollection.text);
+    $("#editCollectionIcon").val(selectedCollection.icon);
+    $("#editCollectionBackground").val(selectedCollection.background);
+    $("#showBookmarkIconCheckbox").prop('checked', selectedCollection.showBookmarkIcon);
+    $("#showBookmarkDescriptionCheckbox").prop('checked', selectedCollection.showBookmarkDescription);
+    $("#bookmarkIconSizeSlider").val(selectedCollection.bookmarkIconSize);
+    $("#showBookmarksAsCardsCheckbox").prop('checked', selectedCollection.showBookmarksAsCards); 
+    $("#editCollectionIconAddon").html("<i class='" + selectedCollection.icon + "'></i>");  
 
-        $("#editIndex").text(getIndex(selectedCollection));
-        $("#editCollectionParent").val(getParent(selectedCollection).text);
+    $("#editIndex").text(getIndex(selectedCollection));
+    $("#editCollectionParent").val(getParent(selectedCollection).text);
 
-        $('#editCollectionModal').modal('show');    
-    });
+    $('#editCollectionModal').modal('show');    
 }
 
 function saveBookmark() {

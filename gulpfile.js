@@ -37,6 +37,7 @@ gulp.task('copy', function (done) {
   gulp.src('js/*').pipe(gulp.dest('dist/js'));
   gulp.src('favicon.ico').pipe(gulp.dest('dist'));
   gulp.src('*.html').pipe(gulp.dest('dist'));
+  gulp.src('settings.json').pipe(gulp.dest('dist'));
 
   done();
 });
