@@ -230,7 +230,7 @@ function parse(input) {
                 var sortable = Sortable.create(el, {
                     onEnd: function (evt) {
                         var collection = getSelectedCollection();
-                        var parent = $('#tree').treeview('getParent', collection);
+                        var parent = getParent(collection);
 
                         if (typeof parent == 'undefined') {
                             var collections = getCollections();
