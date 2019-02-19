@@ -465,11 +465,11 @@
             $("#editCollectionIconAddon").html("<i class='" + $("#editCollectionIcon").val() + "'></i>");
         });
 
-        $('#addCollectionModal').on('shown.bs.modal', function () {
+        $('#addCollectionModal').on('shown.bs.modal', async function () {
             $('#addCollectionName').val('');
             $('#addCollectionName').focus();
 
-            if(checkVersion()) {
+            if(await checkVersion()) {
                 $('#addCollectionModal').modal('hide');
             }
         })
@@ -479,7 +479,7 @@
             $('#settingsVersion').text(version);
         })
 
-        $('#addBookmarkModal').on('shown.bs.modal', function () {
+        $('#addBookmarkModal').on('shown.bs.modal', async function () {
             $('#addBookmarkUrl').val('');
             $('#addBookmarkName').val('');
             $('#addBookmarkDescription').val('');
@@ -487,7 +487,7 @@
             $('#addBookmarkUrl').focus();
             $("#addBookmarkSpinner").hide();
             
-            if(checkVersion()) {
+            if(await checkVersion()) {
                 $('#addBookmarkModal').modal('hide');
             }
         })
