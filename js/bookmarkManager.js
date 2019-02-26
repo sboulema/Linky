@@ -51,6 +51,11 @@ async function addBookmark() {
     var faviconUrl = "https://favicon.sboulema.nl/favicon?url=" + $('#addBookmarkUrl').val();
     var faviconData = await $.get(faviconUrl + "&base64=true");
 
+    if (typeof faviconData === 'undefined') {
+        faviconUrl = "";
+        faviconData = "";
+    }
+
     bookmark.icon = faviconUrl;
     bookmark.iconData = faviconData;
 
