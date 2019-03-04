@@ -10,8 +10,7 @@ async function addCollection() {
         showBookmarkIcon: true,
         showBookmarksAsCards: false,
         bookmarkIconSize: 16,
-        nodeId: getRandomInt(Number.MAX_SAFE_INTEGER),
-        parentId: selectedCollection.nodeId
+        nodeId: getRandomInt(Number.MAX_SAFE_INTEGER)
     };
 
     if (typeof selectedCollection == 'undefined' || selectedCollection.id === "tree") {
@@ -21,6 +20,8 @@ async function addCollection() {
         if (typeof selectedCollection.nodes == 'undefined') {
             selectedCollection.nodes = [];
         }
+
+        newCollection.parentId = selectedCollection.nodeId;
 
         tree.addNode(newCollection, selectedNode);
 
@@ -151,7 +152,11 @@ function editCollection() {
     $("#editCollectionIconAddon").html("<i class='" + selectedCollection.icon + "'></i>");  
 
     $("#editIndex").text(getIndex(selectedCollection));
-    $("#editCollectionParent").val(getParent(selectedCollection).text);
+
+    var parentCollection = getParent(selectedCollection);
+    if (typeof parentCollection !== 'undefined') {
+        $("#editCollectionParent").val(getParent(selectedCollection).text);
+    }
 
     $('#editCollectionModal').modal('show');    
 }
@@ -360,7 +365,7 @@ function getCollectionBackground(collection) {
         return collection.background;
     }
 
-    if (collection.id === "tree") {
+    if (collection.parentId === -1) {
         return "";
     }
 
