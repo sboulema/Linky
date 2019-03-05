@@ -268,7 +268,7 @@ function showBookmarks(collection, showAsCards) {
             if (collection.showBookmarkIcon) {
                 if (typeof bookmark.icon != 'undefined' && bookmark.icon !== "" && !bookmark.icon.startsWith("fa")) {
                     item += "<img style='width: " + collection.bookmarkIconSize + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon' " + 
-                    "src='" + (typeof bookmark.iconData != 'undefined' ? bookmark.iconData : bookmark.icon) + "' />";
+                    "src='" + (typeof bookmark.iconData != 'undefined' && bookmark.iconData !== "" ? bookmark.iconData : bookmark.icon) + "' />";
                     item += "<a target='_blank' href='" + bookmark.url + "'>" + bookmark.text + "</a>";
                 } else {
                     item += "<span style='font-size: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon fas fa-globe'></span>";
