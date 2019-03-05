@@ -50,7 +50,7 @@ async function addBookmark() {
 
     // Get Favicon
     var faviconUrl = "https://favicon.sboulema.nl/favicon?url=" + $('#addBookmarkUrl').val();
-    var faviconData = await $.get(faviconUrl + "&base64=true");
+    var faviconData = await $.get("https://favicon.sboulema.nl/favicon?base64=true&url=" + faviconUrl);
 
     if (typeof faviconData === 'undefined') {
         faviconUrl = "";
@@ -172,7 +172,7 @@ function saveBookmark() {
     selectedCollection.bookmarks[bookmarkIndex].tags = $("#editTags").val();
 
     if ($("#editIcon").val().startsWith("https://favicon.sboulema.nl/favicon")) {
-        $.get($("#editIcon").val() + "&base64=true", function(data) {
+        $.get("https://favicon.sboulema.nl/favicon?base64=true&url=" + $("#editUrl").val(), function(data) {
             selectedCollection.bookmarks[bookmarkIndex].iconData = data;
             updateTree();
         });
