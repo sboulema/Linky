@@ -19,6 +19,7 @@ function saveToFirebase(element) {
         })
         .catch(function(error) {
             console.error("Error adding document: ", error);
+            $('#savingErrorToast').toast('show');
         });
     }
     else {
@@ -30,6 +31,7 @@ function saveToFirebase(element) {
         })
         .catch(function(error) {
             console.error("Error adding document: ", error);
+            $('#savingErrorToast').toast('show');
         });
     }
 }

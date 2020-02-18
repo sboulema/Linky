@@ -50,15 +50,13 @@ async function addBookmark() {
 
     // Get Favicon
     var faviconUrl = "https://favicon.sboulema.nl/favicon?url=" + $('#addBookmarkUrl').val();
-    var faviconData = await $.get("https://favicon.sboulema.nl/favicon?base64=true&url=" + $('#addBookmarkUrl').val());
-
-    if (typeof faviconData === 'undefined') {
+    
+    if (typeof faviconUrl === 'undefined') {
         faviconUrl = "";
-        faviconData = "";
     }
 
     bookmark.icon = faviconUrl;
-    bookmark.iconData = faviconData;
+    bookmark.iconData = "";
 
     selectedCollection.bookmarks.push(bookmark);
 
@@ -170,15 +168,7 @@ function saveBookmark() {
     selectedCollection.bookmarks[bookmarkIndex].icon = $("#editIcon").val();
     selectedCollection.bookmarks[bookmarkIndex].description = $("#editDescription").val();
     selectedCollection.bookmarks[bookmarkIndex].tags = $("#editTags").val();
-
-    if ($("#editIcon").val().startsWith("https://favicon.sboulema.nl/favicon")) {
-        $.get("https://favicon.sboulema.nl/favicon?base64=true&url=" + $("#editUrl").val(), function(data) {
-            selectedCollection.bookmarks[bookmarkIndex].iconData = data;
-            updateTree();
-        });
-    } else {
-        selectedCollection.bookmarks[bookmarkIndex].iconData = "";
-    }
+    selectedCollection.bookmarks[bookmarkIndex].iconData = "";
 
     var moveToCollectionId = $("#editMoveToCollection").text();
 
@@ -270,7 +260,7 @@ function showBookmarks(collection, showAsCards) {
             if (collection.showBookmarkIcon) {
                 if (typeof bookmark.icon != 'undefined' && bookmark.icon !== "" && !bookmark.icon.startsWith("fa")) {
                     item += "<img style='width: " + collection.bookmarkIconSize + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon' " + 
-                    "src='" + (typeof bookmark.iconData != 'undefined' && bookmark.iconData !== "" ? bookmark.iconData : bookmark.icon) + "' />";
+                    "src='" + bookmark.icon + "' />";
                     item += "<a target='_blank' href='" + bookmark.url + "'>" + bookmark.text + "</a>";
                 } else {
                     item += "<span style='font-size: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon fas fa-globe'></span>";
