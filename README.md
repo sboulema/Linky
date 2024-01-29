@@ -1,6 +1,8 @@
 # Linky
 Online bookmark manager
 
+[![Screenshot](art/Screenshot.jpeg)](art/Screenshot.jpeg)
+
 ## Chrome extension
 [Google Chrome Webstore](https://chrome.google.com/webstore/detail/linky-extension/pghdabpagojegpfplckdbnlalpgidikc)
 
