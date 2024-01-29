@@ -41,6 +41,7 @@ gulp.task('copy', function (done) {
     .pipe(replace('{FA_KIT_URL}', process.env.FA_KIT_URL || 'https://kit.fontawesome.com/1e012dd330.js'))
     .pipe(gulp.dest('dist'));
   gulp.src('settings.json').pipe(gulp.dest('dist'));
+  gulp.src('manifest.json').pipe(gulp.dest('dist'));
 
   done();
 });

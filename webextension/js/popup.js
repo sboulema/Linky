@@ -166,8 +166,8 @@ function createCollectionDropdown() {
       imageCssClassField: 'icon',
       iconsLibrary: 'fontawesome',
       icons: {
-          expand: '<i class="fal fa-folder"></i>',
-          collapse: '<i class="fal fa-folder-open"></i>'
+          expand: '<i class="fas fa-folder"></i>',
+          collapse: '<i class="fas fa-folder-open"></i>'
       }
     });
     tree.collapseAll();

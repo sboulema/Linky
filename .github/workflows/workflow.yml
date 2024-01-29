@@ -19,11 +19,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set version
-        uses: MathieuSoysal/replace-string-in-file@v1.0.0
-        with:
-          file: settings.json
-          old-string: '{VERSION}'
-          new-string: ${{ env.version }}
+        run: sed -i 's/{VERSION}/${{ env.version }}/g' settings.json
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
