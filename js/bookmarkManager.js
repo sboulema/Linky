@@ -10,8 +10,7 @@ async function addCollection() {
         showBookmarkIcon: true,
         showBookmarksAsCards: false,
         bookmarkIconSize: 16,
-        nodeId: getRandomInt(Number.MAX_SAFE_INTEGER),
-        parentId: selectedCollection.nodeId
+        nodeId: getRandomInt(Number.MAX_SAFE_INTEGER)
     };
 
     if (typeof selectedCollection == 'undefined' || selectedCollection.id === "tree") {
@@ -21,6 +20,8 @@ async function addCollection() {
         if (typeof selectedCollection.nodes == 'undefined') {
             selectedCollection.nodes = [];
         }
+
+        newCollection.parentId = selectedCollection.nodeId;
 
         tree.addNode(newCollection, selectedNode);
 
@@ -49,15 +50,13 @@ async function addBookmark() {
 
     // Get Favicon
     var faviconUrl = "https://favicon.sboulema.nl/favicon?url=" + $('#addBookmarkUrl').val();
-    var faviconData = await $.get(faviconUrl + "&base64=true");
-
-    if (typeof faviconData === 'undefined') {
+    
+    if (typeof faviconUrl === 'undefined') {
         faviconUrl = "";
-        faviconData = "";
     }
 
     bookmark.icon = faviconUrl;
-    bookmark.iconData = faviconData;
+    bookmark.iconData = "";
 
     selectedCollection.bookmarks.push(bookmark);
 
@@ -151,7 +150,11 @@ function editCollection() {
     $("#editCollectionIconAddon").html("<i class='" + selectedCollection.icon + "'></i>");  
 
     $("#editIndex").text(getIndex(selectedCollection));
-    $("#editCollectionParent").val(getParent(selectedCollection).text);
+
+    var parentCollection = getParent(selectedCollection);
+    if (typeof parentCollection !== 'undefined') {
+        $("#editCollectionParent").val(getParent(selectedCollection).text);
+    }
 
     $('#editCollectionModal').modal('show');    
 }
@@ -165,13 +168,7 @@ function saveBookmark() {
     selectedCollection.bookmarks[bookmarkIndex].icon = $("#editIcon").val();
     selectedCollection.bookmarks[bookmarkIndex].description = $("#editDescription").val();
     selectedCollection.bookmarks[bookmarkIndex].tags = $("#editTags").val();
-
-    if ($("#editIcon").val().startsWith("https://favicon.sboulema.nl/favicon")) {
-        $.get($("#editIcon").val() + "&base64=true", function(data) {
-            selectedCollection.bookmarks[bookmarkIndex].iconData = data;
-            updateTree();
-        });
-    }
+    selectedCollection.bookmarks[bookmarkIndex].iconData = "";
 
     var moveToCollectionId = $("#editMoveToCollection").text();
 
@@ -263,7 +260,7 @@ function showBookmarks(collection, showAsCards) {
             if (collection.showBookmarkIcon) {
                 if (typeof bookmark.icon != 'undefined' && bookmark.icon !== "" && !bookmark.icon.startsWith("fa")) {
                     item += "<img style='width: " + collection.bookmarkIconSize + "px;height: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon' " + 
-                    "src='" + (typeof bookmark.iconData != 'undefined' ? bookmark.iconData : bookmark.icon) + "' />";
+                    "src='" + bookmark.icon + "' />";
                     item += "<a target='_blank' href='" + bookmark.url + "'>" + bookmark.text + "</a>";
                 } else {
                     item += "<span style='font-size: " + collection.bookmarkIconSize + "px;' class='bookmarkIcon fas fa-globe'></span>";
@@ -360,7 +357,7 @@ function getCollectionBackground(collection) {
         return collection.background;
     }
 
-    if (collection.id === "tree") {
+    if (collection.parentId === -1) {
         return "";
     }
 
