@@ -1,0 +1,62 @@
+name: Linky
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+
+env:
+  version: '1.0.${{ github.run_number }}'
+  tag: ${{ github.ref_name == 'main' && 'latest' || github.run_number }}
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set version
+        uses: MathieuSoysal/replace-string-in-file@v1.0.0
+        with:
+          file: settings.json
+          old-string: {VERSION}
+          new-string: ${{ env.version }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/linky:${{ env.tag }}
+            ghcr.io/${{ github.actor }}/linky:${{ env.tag }} 
+            
+  deploy:
+    if: github.ref_name == 'main'
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: /home/${{ secrets.USERNAME }}/deployDockerContainer Linky linky

@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var newfile = require('gulp-file');
 var concat = require('gulp-concat');
+var replace = require('gulp-replace');
 
 gulp.task('scripts', function (done) {
   jsSources = [  
@@ -11,8 +12,7 @@ gulp.task('scripts', function (done) {
     'node_modules/clipboard/dist/clipboard.min.js',
     'node_modules/file-saver/FileSaver.min.js',
     'node_modules/keymaster/keymaster.js',  
-    'node_modules/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.min.js',
-    'node_modules/@fortawesome/fontawesome-pro/js/all.min.js'
+    'node_modules/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.min.js'
   ];
 
   cssSources = [
@@ -36,7 +36,10 @@ gulp.task('copy', function (done) {
   gulp.src('css/*').pipe(gulp.dest('dist/css'));
   gulp.src('js/*').pipe(gulp.dest('dist/js'));
   gulp.src('favicon.ico').pipe(gulp.dest('dist'));
-  gulp.src('*.html').pipe(gulp.dest('dist'));
+  gulp.src('add.html').pipe(gulp.dest('dist'));
+  gulp.src('index.html')
+    .pipe(replace('{FA_KIT_URL}', process.env.FA_KIT_URL || 'https://kit.fontawesome.com/1e012dd330.js'))
+    .pipe(gulp.dest('dist'));
   gulp.src('settings.json').pipe(gulp.dest('dist'));
 
   done();
@@ -46,8 +49,7 @@ gulp.task('webExtension', function (done) {
   jsSources = [  
     'node_modules/jquery/dist/jquery.min.js',
     'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
-    'node_modules/gijgo/js/gijgo.min.js',
-    'node_modules/@fortawesome/fontawesome-pro/js/all.min.js'
+    'node_modules/gijgo/js/gijgo.min.js'
   ];
 
   cssSources = [
@@ -108,6 +110,4 @@ gulp.task('generateFA', function(done) {
   done();
 });
 
-gulp.task('build', 
-  gulp.parallel('scripts', 'copy', 'generateFA')
-);
+gulp.task('build', gulp.parallel('scripts', 'copy', 'generateFA'));

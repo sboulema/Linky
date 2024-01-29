@@ -186,7 +186,7 @@ function login() {
 function initFirebase() {
   // Initialize Firebase
   var config = {
-    apiKey: "{firebaseApiKey}",
+    apiKey: "AIzaSyD_5zP59NL_S0PBuNNjfpex-m_4e3q9zNE",
     authDomain: "linky-5cb10.firebaseapp.com",
     databaseURL: "https://linky-5cb10.firebaseio.com",
     projectId: "linky-5cb10",
