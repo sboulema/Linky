@@ -28,7 +28,7 @@
     "clipboard": "^1.7.1",
     "file-saver": "^1.3.3",
     "fontawesome-iconpicker": "^3.2.0",
-    "gijgo": "^1.9.11",
+    "gijgo": "^1.9.14",
     "jquery": "^3.5.0",
     "keymaster": "^1.6.2",
     "popper.js": "^1.14.6",
