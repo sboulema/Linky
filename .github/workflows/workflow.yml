@@ -41,7 +41,7 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/linky:${{ env.tag }}
             ghcr.io/${{ github.actor }}/linky:${{ env.tag }} 
-            
+
   deploy:
     if: github.ref_name == 'main'
     name: Deploy
