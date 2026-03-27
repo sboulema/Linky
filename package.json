@@ -29,7 +29,7 @@
     "file-saver": "^2.0.5",
     "fontawesome-iconpicker": "^3.2.0",
     "gijgo": "^1.9.14",
-    "jquery": "^3.5.0",
+    "jquery": "^4.0.0",
     "keymaster": "^1.6.2",
     "popper.js": "^1.14.6",
     "sortablejs": "^1.7.0"
