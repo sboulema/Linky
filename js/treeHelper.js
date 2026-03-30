@@ -179,7 +179,7 @@ function parse(input) {
                 $("#accordion").append(card);
             });
         }
-        
+
         $("#search").attr("placeholder", data.text);
 
         // Set the collection icon in the search bar
@@ -194,7 +194,7 @@ function parse(input) {
             clipboard.destroy();
         }
 
-        clipboard = new Clipboard('.btn-clipboard');
+        clipboard = new ClipboardJS('.btn-clipboard');
         clipboard.on('success', function(e) {
             $('#urlCopiedToast').toast('show');
         });
