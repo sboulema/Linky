@@ -24,7 +24,7 @@
     "gulp-replace": "1.1.4"
   },
   "dependencies": {
-    "bootstrap": "^4.3.1",
+    "bootstrap": "^5.3.8",
     "clipboard": "^2.0.11",
     "file-saver": "^2.0.5",
     "fontawesome-iconpicker": "^3.2.0",
