@@ -4,14 +4,14 @@ var concat = require('gulp-concat');
 var replace = require('gulp-replace');
 
 gulp.task('scripts', function (done) {
-  jsSources = [  
+  jsSources = [
     'node_modules/jquery/dist/jquery.min.js',
     'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
     'node_modules/gijgo/js/gijgo.min.js',
     'node_modules/sortablejs/Sortable.min.js',
     'node_modules/clipboard/dist/clipboard.min.js',
-    'node_modules/file-saver/FileSaver.min.js',
-    'node_modules/keymaster/keymaster.js',  
+    'node_modules/file-saver/dist/FileSaver.js',
+    'node_modules/keymaster/keymaster.js',
     'node_modules/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.min.js'
   ];
 
@@ -22,11 +22,11 @@ gulp.task('scripts', function (done) {
   ];
 
   gulp.src(jsSources)
-    .pipe(concat('bundle.js'))  
+    .pipe(concat('bundle.js'))
     .pipe(gulp.dest('dist/js'));
 
   gulp.src(cssSources)
-    .pipe(concat('bundle.css'))  
+    .pipe(concat('bundle.css'))
     .pipe(gulp.dest('dist/css'));
 
   done();
@@ -47,7 +47,7 @@ gulp.task('copy', function (done) {
 });
 
 gulp.task('webExtension', function (done) {
-  jsSources = [  
+  jsSources = [
     'node_modules/jquery/dist/jquery.min.js',
     'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
     'node_modules/gijgo/js/gijgo.min.js'
